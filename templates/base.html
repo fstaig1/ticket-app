@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <title>Unnamed Ticket App</title>
+</head>
+
+<body>
+
+<style>
+    .table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<section class="hero is-primary is-fullheight">
+
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a href="{{ url_for('index') }}" class="navbar-item">
+                            Home
+                        </a>
+                        <a href="{{ url_for('browse') }}" class="navbar-item"> 
+                            Browse
+                        </a>
+                        <a href="{{ url_for('users.profile') }}" class="navbar-item"> 
+                            Profile
+                        </a>
+                        <a href="{{ url_for('admin.admin') }}" class="navbar-item"> 
+                            Admin Dashboard
+                        </a>
+                        <a href="{{ url_for('venue.venue') }}" class="navbar-item"> 
+                            Venue Dashboard
+                        </a>
+                        <a href="{{ url_for('users.register') }}" class="navbar-item"> 
+                            Register
+                        </a>
+                        <a href="{{ url_for('users.login') }}" class="navbar-item"> 
+                            Login
+                        </a>
+                        <a href="{{ url_for('users.logout') }}" class="navbar-item"> 
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</section>
+</body>
+
+</html>
