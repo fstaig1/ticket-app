@@ -4,14 +4,14 @@ from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import InputRequired, Email, Length, EqualTo, ValidationError
 
 def character_check(form, field):    
-    excluded_chars = "*?!'^+%&/\()=}][{$#@<>"
+    excluded_chars = "*?!'^+%&/\()=}][{$#@<>"  # FIXME i get a failed escape character error sometimes
     for char in field.data:
         if char in excluded_chars:
             raise ValidationError(
                 f"Character {char} is not allowed.")
             
 def validate_password(self, password):
-        p = re.compile(r'(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])')
+        p = re.compile(r'(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])')  # i mean this looks disastrous doesnt it
         if not p.match(self.password.data):
             raise ValidationError("Invalid password, please use at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.")
 

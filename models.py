@@ -7,7 +7,6 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(100), nullable=False)
@@ -16,8 +15,7 @@ class User(db.Model, UserMixin):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
     
-    def __init__(self, username, email, password, role):
-        self.username = username
+    def __init__(self, email, password, role):
         self.email = email
         self.password = generate_password_hash(password)
         self.role = role
@@ -29,9 +27,9 @@ class User(db.Model, UserMixin):
 def init_db():
     db.drop_all()
     db.create_all()
-    db.session.add(User(username='admin', email='admin@test.com', password='Password1!', role="admin"))
-    db.session.add(User(username='user', email='user@test.com', password='Password1!', role="user"))
-    db.session.add(User(username='venue', email='venue@test.com', password='Password1!', role='venue'))
+    db.session.add(User(email='admin@test.com', password='Password1!', role="admin"))
+    db.session.add(User(email='user@test.com', password='Password1!', role="user"))
+    db.session.add(User( email='venue@test.com', password='Password1!', role='venue'))
     db.session.commit()
     
 if __name__ == '__main__':

@@ -7,14 +7,14 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '6LfaX9ocAAAAABWeVBjjXEZTI5tmcxVkO0fDi32J'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ticket.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db = SQLAlchemy(app)  # FIXME i need to init_db somehow this is the worst error ive ever encountered
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/browse')
+@app.route('/browse')  # TODO move this into a separate file
 def browse():
     return render_template('browse.html')
 
