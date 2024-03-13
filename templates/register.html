@@ -3,4 +3,61 @@
 {% block content %}
 
     <h1 class="">Register </h1>
+    <form method="POST">
+        <div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}. Go to <a href="{{ url_for('users.login') }}">login page</a>.
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <div>
+                {{ form.csrf_token() }}
+                <div>
+                    {{ form.firstname(class="input", placeholder="First Name") }}
+                    {% for error in form.firstname.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <div>
+                    {{ form.lastname(class="input", placeholder="Last Name") }}
+                    {% for error in form.lastname.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <div>
+                    {{ form.email(class="input", placeholder="Email") }}
+                    {% for error in form.email.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <div>
+                    {{ form.password(class="input", placeholder="Password") }}
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                
+            </div>
+            <a>Password must contain at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.</a>
+            <div>
+                <div>
+                    {{ form.confirm_password(class="input", placeholder="Confirm Password") }}
+                    {% for error in form.confirm_password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                {{ form.submit(class="button")}}
+            </div>
+        </div>
+    </form>
 {% endblock %}
