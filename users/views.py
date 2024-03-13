@@ -7,7 +7,6 @@ users_blueprint = Blueprint('users', __name__, template_folder='templates')
 def register():
     return render_template('register.html')
 
-
 @users_blueprint.route('/login')
 def login():
     return render_template('login.html')

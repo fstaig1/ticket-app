@@ -1,4 +1,4 @@
-from app import db
+from app import db, app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 from datetime import datetime
@@ -16,8 +16,9 @@ class User(db.Model, UserMixin):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
     
-    def __init__(self, username, password, role, pinkey):
+    def __init__(self, username, email, password, role):
         self.username = username
+        self.email = email
         self.password = generate_password_hash(password)
         self.role = role
         self.registered_on = datetime.now()
@@ -28,11 +29,11 @@ class User(db.Model, UserMixin):
 def init_db():
     db.drop_all()
     db.create_all()
-    new_user1 = User(username='admin', email='admin@test.com', password='password', role="admin")
-    new_user2 = User(username='user', email='user@test.com', password='password', role="user")
-    new_user3 = User(username='venue', email='venue@test.com', password='password', role='venue')
-    db.session.add(new_user1)
-    db.session.add(new_user2)
-    db.session.add(new_user3)
+    db.session.add(User(username='admin', email='admin@test.com', password='password', role="admin"))
+    db.session.add(User(username='user', email='user@test.com', password='password', role="user"))
+    db.session.add(User(username='venue', email='venue@test.com', password='password', role='venue'))
     db.session.commit()
-init_db()
+    
+if __name__ == '__main__':
+    with app.app_context():
+        init_db()

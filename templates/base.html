@@ -2,10 +2,6 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
     <title>Unnamed Ticket App</title>
 </head>
 
@@ -18,35 +14,35 @@
     }
 </style>
 
-<section class="hero is-primary is-fullheight">
+<section class="navbar">
 
-    <div class="hero-head">
-        <nav class="navbar">
-            <div class="container">
-                <div id="navbarMenuHeroA" class="navbar-menu">
-                    <div class="navbar-end">
-                        <a href="{{ url_for('index') }}" class="navbar-item">
+    <div class="">
+        <nav class="">
+            <div class="">
+                <div id="" class="">
+                    <div class="">
+                        <a href="{{ url_for('index') }}" class="">
                             Home
                         </a>
-                        <a href="{{ url_for('browse') }}" class="navbar-item"> 
+                        <a href="{{ url_for('browse') }}" class=""> 
                             Browse
                         </a>
-                        <a href="{{ url_for('users.profile') }}" class="navbar-item"> 
+                        <a href="{{ url_for('users.profile') }}" class=""> 
                             Profile
                         </a>
-                        <a href="{{ url_for('admin.admin') }}" class="navbar-item"> 
+                        <a href="{{ url_for('admin.admin') }}" class=""> 
                             Admin Dashboard
                         </a>
-                        <a href="{{ url_for('venue.venue') }}" class="navbar-item"> 
+                        <a href="{{ url_for('venue.venue') }}" class=""> 
                             Venue Dashboard
                         </a>
-                        <a href="{{ url_for('users.register') }}" class="navbar-item"> 
+                        <a href="{{ url_for('users.register') }}" class=""> 
                             Register
                         </a>
-                        <a href="{{ url_for('users.login') }}" class="navbar-item"> 
+                        <a href="{{ url_for('users.login') }}" class=""> 
                             Login
                         </a>
-                        <a href="{{ url_for('users.logout') }}" class="navbar-item"> 
+                        <a href="{{ url_for('users.logout') }}" class=""> 
                             Logout
                         </a>
                     </div>
@@ -55,8 +51,8 @@
         </nav>
     </div>
 
-    <div class="hero-body">
-        <div class="container has-text-centered">
+    <div class="">
+        <div class="">
             {% block content %}
             {% endblock %}
         </div>
