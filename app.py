@@ -1,7 +1,13 @@
 import socket
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 
+  # CONFIG 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '6LfaX9ocAAAAABWeVBjjXEZTI5tmcxVkO0fDi32J'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ticket.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 
 @app.route('/')
