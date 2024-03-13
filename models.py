@@ -29,9 +29,9 @@ class User(db.Model, UserMixin):
 def init_db():
     db.drop_all()
     db.create_all()
-    db.session.add(User(username='admin', email='admin@test.com', password='password', role="admin"))
-    db.session.add(User(username='user', email='user@test.com', password='password', role="user"))
-    db.session.add(User(username='venue', email='venue@test.com', password='password', role='venue'))
+    db.session.add(User(username='admin', email='admin@test.com', password='Password1!', role="admin"))
+    db.session.add(User(username='user', email='user@test.com', password='Password1!', role="user"))
+    db.session.add(User(username='venue', email='venue@test.com', password='Password1!', role='venue'))
     db.session.commit()
     
 if __name__ == '__main__':
