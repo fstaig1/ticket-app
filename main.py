@@ -13,12 +13,19 @@ def browse():
     return render_template('browse.html')
 
 
+
+
 if __name__ == '__main__':
     
-    from website.views import users_blueprint, admin_blueprint, venue_blueprint
+    
+    from website.users.views import users_blueprint
+    from website.admin.views import admin_blueprint 
+    from website.venue.views import venue_blueprint
+    
     
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(venue_blueprint)
+    
     
     app.run(host="127.0.0.1", port="38255", debug=True)

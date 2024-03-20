@@ -1,13 +1,14 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 from datetime import datetime
-
 from . import app, db
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String(100), nullable=False)
+    lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(100), nullable=False)
@@ -16,7 +17,9 @@ class User(db.Model, UserMixin):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
     
-    def __init__(self, email, password, role):
+    def __init__(self, firstname, lastname, email, password, role):
+        self.firstname = firstname
+        self.lastname = lastname
         self.email = email
         self.password = generate_password_hash(password)
         self.role = role

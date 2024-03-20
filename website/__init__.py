@@ -1,10 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
-
-
-
-db = SQLAlchemy()  # FIXME i need to init_db somehow this is the worst error ive ever encountered
+db = SQLAlchemy() 
 def app():
 
   
@@ -15,4 +13,18 @@ def app():
     app.config["SQLALCHEMY_ECHO"] = True
     app.config["SQLALCHEMY_RECORD_QUERIES"] = True
     db.init_app(app=app)
+    
+    
+    
+    login_manager = LoginManager()
+    login_manager.login_view = 'users.login'
+    login_manager.init_app(app)
+
+    from .models import User
+
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+    
     return app

@@ -1,6 +1,6 @@
-from flask import render_template
-from ..views import admin_blueprint
+from flask import render_template, Blueprint
 
+admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
 
 @admin_blueprint.route('/admin')
 def admin():

@@ -1,11 +1,12 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, Blueprint
 from flask_login import login_user, logout_user
 from .forms import RegisterForm, LoginForm 
 from website.models import User
 from .. import db
-from ..views import users_blueprint
-import datetime
+from datetime import datetime
 from werkzeug.security import check_password_hash
+
+users_blueprint = Blueprint('users', __name__, template_folder='/templates')
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
@@ -35,9 +36,7 @@ def register():
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    flash("A")  # TODO REMOVE THIS
     if form.validate_on_submit():
-        flash("B")  # TODO REMOVE THIS
         user = User.query.filter_by(email=form.email.data).first()
         if not user or not check_password_hash(user.password, form.password.data):
             flash("Incorrect login details, please try again.")
@@ -48,7 +47,8 @@ def login():
         user.current_logged_in = datetime.now()
         db.session.add(user)
         db.session.commit()
-        redirect(url_for("index"))
+        
+        return redirect(url_for("index"))
         
     return render_template('login.html', form=form)
 
