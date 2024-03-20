@@ -35,6 +35,6 @@ if __name__ == '__main__':
     app.register_blueprint(venue_blueprint)
     
     with app.app_context():
-        db.create_all()
+        init_db()
     
     app.run(host="127.0.0.1", port="38255", debug=True)
