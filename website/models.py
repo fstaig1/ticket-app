@@ -33,7 +33,7 @@ def init_db():
     db.create_all()
     db.session.add(User(email='admin@test.com', password='Password1!', role="admin"))
     db.session.add(User(email='user@test.com', password='Password1!', role="user"))
-    db.session.add(User( email='venue@test.com', password='Password1!', role='venue'))
+    db.session.add(User(email='venue@test.com', password='Password1!', role='venue'))
     db.session.commit()
     
 if __name__ == '__main__':

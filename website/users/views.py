@@ -47,7 +47,6 @@ def login():
         user.current_logged_in = datetime.now()
         db.session.add(user)
         db.session.commit()
-        
         return redirect(url_for("index"))
         
     return render_template('login.html', form=form)
