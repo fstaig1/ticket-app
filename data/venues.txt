@@ -1,0 +1,170 @@
+Wembley Stadium,London,90000
+Twickenham Stadium,London,82000
+Wembley Stadium ,London,82000
+London Stadium,London,80000
+Roundhay Park,Leeds,79999
+Old Trafford,Greater Manchester,74879
+Principality Stadium,Cardiff,74500
+Murrayfield Stadium,Edinburgh,67144 
+National Bowl,Milton Keynes,65000 
+Celtic Park,Glasgow,64411
+Etihad Stadium,Greater Manchester,60000
+Stadium of Light,Sunderland,60000
+Anfield,Liverpool,60000
+Hampden Park,Glasgow,51866
+Ibrox Stadium,Glasgow,50817
+Old Trafford Cricket Ground,Manchester,50000
+Villa Park,Birmingham,42682
+Finsbury Park,London,40000
+Leeds United Football Club,Leeds,37608
+Elland Road,Leeds,35000
+Hillsborough Stadium,Sheffield,34835
+Bramall Lane,Sheffield,32050
+Molineux Stadium,Wolverhampton,30000 
+MKM Stadium,Kingston upon Hull,25400
+Falkirk Stadium,Falkirk,25000
+Swansea.com Stadium,Swansea,21088
+Pittodrie Stadium,Aberdeen,20866
+Easter Road,Edinburgh,20421
+Tynecastle Park,Edinburgh,20099
+Terminal V,Edinburgh,20000
+Clapham Common,London,20000
+Craven Park,Kingston upon Hull,20000
+JobServe Community Stadium,Colchester,17000
+Coventry Building Society Arena,Coventry,45000
+AO Arena,Manchester,21000
+The O2 Arena,London,20000
+Earls Court Exhibition Centre,London,20000
+Utilita Arena Birmingham,Birmingham,16000
+P&J Live,Aberdeen,16000
+Resorts World Arena,Birmingham,14000
+First Direct Arena,Leeds,13500
+Utilita Arena Sheffield,Sheffield,13500
+OVO Hydro,Glasgow,13000
+OVO Arena Wembley,London,12500
+London Arena,London,12500
+SEC Centre,Glasgow,12500
+Utilita Arena Newcastle,Newcastle,11000
+M&S Bank Arena Liverpool,Liverpool,11000
+Earls Court Two,London,10750
+Motorpoint Arena Nottingham,Nottingham,10000
+Cardiff International Arena,Cardiff,12500
+Copper Box Arena,London,7500
+Lee Valley VeloPark,London,7000
+St Augustines Cultural Arts,Brighton,2500
+Bournemouth International Centre,Bournemouth,11500
+Royal Albert Hall,London,5544
+Eventim Apollo ,London ,8500
+O2 Brixton Academy,London,4921
+Brighton Centre,Brighton,4500
+Bradford New Victoria ,Bradford,7400
+Plymouth Pavilions,Plymouth,4000
+Bridlington Spa,Bridlington,3800
+Hull Arena,Kingston upon Hull,3750
+Forum Birmingham,Birmingham,3500
+King Georges Hall,Blackburn,3500
+Blackpool Winter Gardens,Blackpool,3500
+Connexin Live Arena,Kingston upon Hull,3500
+O2 Apollo Manchester,Manchester,3500
+O2 Victoria Warehouse,Manchester,3500
+Swansea Arena,Swansea,3500
+Roundhouse,London,5000
+Troxy,London,3100
+Edinburgh Playhouse,Edinburgh,3059
+O2 Academy Birmingham,Birmingham,3009
+Edinburgh Corn Exchange,Edinburgh,3000
+Birmingham Digbeth Secretspace,Birmingham,4300
+Empress Ballroom,Blackpool,3000
+Planet Ice Coventry,Coventry,3000
+The Halls Wolverhampton,3000 
+Usher Hall,Edinburgh,5100
+Royal Festival Hall,London,2895
+Indigo at The O2,London,2750
+Manchester Academy,Manchester,2600 
+O2 Academy Glasgow,Glasgow,2500
+Glasgow Royal Concert Hall,Glasgow,2500
+Venue Cymru,Llandudno,2500 
+Planet Ice Milton Keynes Arena,Milton Keynes,2500
+London Coliseum,2358
+London Palladium,2300
+O2 Forum Kentish Town,London,2300
+Mayflower Theatre,Southampton,2300
+Rock City,Nottingham,2450
+Caird Hall,Dundee,3500
+Royal Opera House,London,2268
+Symphony Hall,Birmingham,2262
+The Forum,Hertfordshire,2250
+Planet Ice Leeds Arena,Leeds,2200
+De Montfort Hall,Leicester,2200
+O2 Academy,Sheffield,2150
+NX Newcastle,2135
+Lyceum Theatre,London,2096
+O2 Institute,Birmingham,2000
+Brentwood Centre,2000
+Old Fruit Market,Glasgow,2000
+O2 Shepherds Bush Empire,London,2000
+Tobacco Dock,London,2000
+The Venue,London,2000
+Albert Hall,Manchester,2000
+O2 Academy Newcastle,2000
+Newport Leisure Centre,Newport,2000
+Eventim Olympia,Liverpool,1960
+Barbican Centre,London,2150
+Edinburgh Festival Theatre,Edinburgh,1915 
+Winter Gardens,Margate,1900
+Brighton Dome,Brighton,3500
+Cambridge Corn Exchange,1849
+Hull City Hall,Kingston upon Hull,3000
+O2 Academy Bournemouth,1,800
+The Baths Hall,Scunthorpe,1821
+Southampton Guildhall,Southampton,1749
+Sage Gateshead,Newcastle Gateshead,1700 
+O2 Academy, Bristol,1650
+The Forum,Bath,1640
+Marble Factory,Bristol,1600
+Cardiff University Students Union Great Hall,Cardiff,1600
+The Engine Shed,Lincoln,1600
+Perth Concert Hall,Perth,2800
+Regent Theatre,Stoke-on-Trent,1600
+Sadlers Wells Theatre,London,560
+LCR,Norwich,1550
+Victoria Theatre,Halifax,1512
+De La Warr Pavilion,Bexhill,1500
+Leith Theatre,Edinburgh,1500
+Regent Theatre,Ipswich,1500
+Koko,London,1500
+Brixton Electric,London,1500
+The Ritz,Manchester ,1500
+York Barbican,York,3400
+Great Hall,Exeter,2150
+Victoria Hall,Stoke-on-Trent,1467
+The Spotlight,Hoddesdon,2000
+Kings Theatre,Edinburgh,1350
+London Hippodrome,London,1340 
+Theatre Royal,Norwich,1300
+City Hall,Salisbury,3400
+Music Hall, Aberdeen,1281 
+Cambridge Theatre,London,1231
+Portsmouth Pyramids Centre,Portsmouth,1700
+Heaven,London,1200
+Rialto Reborn,Coventry,1750
+Embassy Theatre,Skegness,1168
+Royal National Theatre,London,1160 
+Grand Central Hall,Liverpool,1150
+Scala,London,1145
+Theatre Royal,Nottingham,1107
+Electric Ballroom,London,1100 
+The Grand Theatre,Blackpool,1100
+SWX,Bristol,1100
+Lyceum Theatre,Sheffield,1068
+Old Vic,London,1067
+O2 Academy Oxford,1020
+Royal Shakespeare Theatre,Stratford-upon-Avon,1000
+Citadel Arts Centre,St Helens,1000
+Tramshed,Cardiff,1000
+Crucible Theatre,Sheffield,980
+Queens Hall,Edinburgh,1700
+The Leadmill,Sheffield,1300
+Southampton Engine Rooms,Southampton,860
+The Liquid Room,Edinburgh,700 
+Royal Lyceum Theatre,Edinburgh,658

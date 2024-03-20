@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 from datetime import datetime
-from . import app, db
+from . import db
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -26,16 +26,49 @@ class User(db.Model, UserMixin):
         self.registered_on = datetime.now()
         self.last_logged_in = None
         self.current_logged_in = None
-        
 
-def init_db():
-    db.drop_all()
-    db.create_all()
-    db.session.add(User(email='admin@test.com', password='Password1!', role="admin"))
-    db.session.add(User(email='user@test.com', password='Password1!', role="user"))
-    db.session.add(User(email='venue@test.com', password='Password1!', role='venue'))
-    db.session.commit()
+  
+class Artist(db.Model):
+    __tablename__ = 'artists'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
     
-if __name__ == '__main__':
-    with app.app_context():
-        init_db()
+    concerts = db.relationship('Concert', backref='artists')
+    
+    def __init__(self, name):
+        self.name = name
+
+
+class Venue(db.Model):
+    __tablename__ = 'venues'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    capacity = db.Column(db.Integer, nullable=False)
+    
+    concerts = db.relationship('Concert', backref='venues')
+    
+    def __init__(self, name, location, capacity):
+        self.name = name
+        self.location = location
+        self.capacity = capacity
+    
+    
+class Concert(db.Model):
+    __tablename__ = 'concerts'
+    id = db.Column(db.Integer, primary_key=True)
+    
+    artistId = db.Column(db.Integer, db.ForeignKey(Artist.id))
+    artistName = db.Column(db.String(100), nullable=False)
+    
+    venueid = db.Column(db.Integer, db.ForeignKey(Venue.id))
+    venueName = db.Column(db.String(100), nullable=False)
+    
+    ticketPrice = db.Column(db.Float, nullable=False)
+    
+    def __init__(self, artistId, artistName, venueId, venueName, ticketPrice):
+        self.artistId = artistId
+        self.artistName = artistName 
+        self.venueId = venueId
+        self.venueName = venueName
+        self.ticketPrice = ticketPrice
