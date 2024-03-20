@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, Blueprint
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user, login_required
 from .forms import RegisterForm, LoginForm 
 from website.models import User
 from .. import db
@@ -47,7 +47,11 @@ def login():
         user.current_logged_in = datetime.now()
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for("index"))
+        
+        match current_user.role:
+            case 'admin': return redirect(url_for('admin.admin'))
+            case 'venue': return redirect(url_for('venue.venue'))
+            case 'user' : return redirect(url_for('users.profile'))
         
     return render_template('login.html', form=form)
 
