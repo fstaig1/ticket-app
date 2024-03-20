@@ -20,7 +20,7 @@ def init_db():
     db.session.add(User(firstname="user", lastname="user", email='user@test.com', password='Password1!', role="user"))
     db.session.add(User(firstname="venue", lastname="venue", email='venue@test.com', password='Password1!', role='venue'))
     db.session.commit()
-
+    
 
 if __name__ == '__main__':
     
@@ -33,8 +33,8 @@ if __name__ == '__main__':
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(venue_blueprint)
-    
+    """
     with app.app_context():
         init_db()
-    
+    """
     app.run(host="127.0.0.1", port="38255", debug=True)

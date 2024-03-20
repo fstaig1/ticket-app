@@ -3,4 +3,43 @@
 {% block content %}
 
     <h1 class="">Admin </h1>
+
+    <div>
+        <h2>Current Users</h2>
+        <div>
+            {% if current_users %}
+            <div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Registered</th>
+                    <th>Logged in?</th>
+                </tr>
+                <tr>
+                    {% for user in current_users %}
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.firstname + " " + user.lastname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                        {% if user.current_logged_in %}
+                            <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                        {% else %}
+                            <td>Not yet logged in</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+        <form method="POST" action="/view_all_users">
+            <div>
+                <button >View All Users</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
