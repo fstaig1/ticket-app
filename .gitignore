@@ -1,2 +1,6 @@
 
 /__pycache__
+/website/__pycache__
+/website/admin/__pycache__
+/website/users/__pycache__
+/website/venue/__pycache__

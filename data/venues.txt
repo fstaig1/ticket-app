@@ -5,8 +5,8 @@ London Stadium,London,80000
 Roundhay Park,Leeds,79999
 Old Trafford,Greater Manchester,74879
 Principality Stadium,Cardiff,74500
-Murrayfield Stadium,Edinburgh,67144 
-National Bowl,Milton Keynes,65000 
+Murrayfield Stadium,Edinburgh,67144
+National Bowl,Milton Keynes,65000
 Celtic Park,Glasgow,64411
 Etihad Stadium,Greater Manchester,60000
 Stadium of Light,Sunderland,60000
@@ -20,7 +20,7 @@ Leeds United Football Club,Leeds,37608
 Elland Road,Leeds,35000
 Hillsborough Stadium,Sheffield,34835
 Bramall Lane,Sheffield,32050
-Molineux Stadium,Wolverhampton,30000 
+Molineux Stadium,Wolverhampton,30000
 MKM Stadium,Kingston upon Hull,25400
 Falkirk Stadium,Falkirk,25000
 Swansea.com Stadium,Swansea,21088
@@ -76,14 +76,14 @@ Edinburgh Corn Exchange,Edinburgh,3000
 Birmingham Digbeth Secretspace,Birmingham,4300
 Empress Ballroom,Blackpool,3000
 Planet Ice Coventry,Coventry,3000
-The Halls Wolverhampton,3000 
+The Halls Wolverhampton,3000
 Usher Hall,Edinburgh,5100
 Royal Festival Hall,London,2895
 Indigo at The O2,London,2750
-Manchester Academy,Manchester,2600 
+Manchester Academy,Manchester,2600
 O2 Academy Glasgow,Glasgow,2500
 Glasgow Royal Concert Hall,Glasgow,2500
-Venue Cymru,Llandudno,2500 
+Venue Cymru,Llandudno,2500
 Planet Ice Milton Keynes Arena,Milton Keynes,2500
 London Coliseum,2358
 London Palladium,2300
@@ -110,7 +110,7 @@ O2 Academy Newcastle,2000
 Newport Leisure Centre,Newport,2000
 Eventim Olympia,Liverpool,1960
 Barbican Centre,London,2150
-Edinburgh Festival Theatre,Edinburgh,1915 
+Edinburgh Festival Theatre,Edinburgh,1915
 Winter Gardens,Margate,1900
 Brighton Dome,Brighton,3500
 Cambridge Corn Exchange,1849
@@ -118,7 +118,7 @@ Hull City Hall,Kingston upon Hull,3000
 O2 Academy Bournemouth,1,800
 The Baths Hall,Scunthorpe,1821
 Southampton Guildhall,Southampton,1749
-Sage Gateshead,Newcastle Gateshead,1700 
+Sage Gateshead,Newcastle Gateshead,1700
 O2 Academy, Bristol,1650
 The Forum,Bath,1640
 Marble Factory,Bristol,1600
@@ -140,20 +140,20 @@ Great Hall,Exeter,2150
 Victoria Hall,Stoke-on-Trent,1467
 The Spotlight,Hoddesdon,2000
 Kings Theatre,Edinburgh,1350
-London Hippodrome,London,1340 
+London Hippodrome,London,1340
 Theatre Royal,Norwich,1300
 City Hall,Salisbury,3400
-Music Hall, Aberdeen,1281 
+Music Hall, Aberdeen,1281
 Cambridge Theatre,London,1231
 Portsmouth Pyramids Centre,Portsmouth,1700
 Heaven,London,1200
 Rialto Reborn,Coventry,1750
 Embassy Theatre,Skegness,1168
-Royal National Theatre,London,1160 
+Royal National Theatre,London,1160
 Grand Central Hall,Liverpool,1150
 Scala,London,1145
 Theatre Royal,Nottingham,1107
-Electric Ballroom,London,1100 
+Electric Ballroom,London,1100
 The Grand Theatre,Blackpool,1100
 SWX,Bristol,1100
 Lyceum Theatre,Sheffield,1068
@@ -166,5 +166,5 @@ Crucible Theatre,Sheffield,980
 Queens Hall,Edinburgh,1700
 The Leadmill,Sheffield,1300
 Southampton Engine Rooms,Southampton,860
-The Liquid Room,Edinburgh,700 
+The Liquid Room,Edinburgh,700
 Royal Lyceum Theatre,Edinburgh,658
