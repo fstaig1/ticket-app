@@ -1,12 +1,11 @@
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for
 from flask_login import login_user, logout_user
-from users.forms import RegisterForm, LoginForm 
-from models import User
-from app import db
+from .forms import RegisterForm, LoginForm 
+from website.models import User
+from .. import db
+from ..views import users_blueprint
 import datetime
 from werkzeug.security import check_password_hash
-
-users_blueprint = Blueprint('users', __name__, template_folder='templates')
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
@@ -52,7 +51,6 @@ def login():
         redirect(url_for("index"))
         
     return render_template('login.html', form=form)
-
 
 
 @users_blueprint.route('/profile')
