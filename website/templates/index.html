@@ -4,4 +4,14 @@
 
     <h1 class=""> Shitty Ticket App</h1>
     <h4 class=""> I'll be in my grave before I make a style sheet</h4>
+
+    {% if not current_user.is_authenticated %}
+        <!-- TODO make these buttons-->
+        <a href="{{ url_for('users.register') }}">Register</button>
+        <a href="{{ url_for('users.login') }}">Login</button>
+  
+    {% endif %}
+    {% if current_user.is_authenticated %}
+        <h4>{{ "Welcome back " + current_user.firstname +"!" }}</h4>
+    {% endif %}
 {% endblock %}
