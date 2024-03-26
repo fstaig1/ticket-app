@@ -1,138 +1,154 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container text-center ">
+    <h1 style="margin: auto; padding: 10px; display: table;">Admin Dashboard</h1>
+    <div class="row ">
+        <div class="col " style="text-align:center;">
+            <form method="POST" action="/view_all_users">
+                <div>
+                    <button class="btn btn-primary">View All Users</button>
+                </div>
+            </form>
 
-<h1 class="">Admin Dashboard</h1>
-<div>
-    <div>
-        {% if current_users %}
-        <h2>Current Users</h2>
-        <div>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Registered</th>
-                    <th>Logged in?</th>
-                </tr>
-                <tr>
-                    {% for user in current_users %}
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.firstname + " " + user.lastname }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                        {% if user.current_logged_in %}
-                            <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                        {% else %}
-                            <td>Not yet logged in</td>
-                        {% endif %}
-                </tr>
-                    {% endfor %}
-            </table>
-        </div>
-    {% endif %}
-    </div>
-    <form method="POST" action="/view_all_users">
-        <div>
-            <button >View All Users</button>
-        </div>
-    </form>
-</div>
+            <div style="height: 10px;"></div>
 
-<div>
-    <div>
-        {% if venues %}
-        <h2>All Venues</h2>
+            <form method="POST" action="/view_all_venues">
+                <div>
+                    <button class="btn btn-primary">View All Venues</button>
+                </div>
+            </form>
+
+            <div style="height: 10px;"></div>
+
+            <form method="POST" action="/view_all_artists">
+                <div>
+                    <button class="btn btn-primary">View All Artists</button>
+                </div>
+            </form>
+
+            <div style="height: 10px;"></div>
+
+            <form method="POST" action="/view_all_concerts">
+                <div>
+                    <button class="btn btn-primary">View All Concerts</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col">
+        <div>
             <div>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>Capacity</th>
-                    </tr>
-                    {% for venue in venues %}
-                    <tr>
-                        <td>{{ venue.id }}</td>
-                        <td>{{ venue.name }}</td>
-                        <td>{{ venue.location }}</td>
-                        <td>{{ venue.capacity }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                {% if current_users %}
+                <h2>Current Users</h2>
+                <div>
+                    <table class="table table-striped center table-hover">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Registered</th>
+                            <th>Logged in?</th>
+                        </tr>
+                        <tr>
+                            {% for user in current_users %}
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.firstname + " " + user.lastname }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.role }}</td>
+                                <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                {% if user.current_logged_in %}
+                                    <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                {% else %}
+                                    <td>Not yet logged in</td>
+                                {% endif %}
+                        </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
             </div>
-        {% endif %}
-    </div>
-    <form method="POST" action="/view_all_venues">
-        <div>
-            <button >View All Venues</button>
         </div>
-    </form>
-</div>
 
-<div>
-    <div>
-        {% if artists %}
-        <h2>All Artists</h2>
+        <div>
             <div>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                    </tr>
-                    {% for artist in artists %}
-                    <tr>
-                        <td>{{ artist.id }}</td>
-                        <td>{{ artist.name }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                {% if venues %}
+                <h2>All Venues</h2>
+                    <div>
+                        <table class="table table-striped center table-hover">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Capacity</th>
+                            </tr>
+                            {% for venue in venues %}
+                            <tr>
+                                <td>{{ venue.id }}</td>
+                                <td>{{ venue.name }}</td>
+                                <td>{{ venue.location }}</td>
+                                <td>{{ venue.capacity }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
-    <form method="POST" action="/view_all_artists">
-        <div>
-            <button >View All Artists</button>
         </div>
-    </form>
-</div>
 
-<div>
-    <div>
-        {% if concerts %}
-        <h2>All Concerts</h2>
+        <div>
             <div>
-                <table>
-                    <tr>
-                        <th>Concert ID</th>
-                        <th>Artist ID</th>
-                        <th>Artist Name</th>
-                        <th>Venue ID</th>
-                        <th>Venue Name</th>
-                        <th>Ticket Price</th>
-                    </tr>
-                    {% for concert in concerts %}
-                    <tr>
-                        <td>{{ concert.id }}</td>
-                        <td>{{ concert.artistId }}</td>
-                        <td>{{ concert.artistName }}</td>
-                        <td>{{ concert.venueId }}</td>
-                        <td>{{ concert.venueName }}</td>
-                        <td>£{{ concert.ticketPrice }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                {% if artists %}
+                <h2>All Artists</h2>
+                    <div>
+                        <table class="table table-striped center table-hover">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                            </tr>
+                            {% for artist in artists %}
+                            <tr>
+                                <td>{{ artist.id }}</td>
+                                <td>{{ artist.name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
-    </div>
-    <form method="POST" action="/view_all_concerts">
-        <div>
-            <button >View All Concerts</button>
         </div>
-    </form>
-</div>
 
+        <div>
+            <div>
+                {% if concerts %}
+                <h2>All Concerts</h2>
+                    <div>
+                        <table class="table table-striped center table-hover">
+                            <tr>
+                                <th>Concert ID</th>
+                                <th>Artist ID</th>
+                                <th>Artist Name</th>
+                                <th>Venue ID</th>
+                                <th>Venue Name</th>
+                                <th>Ticket Price</th>
+                            </tr>
+                            {% for concert in concerts %}
+                            <tr>
+                                <td>{{ concert.id }}</td>
+                                <td>{{ concert.artistId }}</td>
+                                <td>{{ concert.artistName }}</td>
+                                <td>{{ concert.venueId }}</td>
+                                <td>{{ concert.venueName }}</td>
+                                <td>£{{ concert.ticketPrice }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
 {% endblock %}
