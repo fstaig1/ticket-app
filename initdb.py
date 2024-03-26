@@ -1,6 +1,7 @@
 from website import db
 from website.models import User, Artist, Venue, Concert  # noqa: F401
 from random import randint
+from datetime import datetime
 
 
 def init_db():
@@ -20,6 +21,8 @@ def init_db():
                                 email=str(data[2]),
                                 password=str(data[3]),
                                 role=str(data[4]),
+                                venueManager=bool(data[5]),
+                                venueId=data[6],
                                 ))
         db.session.commit()
 
@@ -38,9 +41,7 @@ def init_db():
     for _ in range(50):
         artist = artists[randint(1, len(artists) - 1)]
         venue = venues[randint(1, len(venues) - 1)]
-        db.session.add(Concert(artistId=artist.id,
-                               artistName=artist.name,
-                               venueId=venue.id,
-                               venueName=venue.name,
-                               ticketPrice=randint(10, 100)))
-    db.session.commit()
+        venue.create_Concert(artistId=artist.id,
+                             artistName=artist.name,
+                             ticketPrice=randint(10, 100),
+                             date=datetime(2025, randint(1, 12), randint(1, 28), 19))

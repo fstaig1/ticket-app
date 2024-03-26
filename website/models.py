@@ -12,13 +12,19 @@ class User(db.Model, UserMixin):
     lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
-    role = db.Column(db.String(100), nullable=False)
+    role = db.Column(db.String(100), nullable=False, default='user')
+
+    venueManager = db.Column(db.Boolean(), nullable=False, default=False)
+    venueId = db.Column(db.Integer, db.ForeignKey('venues.id'), default=None)
 
     registered_on = db.Column(db.DateTime, nullable=False)
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, firstname, lastname, email, password, role):
+    def get_venue(self):
+        return Venue.query.filter_by(id=self.venueId).first()
+
+    def __init__(self, firstname, lastname, email, password, role, venueManager, venueId):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -27,6 +33,8 @@ class User(db.Model, UserMixin):
         self.registered_on = datetime.now()
         self.last_logged_in = None
         self.current_logged_in = None
+        self.venueManager = venueManager
+        self.venueId = venueId
 
 
 class Artist(db.Model):
@@ -43,11 +51,22 @@ class Artist(db.Model):
 class Venue(db.Model):
     __tablename__ = 'venues'
     id = db.Column(db.Integer, primary_key=True)
+    managerId = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
 
-    concerts = db.relationship('Concert', backref='venues')
+    manager = db.relationship('User', foreign_keys=[managerId], lazy=True)
+    concerts = db.relationship('Concert', backref='venues', foreign_keys="[Concert.venueId]", lazy=True)
+
+    def create_Concert(self, artistId, artistName, ticketPrice, date):
+        db.session.add(Concert(artistId=artistId,
+                               artistName=artistName,
+                               venueId=self.id,
+                               venueName=self.name,
+                               ticketPrice=ticketPrice,
+                               date=date))
+        db.session.commit()
 
     def __init__(self, name, location, capacity):
         self.name = name
@@ -62,14 +81,16 @@ class Concert(db.Model):
     artistId = db.Column(db.Integer, db.ForeignKey(Artist.id))
     artistName = db.Column(db.String(100), nullable=False)
 
-    venueid = db.Column(db.Integer, db.ForeignKey(Venue.id))
+    venueId = db.Column(db.Integer, db.ForeignKey(Venue.id))
     venueName = db.Column(db.String(100), nullable=False)
 
     ticketPrice = db.Column(db.Float, nullable=False)
+    date = db.Column(db.DateTime, nullable=True)
 
-    def __init__(self, artistId, artistName, venueId, venueName, ticketPrice):
+    def __init__(self, artistId, artistName, venueId, venueName, ticketPrice, date):
         self.artistId = artistId
         self.artistName = artistName
         self.venueId = venueId
         self.venueName = venueName
         self.ticketPrice = ticketPrice
+        self.date = date
