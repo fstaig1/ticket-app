@@ -25,9 +25,10 @@ if __name__ == '__main__':
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(venue_blueprint)
+    
     # uncomment this to re initialise the database
-    """
+"""
     with app.app_context():
         init_db()
-    """
-    app.run(host="127.0.0.1", port="38255", debug=True)
+"""
+app.run(host="127.0.0.1", port="38255", debug=True)

@@ -42,5 +42,5 @@ def init_db():
                                artistName=artist.name,
                                venueId=venue.id,
                                venueName=venue.name,
-                               ticketPrice=randint(10, 200)))
+                               ticketPrice=randint(10, 100)))
     db.session.commit()
