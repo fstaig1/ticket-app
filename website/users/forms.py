@@ -20,11 +20,11 @@ def validate_password(self, password):
 
 
 class RegisterForm(FlaskForm):
-    PASSWORDERROR = "Password must be between 8 and 30 characters in length."
+    passwordError = "Password must be between 8 and 30 characters in length."
     firstname = StringField(validators=[InputRequired(), character_check])
     lastname = StringField(validators=[InputRequired(), character_check])
     email = StringField(validators=[InputRequired(), Email()])
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=30, message=PASSWORDERROR), validate_password])
+    password = PasswordField(validators=[InputRequired(), Length(min=8, max=30, message=passwordError), validate_password])
     confirm_password = PasswordField(validators=[InputRequired(), EqualTo("password", message="Both password fields must be equal.")])
     submit = SubmitField(validators=[InputRequired()])
 

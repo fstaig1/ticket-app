@@ -59,7 +59,7 @@ def login():
 
 @users_blueprint.route('/profile')
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', current_user=User.query.filter_by(id=current_user.id).first())
 
 
 @users_blueprint.route('/logout')
