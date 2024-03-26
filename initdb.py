@@ -1,5 +1,6 @@
 from website import db
 from website.models import User, Artist, Venue, Concert  # noqa: F401
+from random import randint
 
 
 def init_db():
@@ -28,4 +29,18 @@ def init_db():
             db.session.add(Venue(name=str(data[0]),
                                  location=str(data[1]),
                                  capacity=int(data[-1])))
+
         db.session.commit()
+
+    artists = Artist.query.all()
+    venues = Venue.query.all()
+
+    for _ in range(50):
+        artist = artists[randint(1, len(artists) - 1)]
+        venue = venues[randint(1, len(venues) - 1)]
+        db.session.add(Concert(artistId=artist.id,
+                               artistName=artist.name,
+                               venueId=venue.id,
+                               venueName=venue.name,
+                               ticketPrice=randint(10, 200)))
+    db.session.commit()
