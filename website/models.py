@@ -84,8 +84,8 @@ class Concert(db.Model):
     venueId = db.Column(db.Integer, db.ForeignKey(Venue.id))
     venueName = db.Column(db.String(100), nullable=False)
 
-    ticketPrice = db.Column(db.Float, nullable=False)
     date = db.Column(db.DateTime, nullable=True)
+    ticketPrice = db.Column(db.Float, nullable=False)
 
     def __init__(self, artistId, artistName, venueId, venueName, ticketPrice, date):
         self.artistId = artistId

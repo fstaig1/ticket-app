@@ -2,5 +2,112 @@
 
 {% block content %}
 
-    <h1 class="">Venue </h1>
+<div class="container text-center ">
+    <div style="height: 10px;"></div>
+    <h1 >Venue Dashboard</h1>
+    <div class="row">
+        <div class="col" style="text-align:center;">
+            <h3>Manager Information</h3>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th class="border" style="text-align: end;"  >ID </th>
+                    <td class="border" style="text-align: start;">{{ current_user.id }}</td>
+                    </tr>
+                <tr>
+                    <th class="border" style="text-align: end;">Name</th>
+                    <td class="border" style="text-align: start;">{{ current_user.firstname + " " + current_user.lastname }}</td>
+                </tr>
+                <tr>
+                    <th class="border" style="text-align: end;"  >Email</th>
+                    <td class="border" style="text-align: start;">{{ current_user.email }}</td>
+                </tr>
+            </table>
+
+            <div style="height: 10px;"></div>
+
+            <div>
+                <h3>Create New Concert</h3>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div>
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                 {% endwith %}
+                <form method="POST" action="/venue/create_concert">
+                    {{ form.csrf_token() }}
+                    <div>
+                        {{ form.artistName(placeholder="Artist Name", class="form-control", required="required", type="text") }}
+                        {% for error in form.artistName.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ form.ticketPrice(placeholder="Ticket Price", class="form-control", required="required", type="integer") }}
+                        {% for error in form.ticketPrice.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ form.date(class="form-control", required="required", type="datetime-local") }}
+                        {% for error in form.date.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ form.submit(type="submit",class="btn btn-primary center")}}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col" style="text-align:center;">
+            <h3>Venue Information</h3>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th class="border" style="text-align: end;"  >ID</th>
+                    <td class="border" style="text-align: start;">{{ venue.id }}</td>
+                </tr>
+                <tr>
+                    <th class="border" style="text-align: end;"  >Name</th>
+                    <td class="border" style="text-align: start;">{{ venue.name }}</td>
+                </tr>
+                <tr>
+                    <th class="border" style="text-align: end;"  >Location</th>
+                    <td class="border" style="text-align: start;">{{ venue.location }}</td>
+                </tr>
+                <tr>
+                    <th class="border" style="text-align: end;"  >Capacity</th>
+                    <td class="border" style="text-align: start;">{{ venue.capacity }}</td>
+                </tr>
+                <tr>
+                    <th class="border">Concerts</th>
+                    <td class="border">
+                        <table class="table table-striped table-hover" >
+                            <tr style="font-weight: bold;">
+                                <td class="border" >ID</td>
+                                <td class="border">Artist ID</td>
+                                <td class="border">Artist Name</td>
+                                <td class="border">Date</td>
+                                <td class="border">Ticket Price</td>
+                            </tr>
+                            {% for concert in concerts %}
+                            <tr>
+                                <td class="border" style="font-weight: bold;">{{ concert.id }}</td>
+                                <td class="border">{{ concert.artistId }}</td>
+                                <td class="border">{{ concert.artistName }}</td>
+                                <td class="border">{{ concert.date }}</td>
+                                <td class="border">£{{ concert.ticketPrice }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
