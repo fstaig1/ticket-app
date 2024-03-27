@@ -39,12 +39,75 @@
             <div style="height: 10px;"></div>
             <div class="border"></div>
             <div style="height: 10px;"></div>
-            
+                <h3>Create User</h3>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div>
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form method="POST" action="/admin/create_user">
+                    {{ createUserForm.csrf_token() }}
+                    <div>
+                        {{ createUserForm.firstname(placeholder="First Name", class="form-control", required="required", type="text")}}
+                        {% for error in createUserForm.firstname.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.lastname(placeholder="Last Name", class="form-control", required="required", type="text")}}
+                        {% for error in createUserForm.lastname.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.email(placeholder="Email", class="form-control", required="required", type="email")}}
+                        {% for error in createUserForm.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.password(placeholder="Password", class="form-control", required="required", type="password")}}
+                        {% for error in createUserForm.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.confirm_password(placeholder="Confirm Password", class="form-control", required="required", type="password")}}
+                        {% for error in createUserForm.confirm_password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div> <!-- select role field-->
+                        <select class="form-select" id="role" name="role" required="" selected="user">
+                            <option value="user" >User</option>
+                            <option value="admin">Admin</option>
+                            <option value="venue">Venue</option>
+                        </select>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div> <!-- add if to check if role is venue-->
+                        {{ createUserForm.venueId(placeholder="Venue ID (only enter if role is venue)", class="form-control", type="number")}}
+                        {% for error in createUserForm.venueId.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.submit(type="submit",class="btn btn-primary center")}}
+                    </div>
+                </form>
         </div> <!-- end of column-->
 
         <div class="col">
             <div>
-                <div>   
+                <div>
                     {% if current_users %}
                     <h2>Current Users</h2>
                     <div>

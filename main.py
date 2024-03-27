@@ -5,7 +5,6 @@ from flask_login import LoginManager, current_user
 from initdb import init_db  # noqa: F401
 from website.models import User
 from werkzeug.exceptions import HTTPException
-# TODO refacter all the variable names to fit standards
 
 app = app()
 

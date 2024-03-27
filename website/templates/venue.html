@@ -37,7 +37,7 @@
                         </div>
                     {% endif %}
                  {% endwith %}
-                <form method="POST" action="/venue/create_concert">     
+                <form method="POST" action="/venue/create_concert">
                     {{ form.csrf_token() }}
                     <div>
                         {{ form.artistName(placeholder="Artist Name", class="form-control", required="required", type="text") }}
@@ -47,7 +47,7 @@
                     </div>
                     <div style="height: 10px;"></div>
                     <div>
-                        {{ form.ticketPrice(placeholder="Ticket Price", class="form-control", required="required", type="text") }}
+                        {{ form.ticketPrice(placeholder="Ticket Price", class="form-control", required="required", type="number") }}
                         {% for error in form.ticketPrice.errors %}
                             {{ error }}
                         {% endfor %}
