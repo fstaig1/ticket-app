@@ -31,6 +31,8 @@
                     <a href="{{ url_for('browse') }}" class="nav-link"> Browse</a>
                 </li>
 
+                </ul>
+                <ul class="navbar-nav ms-auto flex-nowrap">
                 {% if current_user.is_authenticated and current_user.role == "user" %}
                 <li class="nav-item">
                     <a href="{{ url_for('users.profile') }}" class="nav-link"> Profile</a>
@@ -48,7 +50,6 @@
                     <a href="{{ url_for('venue.venue') }}" class="nav-link"> Venue Dashboard</a>
                 </li>
                 {% endif %}
-
                 {% if not current_user.is_authenticated %}
                 <li class="nav-item">
                     <a href="{{ url_for('users.register') }}" class="nav-link"> Register</a>
