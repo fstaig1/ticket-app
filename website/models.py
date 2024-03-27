@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
     role = db.Column(db.String(100), nullable=False, default='user')
 
     venueManager = db.Column(db.Boolean(), nullable=False, default=False)
@@ -58,13 +58,9 @@ class Artist(db.Model):
 class Venue(db.Model):
     __tablename__ = 'venues'
     id = db.Column(db.Integer, primary_key=True)
-    managerId = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
-
-    manager = db.relationship('User', foreign_keys=[managerId], lazy=True)
-    concerts = db.relationship('Concert', backref='venues', foreign_keys="[Concert.venueId]", lazy=True)
 
     def create_Concert(self, artistId, artistName, ticketPrice, date):
         db.session.add(Concert(artistId=artistId,
@@ -74,6 +70,9 @@ class Venue(db.Model):
                                ticketPrice=ticketPrice,
                                date=date))
         db.session.commit()
+
+    def get_manager(self):
+        return User.query.filter_by(id=self.managerId).first()
 
     def __init__(self, name, location, capacity):
         self.name = name
