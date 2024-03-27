@@ -24,6 +24,13 @@ class User(db.Model, UserMixin):
     def get_venue(self):
         return Venue.query.filter_by(id=self.venueId).first()
 
+    def delete(self):
+        if self.venueManager:
+            self.get_venue().managerId = None
+
+        db.session.delete(self)
+        db.session.commit()
+
     def __init__(self, firstname, lastname, email, password, role, venueManager, venueId):
         self.firstname = firstname
         self.lastname = lastname

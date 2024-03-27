@@ -6,7 +6,7 @@
     <h1 style="margin: auto; padding: 10px; display: table;">Admin Dashboard</h1>
     <div class="row ">
         <div class="col " style="text-align:center;">
-            <form method="POST" action="/view_all_users">
+            <form method="POST" action="/admin/view_all_users">
                 <div>
                     <button class="btn btn-primary">View All Users</button>
                 </div>
@@ -14,7 +14,7 @@
 
             <div style="height: 10px;"></div>
 
-            <form method="POST" action="/view_all_venues">
+            <form method="POST" action="/admin/view_all_venues">
                 <div>
                     <button class="btn btn-primary">View All Venues</button>
                 </div>
@@ -22,7 +22,7 @@
 
             <div style="height: 10px;"></div>
 
-            <form method="POST" action="/view_all_artists">
+            <form method="POST" action="/admin/view_all_artists">
                 <div>
                     <button class="btn btn-primary">View All Artists</button>
                 </div>
@@ -30,126 +30,137 @@
 
             <div style="height: 10px;"></div>
 
-            <form method="POST" action="/view_all_concerts">
+            <form method="POST" action="/admin/view_all_concerts">
                 <div>
                     <button class="btn btn-primary">View All Concerts</button>
                 </div>
             </form>
-        </div>
+
+            <div style="height: 10px;"></div>
+            <div class="border"></div>
+            <div style="height: 10px;"></div>
+            
+        </div> <!-- end of column-->
 
         <div class="col">
-        <div>
-            <div>   
-                {% if current_users %}
-                <h2>Current Users</h2>
-                <div>
-                    <table class="table table-striped center table-hover">
-                        <tr style="text-align: start;font-weight: bold;">
-                            <th class="border">ID</th>
-                            <th class="border">Name</th>
-                            <th class="border">Email</th>
-                            <th class="border">Role</th>
-                            <th class="border">Registered</th>
-                            <th class="border">Last Logged In</th>
-                        </tr>
-                        {% for user in current_users %}
-                        <tr style="text-align: start;">
-                                <td class="border" style="font-weight: bold;">{{ user.id }}</td>
-                                <td class="border">{{ user.firstname + " " + user.lastname }}</td>
-                                <td class="border">{{ user.email }}</td>
-                                <td class="border">{{ user.role }}</td>
-                                <td class="border">{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                                {% if user.current_logged_in %}
-                                    <td class="border">{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                                {% else %}
-                                    <td class="border">Not yet logged in</td>
-                                {% endif %}
-                        </tr>
-                        {% endfor %}
-                    </table>
+            <div>
+                <div>   
+                    {% if current_users %}
+                    <h2>Current Users</h2>
+                    <div>
+                        <table class="table table-striped center table-hover">
+                            <tr style="text-align: start;font-weight: bold;">
+                                <th class="border">ID</th>
+                                <th class="border">Name</th>
+                                <th class="border">Email</th>
+                                <th class="border">Role</th>
+                                <th class="border">Registered</th>
+                                <th class="border">Last Logged In</th>
+                                <th class="border">Delete User</th>
+                            </tr>
+                            {% for user in current_users %}
+                            <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ user.id }}</td>
+                                    <td class="border">{{ user.firstname + " " + user.lastname }}</td>
+                                    <td class="border">{{ user.email }}</td>
+                                    <td class="border">{{ user.role }}</td>
+                                    <td class="border">{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                    {% if user.current_logged_in %}
+                                        <td class="border">{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                    {% else %}
+                                        <td class="border">Not yet logged in</td>
+                                    {% endif %}
+                                    <td class="border">
+                                        <form method="POST" action="/admin/delete_user">
+                                            <button name="remove_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>X</button>
+                                        </form>
+                                    </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
                 </div>
-            {% endif %}
             </div>
-        </div>
 
-        <div>
             <div>
-                {% if venues %}
-                <h2>All Venues</h2>
-                    <div>
-                        <table class="table table-striped center table-hover">
-                            <tr style="text-align: start;font-weight: bold;">
-                                <th class="border">ID</th>
-                                <th class="border">Name</th>
-                                <th class="border">Location</th>
-                                <th class="border">Capacity</th>
-                            </tr>
-                            {% for venue in venues %}
-                            <tr style="text-align: start;">
-                                <td class="border" style="font-weight: bold;">{{ venue.id }}</td>
-                                <td class="border">{{ venue.name }}</td>
-                                <td class="border">{{ venue.location }}</td>
-                                <td class="border">{{ venue.capacity }}</td>
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                {% endif %}
+                <div>
+                    {% if venues %}
+                    <h2>All Venues</h2>
+                        <div>
+                            <table class="table table-striped center table-hover">
+                                <tr style="text-align: start;font-weight: bold;">
+                                    <th class="border">ID</th>
+                                    <th class="border">Name</th>
+                                    <th class="border">Location</th>
+                                    <th class="border">Capacity</th>
+                                </tr>
+                                {% for venue in venues %}
+                                <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ venue.id }}</td>
+                                    <td class="border">{{ venue.name }}</td>
+                                    <td class="border">{{ venue.location }}</td>
+                                    <td class="border">{{ venue.capacity }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        <div>
             <div>
-                {% if artists %}
-                <h2>All Artists</h2>
-                    <div>
-                        <table class="table table-striped center table-hover">
-                            <tr style="text-align: start;font-weight: bold;">
-                                <th class="border">ID</th>
-                                <th class="border">Name</th>
-                            </tr>
-                            {% for artist in artists %}
-                            <tr style="text-align: start;">
-                                <td class="border" style="font-weight: bold;">{{ artist.id }}</td>
-                                <td class="border">{{ artist.name }}</td>
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                {% endif %}
+                <div>
+                    {% if artists %}
+                    <h2>All Artists</h2>
+                        <div>
+                            <table class="table table-striped center table-hover">
+                                <tr style="text-align: start;font-weight: bold;">
+                                    <th class="border">ID</th>
+                                    <th class="border">Name</th>
+                                </tr>
+                                {% for artist in artists %}
+                                <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ artist.id }}</td>
+                                    <td class="border">{{ artist.name }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        <div>
             <div>
-                {% if concerts %}
-                <h2>All Concerts</h2>
-                    <div>
-                        <table class="table table-striped center table-hover">
-                            <tr style="text-align: start;font-weight: bold; ">
-                                <th class="border">Concert ID</th>
-                                <th class="border">Artist ID</th>
-                                <th class="border">Artist Name</th>
-                                <th class="border">Venue ID</th>
-                                <th class="border">Venue Name</th>
-                                <th class="border">Ticket Price</th>
-                            </tr>
-                            {% for concert in concerts %}
-                            <tr style="text-align: start;">
-                                <td class="border" style="font-weight: bold;">{{ concert.id }}</td>
-                                <td class="border">{{ concert.artistId }}</td>
-                                <td class="border">{{ concert.artistName }}</td>
-                                <td class="border">{{ concert.venueId }}</td>
-                                <td class="border">{{ concert.venueName }}</td>
-                                <td class="border">£{{ concert.ticketPrice }}</td>
-                            </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                {% endif %}
+                <div>
+                    {% if concerts %}
+                    <h2>All Concerts</h2>
+                        <div>
+                            <table class="table table-striped center table-hover">
+                                <tr style="text-align: start;font-weight: bold; ">
+                                    <th class="border">Concert ID</th>
+                                    <th class="border">Artist ID</th>
+                                    <th class="border">Artist Name</th>
+                                    <th class="border">Venue ID</th>
+                                    <th class="border">Venue Name</th>
+                                    <th class="border">Ticket Price</th>
+                                </tr>
+                                {% for concert in concerts %}
+                                <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ concert.id }}</td>
+                                    <td class="border">{{ concert.artistId }}</td>
+                                    <td class="border">{{ concert.artistName }}</td>
+                                    <td class="border">{{ concert.venueId }}</td>
+                                    <td class="border">{{ concert.venueName }}</td>
+                                    <td class="border">£{{ concert.ticketPrice }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </div>
 {% endblock %}

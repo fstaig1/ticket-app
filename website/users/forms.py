@@ -6,7 +6,6 @@ from wtforms.validators import InputRequired, Email, Length, EqualTo, Validation
 
 def character_check(form, field):
     excluded_chars = "*?!'^+%&/\()=}][{$#@<>"  # noqa: W605
-    # FIXME i get a failed escape character error sometimes
     for char in field.data:
         if char in excluded_chars:
             raise ValidationError(

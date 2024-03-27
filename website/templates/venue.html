@@ -24,6 +24,9 @@
             </table>
 
             <div style="height: 10px;"></div>
+            <div class="border"></div>
+            <div style="height: 10px;"></div>
+            
 
             <div>
                 <h3>Create New Concert</h3>
@@ -34,7 +37,7 @@
                         </div>
                     {% endif %}
                  {% endwith %}
-                <form method="POST" action="/venue/create_concert">
+                <form method="POST" action="/venue/create_concert">     
                     {{ form.csrf_token() }}
                     <div>
                         {{ form.artistName(placeholder="Artist Name", class="form-control", required="required", type="text") }}
@@ -44,7 +47,7 @@
                     </div>
                     <div style="height: 10px;"></div>
                     <div>
-                        {{ form.ticketPrice(placeholder="Ticket Price", class="form-control", required="required", type="integer") }}
+                        {{ form.ticketPrice(placeholder="Ticket Price", class="form-control", required="required", type="text") }}
                         {% for error in form.ticketPrice.errors %}
                             {{ error }}
                         {% endfor %}
