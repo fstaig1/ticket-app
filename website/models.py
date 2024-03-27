@@ -67,6 +67,7 @@ class Venue(db.Model):
                                artistName=artistName,
                                venueId=self.id,
                                venueName=self.name,
+                               venueLocation=self.location,
                                ticketPrice=ticketPrice,
                                date=date))
         db.session.commit()
@@ -89,14 +90,16 @@ class Concert(db.Model):
 
     venueId = db.Column(db.Integer, db.ForeignKey(Venue.id))
     venueName = db.Column(db.String(100), nullable=False)
+    venueLocation = db.Column(db.String(100), nullable=False)
 
     date = db.Column(db.DateTime, nullable=True)
     ticketPrice = db.Column(db.Float, nullable=False)
 
-    def __init__(self, artistId, artistName, venueId, venueName, ticketPrice, date):
+    def __init__(self, artistId, artistName, venueId, venueName, venueLocation, ticketPrice, date):
         self.artistId = artistId
         self.artistName = artistName
         self.venueId = venueId
         self.venueName = venueName
+        self.venueLocation = venueLocation
         self.ticketPrice = ticketPrice
         self.date = date

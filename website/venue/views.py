@@ -27,7 +27,6 @@ def create_concert():
     concertForm = ConcertForm()
 
     if concertForm.validate_on_submit():
-        print("pass")
         artist = Artist.query.filter_by(name=concertForm.artistName.data).first()
         if not artist:
             artist = Artist(name=concertForm.artistName.data)
