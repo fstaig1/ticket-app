@@ -76,7 +76,7 @@ Edinburgh Corn Exchange,Edinburgh,3000
 Birmingham Digbeth Secretspace,Birmingham,4300
 Empress Ballroom,Blackpool,3000
 Planet Ice Coventry,Coventry,3000
-The Halls Wolverhampton,3000
+The Halls,Wolverhampton,3000
 Usher Hall,Edinburgh,5100
 Royal Festival Hall,London,2895
 Indigo at The O2,London,2750
@@ -85,8 +85,8 @@ O2 Academy Glasgow,Glasgow,2500
 Glasgow Royal Concert Hall,Glasgow,2500
 Venue Cymru,Llandudno,2500
 Planet Ice Milton Keynes Arena,Milton Keynes,2500
-London Coliseum,2358
-London Palladium,2300
+London Coliseum,London,2358
+London Palladium,London,2300
 O2 Forum Kentish Town,London,2300
 Mayflower Theatre,Southampton,2300
 Rock City,Nottingham,2450
@@ -96,30 +96,30 @@ Symphony Hall,Birmingham,2262
 The Forum,Hertfordshire,2250
 Planet Ice Leeds Arena,Leeds,2200
 De Montfort Hall,Leicester,2200
-O2 Academy,Sheffield,2150
-NX Newcastle,2135
+O2 Academy Sheffield,Sheffield,2150
+NX, Newcastle,2135
 Lyceum Theatre,London,2096
 O2 Institute,Birmingham,2000
-Brentwood Centre,2000
+Brentwood Centre,Brentwood,2000
 Old Fruit Market,Glasgow,2000
 O2 Shepherds Bush Empire,London,2000
 Tobacco Dock,London,2000
 The Venue,London,2000
 Albert Hall,Manchester,2000
-O2 Academy Newcastle,2000
+O2 Academy Newcastle,Newcastle,2000
 Newport Leisure Centre,Newport,2000
 Eventim Olympia,Liverpool,1960
 Barbican Centre,London,2150
 Edinburgh Festival Theatre,Edinburgh,1915
 Winter Gardens,Margate,1900
 Brighton Dome,Brighton,3500
-Cambridge Corn Exchange,1849
+Cambridge Corn Exchange,Cambridge,1849
 Hull City Hall,Kingston upon Hull,3000
-O2 Academy Bournemouth,1,800
+O2 Academy Bournemouth,Bournemouth,1800
 The Baths Hall,Scunthorpe,1821
 Southampton Guildhall,Southampton,1749
 Sage Gateshead,Newcastle Gateshead,1700
-O2 Academy, Bristol,1650
+O2 Academy Bristol, Bristol,1650
 The Forum,Bath,1640
 Marble Factory,Bristol,1600
 Cardiff University Students Union Great Hall,Cardiff,1600
@@ -158,7 +158,7 @@ The Grand Theatre,Blackpool,1100
 SWX,Bristol,1100
 Lyceum Theatre,Sheffield,1068
 Old Vic,London,1067
-O2 Academy Oxford,1020
+O2 Academy Oxford,Oxford,1020
 Royal Shakespeare Theatre,Stratford-upon-Avon,1000
 Citadel Arts Centre,St Helens,1000
 Tramshed,Cardiff,1000
