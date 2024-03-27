@@ -1,3 +1,3 @@
-user,user,user@test.com,Password1!,user
-admin,admin,admin@test.com,Password1!,admin
-venue,venue,venue@test.com,Password1!,venue
+Alice,Admin,admin@test.com,Password1!,admin,,
+Bob,User,user@test.com,Password1!,user,,
+Carol,Venue,venue@test.com,Password1!,venue,True,1

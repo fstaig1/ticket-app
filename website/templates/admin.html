@@ -1,45 +1,270 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container text-center ">
+    <div style="height: 10px;"></div>
+    <h1 style="margin: auto; padding: 10px; display: table;">Admin Dashboard</h1>
+    <div style="height: 10px;"></div>
+    <div class="border"></div>
+    <div style="height: 10px;"></div>
+    <div class="row ">
+        <div class="col" style="text-align:center;">
+            <div class="row">
+                <form method="POST" action="/admin/view_all_users" class="col" >
+                    <div>
+                        <button class="btn btn-primary">View All Users</button>
+                    </div>
+                </form>
 
-    <h1 class="">Admin </h1>
-
-    <div>
-        <h2>Current Users</h2>
-        <div>
-            {% if current_users %}
-            <div>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Registered</th>
-                    <th>Logged in?</th>
-                </tr>
-                <tr>
-                    {% for user in current_users %}
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.firstname + " " + user.lastname }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                        {% if user.current_logged_in %}
-                            <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                        {% else %}
-                            <td>Not yet logged in</td>
-                        {% endif %}
-                    </tr>
-                    {% endfor %}
-            </table>
-        </div>
-        {% endif %}
-        <form method="POST" action="/view_all_users">
-            <div>
-                <button >View All Users</button>
+                <form method="POST" action="/admin/view_all_venues" class="col" >
+                    <div>
+                        <button class="btn btn-primary">View All Venues</button>
+                    </div>
+                </form>
             </div>
-        </form>
+            <div style="height: 10px;"></div>
+            <div class="row">
+                <form method="POST" action="/admin/view_all_artists" class="col">
+                    <div>
+                        <button class="btn btn-primary">View All Artists</button>
+                    </div>
+                </form>
+
+                <form method="POST" action="/admin/view_all_concerts" class="col">
+                    <div>
+                        <button class="btn btn-primary">View All Concerts</button>
+                    </div>
+                </form>
+            </div>
+            <div style="height: 10px;"></div>
+            <div class="border"></div>
+            <div style="height: 10px;"></div>
+                <h3>Create New User</h3>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div>
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form method="POST" action="/admin/create_user">
+                    {{ createUserForm.csrf_token() }}
+                    <div>
+                        {{ createUserForm.firstname(placeholder="First Name", class="form-control", required="required", type="text")}}
+                        {% for error in createUserForm.firstname.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.lastname(placeholder="Last Name", class="form-control", required="required", type="text")}}
+                        {% for error in createUserForm.lastname.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.email(placeholder="Email", class="form-control", required="required", type="email")}}
+                        {% for error in createUserForm.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.password(placeholder="Password", class="form-control", required="required", type="password")}}
+                        {% for error in createUserForm.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.confirm_password(placeholder="Confirm Password", class="form-control", required="required", type="password")}}
+                        {% for error in createUserForm.confirm_password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div> <!-- select role field-->
+                        <select class="form-select" id="role" name="role" required="" selected="user">
+                            <option value="user" >User</option>
+                            <option value="admin">Admin</option>
+                            <option value="venue">Venue</option>
+                        </select>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div> <!-- add if to check if role is venue-->
+                        {{ createUserForm.venueId(placeholder="Venue ID (only enter if role is venue)", class="form-control", type="number")}}
+                        {% for error in createUserForm.venueId.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div>
+                        {{ createUserForm.submit(type="submit",class="btn btn-primary center")}}
+                    </div>
+                </form>
+
+            <div style="height: 10px;"></div>
+            <div class="border"></div>
+            <div style="height: 10px;"></div>
+
+            <h3>Create New Venue</h3>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div>
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="/admin/create_venue">
+                {{ createVenueForm.csrf_token() }}
+                <div>
+                    {{ createVenueForm.name(placeholder="Name", class="form-control", required="required", type="text")}}
+                    {% for error in createVenueForm.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                <div style="height: 10px;"></div>
+                <div>
+                    {{ createVenueForm.location(placeholder="Location", class="form-control", required="required", type="text")}}
+                    {% for error in createVenueForm.location.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                <div style="height: 10px;"></div>
+                <div>
+                    {{ createVenueForm.capacity(placeholder="Capacity", class="form-control", required="required", type="nunber")}}
+                    {% for error in createVenueForm.capacity.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+                <div style="height: 10px;"></div>
+                <div>
+                    {{ createVenueForm.submit(type="submit",class="btn btn-primary center")}}
+                </div>
+            </form>
+
+        </div> <!-- end of column-->
+
+        <div class="col">
+            <div>
+                <div>
+                    {% if current_users %}
+                    <h2>All Users</h2>
+                    <div>
+                        <table class="table table-striped center table-hover">
+                            <tr style="text-align: start;font-weight: bold;">
+                                <th class="border">ID</th>
+                                <th class="border">Name</th>
+                                <th class="border">Email</th>
+                                <th class="border">Role</th>
+                                <th class="border">Registered</th>
+                                <th class="border">Last Logged In</th>
+                                <th class="border">Delete User</th>
+                            </tr>
+                            {% for user in current_users %}
+                            <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ user.id }}</td>
+                                    <td class="border">{{ user.firstname + " " + user.lastname }}</td>
+                                    <td class="border">{{ user.email }}</td>
+                                    <td class="border">{{ user.role }}</td>
+                                    <td class="border">{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                    {% if user.current_logged_in %}
+                                        <td class="border">{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                    {% else %}
+                                        <td class="border">Not yet logged in</td>
+                                    {% endif %}
+                                    <td class="border">
+                                        <form method="POST" action="/admin/delete_user">
+                                            <button name="remove_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>X</button>
+                                        </form>
+                                    </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    {% if venues %}
+                    <h2>All Venues</h2>
+                        <div>
+                            <table class="table table-striped center table-hover">
+                                <tr style="text-align: start;font-weight: bold;">
+                                    <th class="border">ID</th>
+                                    <th class="border">Name</th>
+                                    <th class="border">Location</th>
+                                    <th class="border">Capacity</th>
+                                </tr>
+                                {% for venue in venues %}
+                                <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ venue.id }}</td>
+                                    <td class="border">{{ venue.name }}</td>
+                                    <td class="border">{{ venue.location }}</td>
+                                    <td class="border">{{ venue.capacity }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    {% if artists %}
+                    <h2>All Artists</h2>
+                        <div>
+                            <table class="table table-striped center table-hover">
+                                <tr style="text-align: start;font-weight: bold;">
+                                    <th class="border">ID</th>
+                                    <th class="border">Name</th>
+                                </tr>
+                                {% for artist in artists %}
+                                <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ artist.id }}</td>
+                                    <td class="border">{{ artist.name }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    {% if concerts %}
+                    <h2>All Concerts</h2>
+                        <div>
+                            <table class="table table-striped center table-hover">
+                                <tr style="text-align: start;font-weight: bold; ">
+                                    <th class="border">Concert ID</th>
+                                    <th class="border">Artist ID</th>
+                                    <th class="border">Artist Name</th>
+                                    <th class="border">Venue ID</th>
+                                    <th class="border">Venue Name</th>
+                                    <th class="border">Ticket Price</th>
+                                </tr>
+                                {% for concert in concerts %}
+                                <tr style="text-align: start;">
+                                    <td class="border" style="font-weight: bold;">{{ concert.id }}</td>
+                                    <td class="border">{{ concert.artistId }}</td>
+                                    <td class="border">{{ concert.artistName }}</td>
+                                    <td class="border">{{ concert.venueId }}</td>
+                                    <td class="border">{{ concert.venueName }}</td>
+                                    <td class="border">£{{ concert.ticketPrice }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

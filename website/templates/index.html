@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <h1 class=""> Shitty Ticket App</h1>
-    <h4 class=""> I'll be in my grave before I make a style sheet</h4>
-
+<div class="position-absolute top-50 start-50 translate-middle container text-center ">
+    <h1>Untitled Ticket App</h1>
+    <a>I have to make the ticket purchasing now which im dreading so much im going to go to tesco.</a>
     {% if not current_user.is_authenticated %}
-        <!-- TODO make these buttons-->
-        <a href="{{ url_for('users.register') }}">Register</button>
-        <a href="{{ url_for('users.login') }}">Login</button>
-  
+    <div style="margin: auto; padding: 10px; display: table;">
+        <button type="button" class="btn btn-primary"  onclick="window.location.href=`{{ url_for('users.login') }}`;">Login</button>
+        <button type="button" class="btn btn-primary" style="margin-left:20px;" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register</button>
+    </div>
     {% endif %}
-    {% if current_user.is_authenticated %}
-        <h4>{{ "Welcome back " + current_user.firstname +"!" }}</h4>
-    {% endif %}
+</div>
+
 {% endblock %}
