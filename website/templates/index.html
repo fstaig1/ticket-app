@@ -6,8 +6,8 @@
     <a>I have to make the ticket purchasing now which im dreading so much im going to go to tesco.</a>
     {% if not current_user.is_authenticated %}
     <div style="margin: auto; padding: 10px; display: table;">
-        <button type="button" class="btn btn-primary"  onclick="window.location.href=`{{ url_for('users.login') }}`;">Login</button>
-        <button type="button" class="btn btn-primary" style="margin-left:20px;" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register</button>
+        <button type="button" class="btn btn-primary"  style="margin-left:20px;" onclick="window.location.href=`{{ url_for('users.login') }}`;">Login</button>
     </div>
     {% endif %}
 </div>

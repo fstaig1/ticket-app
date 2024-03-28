@@ -25,9 +25,6 @@ class User(db.Model, UserMixin):
         return Venue.query.filter_by(id=self.venueId).first()
 
     def delete(self):
-        if self.venueManager:
-            self.get_venue().managerId = None
-
         db.session.delete(self)
         db.session.commit()
 
@@ -95,6 +92,12 @@ class Concert(db.Model):
     date = db.Column(db.DateTime, nullable=True)
     ticketPrice = db.Column(db.Float, nullable=False)
 
+    def create_ticket(self, ownerId):
+        ticket = Ticket(ownerId=ownerId,
+                        concertId=self.id)
+        db.session.add(ticket)
+        db.session.commit()
+
     def __init__(self, artistId, artistName, venueId, venueName, venueLocation, ticketPrice, date):
         self.artistId = artistId
         self.artistName = artistName
@@ -103,3 +106,21 @@ class Concert(db.Model):
         self.venueLocation = venueLocation
         self.ticketPrice = ticketPrice
         self.date = date
+
+
+class Ticket(db.Model):
+    __tablename__ = 'tickets'
+    id = db.Column(db.Integer, primary_key=True)
+
+    ownerId = db.Column(db.Integer, db.ForeignKey(User.id))
+    concertId = db.Column(db.Integer, db.ForeignKey(Concert.id))
+
+    def get_concert(self):
+        return Concert.query.filter_by(id=self.concertId).first()
+
+    def get_owner(self):
+        return User.query.filter_by(id=self.ownerId).first()
+
+    def __init__(self, ownerId, concertId):
+        self.ownerId = ownerId
+        self.concertId = concertId
