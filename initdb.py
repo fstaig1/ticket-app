@@ -40,22 +40,25 @@ def init_db():
 
     for _ in range(10):
         artist = artists[randint(1, len(artists) - 1)]
-        venues[0].create_Concert(artistId=artist.id,
-                                 artistName=artist.name,
-                                 ticketPrice=randint(10, 100),
-                                 date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+        concert = venues[0].create_Concert(artistId=artist.id,
+                                           artistName=artist.name,
+                                           ticketPrice=randint(10, 100),
+                                           date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+        concert.create_ticket(ownerId=randint(1, 3))
 
     for _ in range(10):
         venue = venues[randint(1, len(venues) - 1)]
-        venue.create_Concert(artistId=artists[2191].id,
-                             artistName=artists[2191].name,
-                             ticketPrice=randint(10, 100),
-                             date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+        concert = venue.create_Concert(artistId=artists[2191].id,
+                                       artistName=artists[2191].name,
+                                       ticketPrice=randint(10, 100),
+                                       date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+        concert.create_ticket(ownerId=randint(1, 3))
 
     for _ in range(50):
         artist = artists[randint(1, len(artists) - 1)]
         venue = venues[randint(1, len(venues) - 1)]
-        venue.create_Concert(artistId=artist.id,
-                             artistName=artist.name,
-                             ticketPrice=randint(10, 100),
-                             date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+        concert = venue.create_Concert(artistId=artist.id,
+                                       artistName=artist.name,
+                                       ticketPrice=randint(10, 100),
+                                       date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+        concert.create_ticket(ownerId=randint(1, 3))

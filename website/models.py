@@ -60,14 +60,16 @@ class Venue(db.Model):
     capacity = db.Column(db.Integer, nullable=False)
 
     def create_Concert(self, artistId, artistName, ticketPrice, date):
-        db.session.add(Concert(artistId=artistId,
-                               artistName=artistName,
-                               venueId=self.id,
-                               venueName=self.name,
-                               venueLocation=self.location,
-                               ticketPrice=ticketPrice,
-                               date=date))
+        concert = Concert(artistId=artistId,
+                          artistName=artistName,
+                          venueId=self.id,
+                          venueName=self.name,
+                          venueLocation=self.location,
+                          ticketPrice=ticketPrice,
+                          date=date)
+        db.session.add(concert)
         db.session.commit()
+        return concert
 
     def get_manager(self):
         return User.query.filter_by(id=self.managerId).first()

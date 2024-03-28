@@ -1,5 +1,5 @@
-from flask import render_template, Blueprint, redirect, url_for, flash
-# from flask_login import login_required, current_user
+from flask import render_template, Blueprint, redirect, url_for, flash, request
+from flask_login import login_required, current_user
 from ..models import User, Venue, Concert, Artist
 # from main import requires_roles
 # from .. import db
@@ -40,6 +40,10 @@ def sort_by_price():
     return render_template('browse.html', concerts=concerts)
 
 
-@shop_blueprint.route('/browse/ticket_page', methods=['POST'])
+@shop_blueprint.route('/purchase', methods=['POST'])
+@login_required
 def ticket_page():
-    return render_template('purchase.html')
+    concert = Concert.query.filter_by(id=request.form.get("purchase_button")).first()
+    user = User.query.filter_by(id=current_user.id).first()
+    print(concert)
+    return render_template('purchase.html', concert=concert)

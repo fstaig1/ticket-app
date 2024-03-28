@@ -6,3 +6,5 @@
 /website/venue/__pycache__
 /website/shop/__pycache__
 *.pyc
+*.pyc
+website/shop/__pycache__/views.cpython-312.pyc
