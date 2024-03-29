@@ -33,7 +33,7 @@
 
                 </ul>
                 <ul class="navbar-nav ms-auto flex-nowrap">
-                {% if current_user.is_authenticated and current_user.role == "user" %}
+                {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a href="{{ url_for('users.profile') }}" class="nav-link"> Profile</a>
                 </li>

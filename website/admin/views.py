@@ -62,10 +62,14 @@ def delete_user():
 def create_user():
     createUserForm = CreateUserForm()
     if createUserForm.validate_on_submit():
-        if createUserForm.venueId.data:
+        if createUserForm.venueId.data and createUserForm.role.data == 'venue':
             venueManager = True
+            venueId = createUserForm.venueId.data
+        elif not createUserForm.venueId.data and createUserForm.role.data == 'venue':
+            flash('Venue ID required for venue manager role.')
         else:
             venueManager = False
+            venueId = None
 
         newUser = User(firstname=createUserForm.firstname.data,
                        lastname=createUserForm.lastname.data,
@@ -73,13 +77,13 @@ def create_user():
                        password=createUserForm.password.data,
                        role=createUserForm.role.data,
                        venueManager=venueManager,
-                       venueId=createUserForm.venueId.data)
+                       venueId=venueId)
 
         db.session.add(newUser)
         db.session.commit()
     else:
         for i in createUserForm.errors:
-            flash(f'{i}')
+            flash(f'{createUserForm.errors[i][0]}')
     return redirect(url_for('admin.admin'))
 
 
@@ -95,6 +99,6 @@ def create_venue():
         db.session.add(newVenue)
         db.session.commit()
     else:
-        for i in createUserForm.errors:
-            flash(f'{i}')
+        for i in createVenueForm.errors:
+            flash(f'{createVenueForm.errors[i][0]}')
     return redirect(url_for('admin.admin'))

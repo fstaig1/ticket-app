@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, Blueprint
 from flask_login import login_user, logout_user, current_user, login_required  # noqa: F401
 from .forms import RegisterForm, LoginForm
-from website.models import User
+from website.models import User, Ticket
 from .. import db
 from datetime import datetime
 from werkzeug.security import check_password_hash
@@ -60,9 +60,10 @@ def login():
 
 @users_blueprint.route('/profile')
 @login_required
-@requires_roles('user')
 def profile():
-    return render_template('profile.html', current_user=User.query.filter_by(id=current_user.id).first())
+    user = User.query.filter_by(id=current_user.id).first()
+    tickets = Ticket.query.filter_by(ownerId=current_user.id).all()
+    return render_template('profile.html', current_user=user, tickets=tickets)
 
 
 @users_blueprint.route('/logout')

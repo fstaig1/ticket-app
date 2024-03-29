@@ -5,6 +5,17 @@
     <div style="height: 10px;"></div>
     <h1 style="margin: auto; padding: 10px; display: table;">Admin Dashboard</h1>
     <div style="height: 10px;"></div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="height: 10px;"></div>
+            <div class="border"></div>
+            <div style="height: 10px;"></div>
+            <div class="text-bg-danger rounded">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div style="height: 10px;"></div>
     <div class="border"></div>
     <div style="height: 10px;"></div>
     <div class="row ">
@@ -40,13 +51,6 @@
             <div class="border"></div>
             <div style="height: 10px;"></div>
                 <h3>Create New User</h3>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <div>
-                            {{ messages[0] }}
-                        </div>
-                    {% endif %}
-                {% endwith %}
                 <form method="POST" action="/admin/create_user">
                     {{ createUserForm.csrf_token() }}
                     <div>
@@ -109,13 +113,6 @@
             <div style="height: 10px;"></div>
 
             <h3>Create New Venue</h3>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div>
-                        {{ messages[0] }}
-                    </div>
-                {% endif %}
-            {% endwith %}
             <form method="POST" action="/admin/create_venue">
                 {{ createVenueForm.csrf_token() }}
                 <div>
@@ -153,7 +150,7 @@
                     <h2>All Users</h2>
                     <div>
                         <table class="table table-striped center table-hover">
-                            <tr style="text-align: start;font-weight: bold;">
+                            <tr class="fw-medium text-start">
                                 <th class="border">ID</th>
                                 <th class="border">Name</th>
                                 <th class="border">Email</th>
@@ -163,7 +160,7 @@
                                 <th class="border">Delete User</th>
                             </tr>
                             {% for user in current_users %}
-                            <tr style="text-align: start;">
+                            <tr class="text-start">
                                     <td class="border" style="font-weight: bold;">{{ user.id }}</td>
                                     <td class="border">{{ user.firstname + " " + user.lastname }}</td>
                                     <td class="border">{{ user.email }}</td>
@@ -193,14 +190,14 @@
                     <h2>All Venues</h2>
                         <div>
                             <table class="table table-striped center table-hover">
-                                <tr style="text-align: start;font-weight: bold;">
+                                <tr class="fw-medium text-start">
                                     <th class="border">ID</th>
                                     <th class="border">Name</th>
                                     <th class="border">Location</th>
                                     <th class="border">Capacity</th>
                                 </tr>
                                 {% for venue in venues %}
-                                <tr style="text-align: start;">
+                                <tr class="text-start">
                                     <td class="border" style="font-weight: bold;">{{ venue.id }}</td>
                                     <td class="border">{{ venue.name }}</td>
                                     <td class="border">{{ venue.location }}</td>
@@ -219,12 +216,12 @@
                     <h2>All Artists</h2>
                         <div>
                             <table class="table table-striped center table-hover">
-                                <tr style="text-align: start;font-weight: bold;">
+                                <tr class="fw-medium text-start">
                                     <th class="border">ID</th>
                                     <th class="border">Name</th>
                                 </tr>
                                 {% for artist in artists %}
-                                <tr style="text-align: start;">
+                                <tr class="text-start">
                                     <td class="border" style="font-weight: bold;">{{ artist.id }}</td>
                                     <td class="border">{{ artist.name }}</td>
                                 </tr>
@@ -241,7 +238,7 @@
                     <h2>All Concerts</h2>
                         <div>
                             <table class="table table-striped center table-hover">
-                                <tr style="text-align: start;font-weight: bold; ">
+                                <tr class="fw-medium text-start">
                                     <th class="border">Concert ID</th>
                                     <th class="border">Artist ID</th>
                                     <th class="border">Artist Name</th>
@@ -250,7 +247,7 @@
                                     <th class="border">Ticket Price</th>
                                 </tr>
                                 {% for concert in concerts %}
-                                <tr style="text-align: start;">
+                                <tr class="text-start">
                                     <td class="border" style="font-weight: bold;">{{ concert.id }}</td>
                                     <td class="border">{{ concert.artistId }}</td>
                                     <td class="border">{{ concert.artistName }}</td>
