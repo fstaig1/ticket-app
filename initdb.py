@@ -48,8 +48,8 @@ def init_db():
 
     for _ in range(10):
         venue = venues[randint(1, len(venues) - 1)]
-        concert = venue.create_Concert(artistId=artists[2191].id,
-                                       artistName=artists[2191].name,
+        concert = venue.create_Concert(artistId=artists[2187].id,
+                                       artistName=artists[2187].name,
                                        ticketPrice=randint(10, 100),
                                        date=datetime(2025, randint(1, 12), randint(1, 28), 19))
         concert.create_ticket(ownerId=randint(1, 3))

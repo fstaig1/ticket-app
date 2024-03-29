@@ -4,7 +4,7 @@
 
 <div class="container text-center ">
     <div style="height: 10px;"></div>
-    <h1 style="margin: auto; padding: 10px; display: table;">Venue Dashboard</h1>
+    <h1>Venue Dashboard</h1>
     <div style="height: 10px;"></div>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -20,20 +20,21 @@
     <div style="height: 10px;"></div>
     <div class="border"></div>
     <div style="height: 10px;"></div>
-        <div class="col" style="text-align:center;">
+    <div class="row">
+        <div class="col text-center">
             <h3>Manager Information</h3>
             <table class="table table-striped table-hover">
                 <tr>
-                    <th class="border" style="text-align: end;"  >ID </th>
-                    <td class="border" style="text-align: start;">{{ current_user.id }}</td>
-                    </tr>
-                <tr>
-                    <th class="border" style="text-align: end;">Name</th>
-                    <td class="border" style="text-align: start;">{{ current_user.firstname + " " + current_user.lastname }}</td>
+                    <th class="border text-end">ID </th>
+                    <td class="border text-start">{{ current_user.id }}</td>
                 </tr>
                 <tr>
-                    <th class="border" style="text-align: end;"  >Email</th>
-                    <td class="border" style="text-align: start;">{{ current_user.email }}</td>
+                    <th class="border text-end">Name</th>
+                    <td class="border text-start" >{{ current_user.firstname + " " + current_user.lastname }}</td>
+                </tr>
+                <tr>
+                    <th class="border text-end">Email</th>
+                    <td class="border text-start">{{ current_user.email }}</td>
                 </tr>
             </table>
 
@@ -74,30 +75,30 @@
             </div>
         </div>
 
-        <div class="col" style="text-align:center;">
+        <div class="col text-center">
             <h3>Venue Information</h3>
             <table class="table table-striped table-hover">
                 <tr>
-                    <th class="border" style="text-align: end;"  >ID</th>
-                    <td class="border" style="text-align: start;">{{ venue.id }}</td>
+                    <th class="border text-end  ">ID</th>
+                    <td class="border text-start">{{ venue.id }}</td>
                 </tr>
                 <tr>
-                    <th class="border" style="text-align: end;"  >Name</th>
-                    <td class="border" style="text-align: start;">{{ venue.name }}</td>
+                    <th class="border text-end">Name</th>
+                    <td class="border text-start">{{ venue.name }}</td>
                 </tr>
                 <tr>
-                    <th class="border" style="text-align: end;"  >Location</th>
-                    <td class="border" style="text-align: start;">{{ venue.location }}</td>
+                    <th class="border text-end">Location</th>
+                    <td class="border text-start">{{ venue.location }}</td>
                 </tr>
                 <tr>
-                    <th class="border" style="text-align: end;"  >Capacity</th>
-                    <td class="border" style="text-align: start;">{{ venue.capacity }}</td>
+                    <th class="border text-end">Capacity</th>
+                    <td class="border text-start">{{ venue.capacity }}</td>
                 </tr>
                 <tr>
                     <th class="border">Concerts</th>
                     <td class="border">
                         <table class="table table-striped table-hover" >
-                            <tr style="font-weight: bold;">
+                            <tr class="fw-medium">
                                 <td class="border" >ID</td>
                                 <td class="border">Artist ID</td>
                                 <td class="border">Artist Name</td>
@@ -106,7 +107,7 @@
                             </tr>
                             {% for concert in concerts %}
                             <tr>
-                                <td class="border" style="font-weight: bold;">{{ concert.id }}</td>
+                                <td class="border fw-medium">{{ concert.id }}</td>
                                 <td class="border">{{ concert.artistId }}</td>
                                 <td class="border">{{ concert.artistName }}</td>
                                 <td class="border">{{ concert.date }}</td>

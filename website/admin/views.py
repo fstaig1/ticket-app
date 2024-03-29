@@ -51,8 +51,35 @@ def view_all_concerts():
 @login_required
 @requires_roles('admin')
 def delete_user():
-    user = User.query.filter_by(id=request.form.get("remove_button")).first()
+    user = User.query.filter_by(id=request.form.get("delete_user_button")).first()
     user.delete()
+    return redirect(url_for('admin.admin'))
+
+
+@admin_blueprint.route('/admin/delete_venue', methods=['POST'])
+@login_required
+@requires_roles('admin')
+def delete_venue():
+    venue = Venue.query.filter_by(id=request.form.get("delete_venue_button")).first()
+    venue.delete()
+    return redirect(url_for('admin.admin'))
+
+
+@admin_blueprint.route('/admin/delete_artist', methods=['POST'])
+@login_required
+@requires_roles('admin')
+def delete_artist():
+    artist = Artist.query.filter_by(id=request.form.get("delete_artist_button")).first()
+    artist.delete()
+    return redirect(url_for('admin.admin'))
+
+
+@admin_blueprint.route('/admin/delete_concert', methods=['POST'])
+@login_required
+@requires_roles('admin')
+def delete_concert():
+    concert = Concert.query.filter_by(id=request.form.get("delete_concert_button")).first()
+    concert.delete()
     return redirect(url_for('admin.admin'))
 
 

@@ -5,7 +5,6 @@ from website.models import User, Ticket
 from .. import db
 from datetime import datetime
 from werkzeug.security import check_password_hash
-from main import requires_roles
 
 users_blueprint = Blueprint('users', __name__, template_folder='/templates')
 

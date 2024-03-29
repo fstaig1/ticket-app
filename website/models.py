@@ -25,6 +25,10 @@ class User(db.Model, UserMixin):
         return Venue.query.filter_by(id=self.venueId).first()
 
     def delete(self):
+        tickets = Ticket.query.filter_by(ownerId=self.id).all()
+        for ticket in tickets:
+            ticket.delete()
+
         db.session.delete(self)
         db.session.commit()
 
@@ -46,7 +50,13 @@ class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
-    concerts = db.relationship('Concert', backref='artists')
+    def delete(self):
+        concerts = Concert.query.filter_by(artistId=self.id).all()
+        for concert in concerts:
+            concert.delete()
+
+        db.session.delete(self)
+        db.session.commit()
 
     def __init__(self, name):
         self.name = name
@@ -71,8 +81,13 @@ class Venue(db.Model):
         db.session.commit()
         return concert
 
-    def get_manager(self):
-        return User.query.filter_by(id=self.managerId).first()
+    def delete(self):
+        concerts = Concert.query.filter_by(venueId=self.id).all()
+        for concert in concerts:
+            concert.delete()
+
+        db.session.delete(self)
+        db.session.commit()
 
     def __init__(self, name, location, capacity):
         self.name = name
@@ -100,6 +115,14 @@ class Concert(db.Model):
         db.session.add(ticket)
         db.session.commit()
 
+    def delete(self):
+        tickets = Ticket.query.filter_by(concertId=self.artistId).all()
+        for ticket in tickets:
+            ticket.delete()
+
+        db.session.delete(self)
+        db.session.commit()
+
     def __init__(self, artistId, artistName, venueId, venueName, venueLocation, ticketPrice, date):
         self.artistId = artistId
         self.artistName = artistName
@@ -122,6 +145,10 @@ class Ticket(db.Model):
 
     def get_owner(self):
         return User.query.filter_by(id=self.ownerId).first()
+
+    def delete(self):  # FIXME not deleting??
+        db.session.delete(self)
+        db.session.commit()
 
     def __init__(self, ownerId, concertId):
         self.ownerId = ownerId
