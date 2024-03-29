@@ -4,6 +4,7 @@ from ..models import User, Venue, Concert, Artist
 # from main import requires_roles
 # from .. import db
 # from datetime import datetime
+from .forms import PurchaseInfoForm
 from sqlalchemy import asc
 
 shop_blueprint = Blueprint('shop', __name__, template_folder='/templates')
@@ -45,5 +46,5 @@ def sort_by_price():
 def ticket_page():
     concert = Concert.query.filter_by(id=request.form.get("purchase_button")).first()
     user = User.query.filter_by(id=current_user.id).first()
-    print(concert)
-    return render_template('purchase.html', concert=concert)
+    form = PurchaseInfoForm()
+    return render_template('purchase.html', concert=concert, user=user, form=form)
