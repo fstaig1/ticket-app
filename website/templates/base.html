@@ -28,40 +28,45 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url_for('shop.browse') }}" class="nav-link"> Browse</a>
+                    <a href="{{ url_for('shop.browse') }}" class="nav-link">Browse</a>
                 </li>
 
-                </ul>
-                <ul class="navbar-nav ms-auto flex-nowrap">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{{ url_for('users.profile') }}" class="nav-link"> Profile</a>
+                    <a href="{{ url_for('users.profile') }}" class="nav-link">Profile</a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ms-auto flex-nowrap">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{{ url_for('shop.cart') }}" class="nav-link">View Cart</a>
                 </li>
                 {% endif %}
 
                 {% if current_user.is_authenticated and current_user.role == "admin" %}
                 <li class="nav-item">
-                    <a href="{{ url_for('admin.admin') }}" class="nav-link"> Admin Dashboard</a>
+                    <a href="{{ url_for('admin.admin') }}" class="nav-link">Admin Dashboard</a>
                 </li>
                 {% endif %}
 
                 {% if current_user.is_authenticated and current_user.role == "venue" %}
                 <li class="nav-item">
-                    <a href="{{ url_for('venue.venue') }}" class="nav-link"> Venue Dashboard</a>
+                    <a href="{{ url_for('venue.venue') }}" class="nav-link">Venue Dashboard</a>
                 </li>
                 {% endif %}
                 {% if not current_user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{{ url_for('users.register') }}" class="nav-link"> Register</a>
+                    <a href="{{ url_for('users.register') }}" class="nav-link">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url_for('users.login') }}" class="nav-link"> Login</a>
+                    <a href="{{ url_for('users.login') }}" class="nav-link">Login</a>
                 </li>
                 {% endif %}
 
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{{ url_for('users.logout') }}" class="nav-link"> Logout</a>
+                    <a href="{{ url_for('users.logout') }}" class="nav-link">   Logout</a>
                 </li>
                 {% endif %}
             </ul>

@@ -109,11 +109,13 @@ class Concert(db.Model):
     date = db.Column(db.DateTime, nullable=True)
     ticketPrice = db.Column(db.Float, nullable=False)
 
-    def create_ticket(self, ownerId):
+    def create_ticket(self, ownerId, purchased):
         ticket = Ticket(ownerId=ownerId,
+                        purchased=purchased,
                         concertId=self.id)
         db.session.add(ticket)
         db.session.commit()
+        return ticket
 
     def delete(self):
         tickets = Ticket.query.filter_by(concertId=self.artistId).all()
@@ -139,6 +141,7 @@ class Ticket(db.Model):
 
     ownerId = db.Column(db.Integer, db.ForeignKey(User.id))
     concertId = db.Column(db.Integer, db.ForeignKey(Concert.id))
+    purchased = db.Column(db.Boolean, nullable=False)
 
     def get_concert(self):
         return Concert.query.filter_by(id=self.concertId).first()
@@ -150,6 +153,7 @@ class Ticket(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(self, ownerId, concertId):
+    def __init__(self, ownerId, concertId, purchased):
         self.ownerId = ownerId
         self.concertId = concertId
+        self.purchased = purchased

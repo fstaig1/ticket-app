@@ -22,7 +22,7 @@ def init_db():
                                 password=str(data[3]),
                                 role=str(data[4]),
                                 venueManager=bool(data[5]),
-                                venueId=data[6],
+                                venueId=data[6]
                                 ))
         db.session.commit()
 
@@ -31,7 +31,8 @@ def init_db():
             data = line.split("\n")[0].split(",")
             db.session.add(Venue(name=str(data[0]),
                                  location=str(data[1]),
-                                 capacity=int(data[-1])))
+                                 capacity=int(data[-1]))
+                           )
 
         db.session.commit()
 
@@ -44,7 +45,7 @@ def init_db():
                                            artistName=artist.name,
                                            ticketPrice=randint(10, 100),
                                            date=datetime(2025, randint(1, 12), randint(1, 28), 19))
-        concert.create_ticket(ownerId=randint(1, 3))
+        concert.create_ticket(ownerId=randint(1, 3), purchased=True)
 
     for _ in range(10):
         venue = venues[randint(1, len(venues) - 1)]
@@ -52,7 +53,7 @@ def init_db():
                                        artistName=artists[2187].name,
                                        ticketPrice=randint(10, 100),
                                        date=datetime(2025, randint(1, 12), randint(1, 28), 19))
-        concert.create_ticket(ownerId=randint(1, 3))
+        concert.create_ticket(ownerId=randint(1, 3), purchased=True)
 
     for _ in range(50):
         artist = artists[randint(1, len(artists) - 1)]
@@ -61,4 +62,4 @@ def init_db():
                                        artistName=artist.name,
                                        ticketPrice=randint(10, 100),
                                        date=datetime(2025, randint(1, 12), randint(1, 28), 19))
-        concert.create_ticket(ownerId=randint(1, 3))
+        concert.create_ticket(ownerId=randint(1, 3), purchased=True)

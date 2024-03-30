@@ -61,7 +61,9 @@ def login():
 @login_required
 def profile():
     user = User.query.filter_by(id=current_user.id).first()
-    tickets = Ticket.query.filter_by(ownerId=current_user.id).all()
+    tickets = Ticket.query.\
+        filter_by(ownerId=current_user.id).\
+        filter_by(purchased=True).all()
     return render_template('profile.html', current_user=user, tickets=tickets)
 
 

@@ -1,8 +1,8 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from ..models import User, Venue, Concert, Artist
+from ..models import User, Venue, Concert, Artist, Ticket
 # from main import requires_roles
-# from .. import db
+from .. import db
 # from datetime import datetime
 from .forms import PurchaseInfoForm
 from sqlalchemy import asc
@@ -41,10 +41,19 @@ def sort_by_price():
     return render_template('browse.html', concerts=concerts)
 
 
-@shop_blueprint.route('/purchase', methods=['POST'])
+@shop_blueprint.route('/cart', methods=['GET', 'POST'])
 @login_required
-def ticket_page():
+def cart():
+    cart = Ticket.query.\
+        filter_by(ownerId=current_user.id).\
+        filter_by(purchased=False).all()
+    return render_template('cart.html', user=current_user, cart=cart)
+
+
+@shop_blueprint.route('/add_to_cart', methods=['POST'])
+@login_required
+def add_to_cart():
     concert = Concert.query.filter_by(id=request.form.get("purchase_button")).first()
-    user = User.query.filter_by(id=current_user.id).first()
-    form = PurchaseInfoForm()
-    return render_template('purchase.html', concert=concert, user=user, form=form)
+    concert.create_ticket(ownerId=current_user.id,
+                          purchased=False)
+    return redirect(url_for('shop.cart'))

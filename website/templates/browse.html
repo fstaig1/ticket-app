@@ -52,7 +52,7 @@
                 <td class="border">{{ concert.venueLocation }}</td>
                 <td class="border">£{{ concert.ticketPrice }}0</td>
                 <td class="border">
-                    <form method="POST" action="/purchase">
+                    <form method="POST" action="/add_to_cart">
                         <button name="purchase_button" class="btn btn-success" value="{{ concert.id }}">Buy</button>
                     </form>
                 </td>
