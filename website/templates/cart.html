@@ -38,11 +38,14 @@
     <div style="height: 10px;"></div>
     <div class="border"></div>
     <div style="height: 10px;"></div>
-    <div class="text-center">
-        <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy {% if cart %}more {% endif %}Tickets</button>
+    <div class="text-center row">
+        <div class="col"></div>
+        <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy {% if cart %}more {% endif %}Tickets</button>
         {% if cart %}
-        <button type="button" class="btn btn-primary">Purchase Cart</button>
+        <div class="col"></div>
+        <button type="button" class="btn btn-primary col-3">Purchase Cart</button>
         {% endif %}
+        <div class="col"></div>
     </div>
 </div>
 
