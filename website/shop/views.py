@@ -57,3 +57,12 @@ def add_to_cart():
     concert.create_ticket(ownerId=current_user.id,
                           purchased=False)
     return redirect(url_for('shop.cart'))
+
+
+@shop_blueprint.route('/remove_from_cart', methods=['POST'])
+@login_required
+def remove_from_cart():
+    ticket = Ticket.query.filter_by(id=request.form.get("remove_from_cart_button")).first()
+    ticket.delete()
+    return redirect(url_for('shop.cart'))
+
