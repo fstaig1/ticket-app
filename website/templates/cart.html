@@ -54,6 +54,8 @@
         {% if cart %}
         <div class="col"></div>
         <button type="button" class="btn btn-success col-3" onclick="window.location.href=`{{ url_for('shop.purchase') }}`;">Purchase Cart</button>
+        <div class="col"></div>
+        <button type="button" class="btn btn-danger col-3" onclick="window.location.href=`{{ url_for('shop.empty_cart') }}`;">Empty Cart</button>
         {% endif %}
         <div class="col"></div>
     </div>

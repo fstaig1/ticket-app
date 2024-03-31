@@ -56,7 +56,8 @@ def sort_by_price():
 def cart():
     cart = Ticket.query.\
         filter_by(ownerId=current_user.id).\
-        filter_by(purchased=False).all()
+        filter_by(purchased=False).\
+        all()
     return render_template('cart.html', user=current_user, cart=cart)
 
 
@@ -77,6 +78,20 @@ def remove_from_cart():
     return redirect(url_for('shop.cart'))
 
 
+@shop_blueprint.route('/empty_cart', methods=['GET', 'POST'])
+@login_required
+def empty_cart():
+    cart = Ticket.query.\
+        filter_by(ownerId=current_user.id).\
+        filter_by(purchased=False).\
+        all()
+
+    for ticket in cart:
+        ticket.delete()
+
+    return redirect(url_for('shop.cart'))
+
+
 @shop_blueprint.route('/buy_additional_ticket', methods=['POST'])
 @login_required
 def buy_additional_ticket():
@@ -90,4 +105,10 @@ def buy_additional_ticket():
 @shop_blueprint.route('/purchase', methods=['GET', 'POST'])
 @login_required
 def purchase():
-    return render_template('purchase.html')
+    cart = Ticket.query.\
+        filter_by(ownerId=current_user.id).\
+        filter_by(purchased=False).all()
+    totalPrice = 0
+    for item in cart:
+        totalPrice += item.get_concert().ticketPrice
+    return render_template('purchase.html', user=current_user, cart=cart, totalPrice=totalPrice)
