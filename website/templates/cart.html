@@ -1,64 +1,63 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+  <div class="container">
     <div style="height: 10px;"></div>
     <h1 class="text-center">Your Cart</h1>
     <div class="border"></div>
     <div style="height: 25px;"></div>
     {% if cart %}
-    <table class="table table-striped table-hover">
+      <table class="table table-striped table-hover">
         <tr class="fw-medium text-start table-active">
-            <th class="border">Item No.</th>
-            <th class="border">Artist Name</th>
-            <th class="border">Venue</th>
-            <th class="border">Date</th>
-            <th class="border">Price</th>
-            <th class="border">Buy Another?</th>
-            <th class="border">Remove from Cart</th>
+          <th class="border">Item No.</th>
+          <th class="border">Artist Name</th>
+          <th class="border">Venue</th>
+          <th class="border">Date</th>
+          <th class="border">Price</th>
+          <th class="border">Buy Another?</th>
+          <th class="border">Remove from Cart</th>
         </tr>
         {% for item in cart %}
-        <tr>
+          <tr>
             <td class="border">{{ cart.index(item) + 1 }}</td>
             <td class="border">{{ item.get_concert().artistName }}</td>
             <td class="border">{{ item.get_concert().venueName }}, {{ item.get_concert().venueLocation }}</td>
             <td class="border">{{ item.get_concert().date }}</td>
             <td class="border">£{{ item.get_concert().ticketPrice }}0</td>
             <td class="border text-center">
-                {% if item.get_concert().availableTickets > 0 %}
+              {% if item.get_concert().availableTickets > 0 %}
                 <form method="POST" action="/buy_additional_ticket">
-                    <button name="buy_additional_ticket_button" class="btn btn-success" value="{{ item.id }}" >+1</button>
+                  <button name="buy_additional_ticket_button" class="btn btn-success" value="{{ item.id }}">+1</button>
                 </form>
-                {% else %}
+              {% else %}
                 <button name="buy_additional_ticket_button" class="btn btn-success" value="{{ item.id }}" disabled>Sold Out</button>
-                {% endif %}
+              {% endif %}
             </td>
             <td class="border text-center">
-                <form method="POST" action="/remove_from_cart">
-                    <button name="remove_from_cart_button" class="btn btn-danger" value="{{ item.id }}">X</button>
-                </form>
+              <form method="POST" action="/remove_from_cart">
+                <button name="remove_from_cart_button" class="btn btn-danger" value="{{ item.id }}">X</button>
+              </form>
             </td>
-        </tr>
+          </tr>
         {% endfor %}
-    </table>
+      </table>
     {% else %}
-    <h3 class="text-center">Your Cart is empty.</h3>
-    <div style="height: 10px;"></div>
+      <h3 class="text-center">Your Cart is empty.</h3>
+      <div style="height: 10px;"></div>
     {% endif %}
     <div style="height: 10px;"></div>
     <div class="border"></div>
     <div style="height: 20px;"></div>
     <div class="text-center row">
-        <div class="col"></div>
-        <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy {% if cart %}more {% endif %}Tickets</button>
-        {% if cart %}
+      <div class="col"></div>
+      <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy{% if cart %}more {% endif %}Tickets</button>
+      {% if cart %}
         <div class="col"></div>
         <button type="button" class="btn btn-success col-3" onclick="window.location.href=`{{ url_for('shop.purchase') }}`;">Purchase Cart</button>
         <div class="col"></div>
         <button type="button" class="btn btn-danger col-3" onclick="window.location.href=`{{ url_for('shop.empty_cart') }}`;">Empty Cart</button>
-        {% endif %}
-        <div class="col"></div>
+      {% endif %}
+      <div class="col"></div>
     </div>
-</div>
-
+  </div>
 {% endblock %}

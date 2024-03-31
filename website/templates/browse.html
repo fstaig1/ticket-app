@@ -1,33 +1,33 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container text-center">
+  <div class="container text-center">
     <div style="height: 10px;"></div>
     <h1>Browse Tickets</h1>
     <div class="border"></div>
     <div style="height: 10px;"></div>
 
     <div class="row">
-        <form method="POST" action="/browse/sort_by_date" class="col" >
-            <div>
-                <button class="btn btn-primary">Sort by Date</button>
-            </div>
-        </form>
-        <form method="POST" action="/browse/sort_by_name" class="col" >
-            <div>
-                <button class="btn btn-primary">Sort by Artist Name</button>
-            </div>
-        </form>
-        <form method="POST" action="/browse/sort_by_location" class="col" >
-            <div>
-                <button class="btn btn-primary">Sort by Location</button>
-            </div>
-        </form>
-        <form method="POST" action="/browse/sort_by_price" class="col" >
-            <div>
-                <button class="btn btn-primary">Sort by Ticket Price</button>
-            </div>
-        </form>
+      <form method="POST" action="/browse/sort_by_date" class="col">
+        <div>
+          <button class="btn btn-primary">Sort by Date</button>
+        </div>
+      </form>
+      <form method="POST" action="/browse/sort_by_name" class="col">
+        <div>
+          <button class="btn btn-primary">Sort by Artist Name</button>
+        </div>
+      </form>
+      <form method="POST" action="/browse/sort_by_location" class="col">
+        <div>
+          <button class="btn btn-primary">Sort by Location</button>
+        </div>
+      </form>
+      <form method="POST" action="/browse/sort_by_price" class="col">
+        <div>
+          <button class="btn btn-primary">Sort by Ticket Price</button>
+        </div>
+      </form>
     </div>
 
     <div style="height: 10px;"></div>
@@ -35,30 +35,30 @@
     <div style="height: 10px;"></div>
 
     <div>
-        <table class="table table-striped center table-hover text-start">
-            <tr class="fw-medium table-active">
-                <th class="border">Date</th>
-                <th class="border">Artist Name</th>
-                <th class="border">Venue</th>
-                <th class="border">Location</th>
-                <th class="border">Price</th>
-                <th class="border">Buy</th>
-            </tr>
-            {% for concert in concerts %}
-            <tr>
-                <td class="border" style="font-weight: bold;">{{ concert.date }}</td>
-                <td class="border">{{ concert.artistName }}</td>
-                <td class="border">{{ concert.venueName}}</td>
-                <td class="border">{{ concert.venueLocation }}</td>
-                <td class="border">£{{ concert.ticketPrice }}0</td>
-                <td class="border">
-                    <form method="POST" action="/add_to_cart">
-                        <button name="purchase_button" class="btn btn-success" value="{{ concert.id }}">Buy</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+      <table class="table table-striped center table-hover text-start">
+        <tr class="fw-medium table-active">
+          <th class="border">Date</th>
+          <th class="border">Artist Name</th>
+          <th class="border">Venue</th>
+          <th class="border">Location</th>
+          <th class="border">Price</th>
+          <th class="border">Buy</th>
+        </tr>
+        {% for concert in concerts %}
+          <tr>
+            <td class="border" style="font-weight: bold;">{{ concert.date }}</td>
+            <td class="border">{{ concert.artistName }}</td>
+            <td class="border">{{ concert.venueName }}</td>
+            <td class="border">{{ concert.venueLocation }}</td>
+            <td class="border">£{{ concert.ticketPrice }}0</td>
+            <td class="border">
+              <form method="POST" action="/add_to_cart">
+                <button name="purchase_button" class="btn btn-success" value="{{ concert.id }}">Buy</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
-</div>
+  </div>
 {% endblock %}

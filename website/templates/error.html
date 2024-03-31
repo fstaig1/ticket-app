@@ -1,10 +1,8 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-
-<div class="position-absolute top-50 start-50 translate-middle">
-    <h1 >Error {{ error.code }}</h1>
-    <h4 >{{ error.name }}</h2>
-</div>
-
-{% endblock %} 
+  <div class="position-absolute top-50 start-50 translate-middle">
+    <h1>Error {{ error.code }}</h1>
+    <h4>{{ error.name }}</h4>
+  </div>
+{% endblock %}
