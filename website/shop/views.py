@@ -85,3 +85,9 @@ def buy_additional_ticket():
     concert.create_ticket(ownerId=current_user.id,
                           purchased=False)
     return redirect(url_for('shop.cart'))
+
+
+@shop_blueprint.route('/purchase', methods=['GET', 'POST'])
+@login_required
+def purchase():
+    return render_template('purchase.html')

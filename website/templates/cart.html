@@ -53,7 +53,7 @@
         <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy {% if cart %}more {% endif %}Tickets</button>
         {% if cart %}
         <div class="col"></div>
-        <button type="button" class="btn btn-success col-3">Purchase Cart</button>
+        <button type="button" class="btn btn-success col-3" onclick="window.location.href=`{{ url_for('shop.purchase') }}`;">Purchase Cart</button>
         {% endif %}
         <div class="col"></div>
     </div>
