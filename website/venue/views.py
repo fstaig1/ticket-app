@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, redirect, url_for, flash
+from flask import render_template, Blueprint, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from ..models import User, Venue, Concert, Artist
 from main import requires_roles
@@ -42,4 +42,13 @@ def create_concert():
     else:
         for i in concertForm.errors.values():
             flash(f'{i[0]}')
+    return redirect(url_for('venue.venue'))
+
+
+@venue_blueprint.route('/venue/delete_concert', methods=['POST'])
+@login_required
+@requires_roles('venue')
+def delete_concert():
+    concert = Concert.query.filter_by(id=request.form.get("delete_concert_button")).first()
+    concert.delete()
     return redirect(url_for('venue.venue'))

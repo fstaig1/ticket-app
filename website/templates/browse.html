@@ -35,8 +35,8 @@
     <div style="height: 10px;"></div>
 
     <div>
-        <table class="table table-striped center table-hover">
-            <tr style="text-align: start;font-weight: bold;">
+        <table class="table table-striped center table-hover text-start">
+            <tr class="fw-medium table-active">
                 <th class="border">Date</th>
                 <th class="border">Artist Name</th>
                 <th class="border">Venue</th>
@@ -45,7 +45,7 @@
                 <th class="border">Buy</th>
             </tr>
             {% for concert in concerts %}
-            <tr style="text-align: start;">
+            <tr>
                 <td class="border" style="font-weight: bold;">{{ concert.date }}</td>
                 <td class="border">{{ concert.artistName }}</td>
                 <td class="border">{{ concert.venueName}}</td>

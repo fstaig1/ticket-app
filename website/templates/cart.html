@@ -8,7 +8,7 @@
     <div style="height: 25px;"></div>
     {% if cart %}
     <table class="table table-striped table-hover">
-        <tr>
+        <tr class="fw-medium text-start table-active">
             <th class="border">Item No.</th>
             <th class="border">Artist Name</th>
             <th class="border">Venue</th>
@@ -47,7 +47,7 @@
     {% endif %}
     <div style="height: 10px;"></div>
     <div class="border"></div>
-    <div style="height: 10px;"></div>
+    <div style="height: 20px;"></div>
     <div class="text-center row">
         <div class="col"></div>
         <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy {% if cart %}more {% endif %}Tickets</button>

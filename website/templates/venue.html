@@ -17,7 +17,7 @@
     <div class="border"></div>
     <div style="height: 10px;"></div>
     <div class="row">
-        <div class="col text-center">
+        <div class="col-4 text-center border-end">
             <h3>Manager Information</h3>
             <table class="table table-striped table-hover">
                 <tr>
@@ -93,13 +93,14 @@
                 <tr>
                     <th class="border">Concerts</th>
                     <td class="border">
-                        <table class="table table-striped table-hover" >
-                            <tr class="fw-medium">
+                        <table class="table table-striped table-hover text-start">
+                            <tr  class="fw-medium table-active">
                                 <td class="border" >ID</td>
                                 <td class="border">Artist ID</td>
                                 <td class="border">Artist Name</td>
                                 <td class="border">Date</td>
                                 <td class="border">Ticket Price</td>
+                                <td class="border">Delete</td>
                             </tr>
                             {% for concert in concerts %}
                             <tr>
@@ -107,7 +108,12 @@
                                 <td class="border">{{ concert.artistId }}</td>
                                 <td class="border">{{ concert.artistName }}</td>
                                 <td class="border">{{ concert.date }}</td>
-                                <td class="border">£{{ concert.ticketPrice }}</td>
+                                <td class="border">£{{ concert.ticketPrice }}0</td>
+                                <td class="border text-center">
+                                    <form method="POST" action="/venue/delete_concert">
+                                        <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">X</button>
+                                    </form>
+                                </td>
                             </tr>
                             {% endfor %}
                         </table>
