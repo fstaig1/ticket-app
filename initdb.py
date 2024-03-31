@@ -8,11 +8,13 @@ def init_db():
     db.drop_all()
     db.create_all()
 
+    # create all artists from file
     with open("data\\artists.txt", "r") as file:
         for line in file:
             db.session.add(Artist(name=str(line.split("\n")[0])))
         db.session.commit()
 
+    # create all users from file
     with open("data\\users.txt", "r") as file:
         for line in file:
             data = line.split("\n")[0].split(",")
@@ -22,44 +24,46 @@ def init_db():
                                 password=str(data[3]),
                                 role=str(data[4]),
                                 venueManager=bool(data[5]),
-                                venueId=data[6]
-                                ))
+                                venueId=data[6]))
         db.session.commit()
 
+    # create all venues from file
     with open("data\\venues.txt", "r") as file:
         for line in file:
             data = line.split("\n")[0].split(",")
             db.session.add(Venue(name=str(data[0]),
                                  location=str(data[1]),
-                                 capacity=int(data[-1]))
-                           )
+                                 capacity=int(data[-1])))
 
         db.session.commit()
 
     artists = Artist.query.all()
     venues = Venue.query.all()
-
-    for _ in range(10):
+    # create concerts + tickets
+    for i in range(10):  # create 10 concerts for wembley stadium with limited capacity for testing
         artist = artists[randint(1, len(artists) - 1)]
         concert = venues[0].create_Concert(artistId=artist.id,
                                            artistName=artist.name,
                                            ticketPrice=randint(10, 100),
-                                           date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+                                           date=datetime(2025, randint(1, 12), randint(1, 28), 19),
+                                           availableTickets=i + 1)
         concert.create_ticket(ownerId=randint(1, 3), purchased=True)
 
-    for _ in range(10):
+    for _ in range(10):  # create 10 pheobe bridgers concerts
         venue = venues[randint(1, len(venues) - 1)]
         concert = venue.create_Concert(artistId=artists[2187].id,
                                        artistName=artists[2187].name,
                                        ticketPrice=randint(10, 100),
-                                       date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+                                       date=datetime(2025, randint(1, 12), randint(1, 28), 19),
+                                       availableTickets=venue.capacity)
         concert.create_ticket(ownerId=randint(1, 3), purchased=True)
 
-    for _ in range(50):
+    for _ in range(50):  # create 50 random concerts
         artist = artists[randint(1, len(artists) - 1)]
         venue = venues[randint(1, len(venues) - 1)]
         concert = venue.create_Concert(artistId=artist.id,
                                        artistName=artist.name,
                                        ticketPrice=randint(10, 100),
-                                       date=datetime(2025, randint(1, 12), randint(1, 28), 19))
+                                       date=datetime(2025, randint(1, 12), randint(1, 28), 19),
+                                       availableTickets=venue.capacity)
         concert.create_ticket(ownerId=randint(1, 3), purchased=True)

@@ -12,32 +12,42 @@ shop_blueprint = Blueprint('shop', __name__, template_folder='/templates')
 
 @shop_blueprint.route('/browse')
 def browse():
-    global concerts
-    concerts = Concert.query.order_by(asc(Concert.date)).all()
+    concerts = Concert.query.\
+        filter(Concert.availableTickets >= 1).\
+        order_by(asc(Concert.date)).\
+        all()
     return render_template('browse.html', concerts=concerts)
 
 
 @shop_blueprint.route('/browse/sort_by_date', methods=['POST'])
 def sort_by_date():
-    concerts = Concert.query.order_by(asc(Concert.date)).all()
+    concerts = Concert.query.\
+        filter(Concert.availableTickets >= 1).\
+        order_by(asc(Concert.date)).all()
     return render_template('browse.html', concerts=concerts)
 
 
 @shop_blueprint.route('/browse/sort_by_name', methods=['POST'])
 def sort_by_name():
-    concerts = Concert.query.order_by(asc(Concert.artistName)).all()
+    concerts = Concert.query.\
+        filter(Concert.availableTickets >= 1).\
+        order_by(asc(Concert.artistName)).all()
     return render_template('browse.html', concerts=concerts)
 
 
 @shop_blueprint.route('/browse/sort_by_location', methods=['POST'])
 def sort_by_location():
-    concerts = Concert.query.order_by(asc(Concert.venueLocation)).all()
+    concerts = Concert.query.\
+        filter(Concert.availableTickets >= 1).\
+        order_by(asc(Concert.venueLocation)).all()
     return render_template('browse.html', concerts=concerts)
 
 
 @shop_blueprint.route('/browse/sort_by_price', methods=['POST'])
 def sort_by_price():
-    concerts = Concert.query.order_by(asc(Concert.ticketPrice)).all()
+    concerts = Concert.query.\
+        filter(Concert.availableTickets >= 1).\
+        order_by(asc(Concert.ticketPrice)).all()
     return render_template('browse.html', concerts=concerts)
 
 
@@ -65,4 +75,3 @@ def remove_from_cart():
     ticket = Ticket.query.filter_by(id=request.form.get("remove_from_cart_button")).first()
     ticket.delete()
     return redirect(url_for('shop.cart'))
-

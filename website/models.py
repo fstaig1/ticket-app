@@ -69,14 +69,15 @@ class Venue(db.Model):
     location = db.Column(db.String(100), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
 
-    def create_Concert(self, artistId, artistName, ticketPrice, date):
+    def create_Concert(self, artistId, artistName, ticketPrice, date, availableTickets):
         concert = Concert(artistId=artistId,
                           artistName=artistName,
                           venueId=self.id,
                           venueName=self.name,
                           venueLocation=self.location,
                           ticketPrice=ticketPrice,
-                          date=date)
+                          date=date,
+                          availableTickets=availableTickets)
         db.session.add(concert)
         db.session.commit()
         return concert
@@ -109,10 +110,14 @@ class Concert(db.Model):
     date = db.Column(db.DateTime, nullable=True)
     ticketPrice = db.Column(db.Float, nullable=False)
 
+    availableTickets = db.Column(db.Integer, nullable=False)
+
     def create_ticket(self, ownerId, purchased):
         ticket = Ticket(ownerId=ownerId,
                         purchased=purchased,
                         concertId=self.id)
+        self.availableTickets -= 1
+        db.session.add(self)
         db.session.add(ticket)
         db.session.commit()
         return ticket
@@ -125,7 +130,7 @@ class Concert(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(self, artistId, artistName, venueId, venueName, venueLocation, ticketPrice, date):
+    def __init__(self, artistId, artistName, venueId, venueName, venueLocation, ticketPrice, date, availableTickets):
         self.artistId = artistId
         self.artistName = artistName
         self.venueId = venueId
@@ -133,6 +138,7 @@ class Concert(db.Model):
         self.venueLocation = venueLocation
         self.ticketPrice = ticketPrice
         self.date = date
+        self.availableTickets = availableTickets
 
 
 class Ticket(db.Model):
@@ -150,6 +156,9 @@ class Ticket(db.Model):
         return User.query.filter_by(id=self.ownerId).first()
 
     def delete(self):  # FIXME not deleting??
+        concert = self.get_concert()
+        concert.availableTickets += 1
+        db.session.add(concert)
         db.session.delete(self)
         db.session.commit()
 

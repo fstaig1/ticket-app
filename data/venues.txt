@@ -97,7 +97,7 @@ The Forum,Hertfordshire,2250
 Planet Ice Leeds Arena,Leeds,2200
 De Montfort Hall,Leicester,2200
 O2 Academy Sheffield,Sheffield,2150
-NX, Newcastle,2135
+NX,Newcastle,2135
 Lyceum Theatre,London,2096
 O2 Institute,Birmingham,2000
 Brentwood Centre,Brentwood,2000
@@ -119,7 +119,7 @@ O2 Academy Bournemouth,Bournemouth,1800
 The Baths Hall,Scunthorpe,1821
 Southampton Guildhall,Southampton,1749
 Sage Gateshead,Newcastle Gateshead,1700
-O2 Academy Bristol, Bristol,1650
+O2 Academy Bristol,Bristol,1650
 The Forum,Bath,1640
 Marble Factory,Bristol,1600
 Cardiff University Students Union Great Hall,Cardiff,1600
@@ -143,7 +143,7 @@ Kings Theatre,Edinburgh,1350
 London Hippodrome,London,1340
 Theatre Royal,Norwich,1300
 City Hall,Salisbury,3400
-Music Hall, Aberdeen,1281
+Music Hall,Aberdeen,1281
 Cambridge Theatre,London,1231
 Portsmouth Pyramids Centre,Portsmouth,1700
 Heaven,London,1200
