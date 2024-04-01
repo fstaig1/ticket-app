@@ -1,9 +1,9 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from ..models import User, Venue, Concert, Artist, Ticket
-from .. import db
+from ..models import Concert, Ticket
 from .forms import PurchaseInfoForm
 from sqlalchemy import asc
+import qrcode
 
 shop_blueprint = Blueprint("shop", __name__, template_folder="/templates")
 
@@ -112,13 +112,50 @@ def buy_additional_ticket():
 @shop_blueprint.route("/purchase", methods=["GET", "POST"])
 @login_required
 def purchase():
-    form = PurchaseInfoForm()
+    purchaseInfoForm = PurchaseInfoForm()
     cart = (
         Ticket.query.filter_by(ownerId=current_user.id).filter_by(purchased=False).all()
     )
     totalPrice = 0
     for item in cart:
         totalPrice += item.get_concert().ticketPrice
+
+    if purchaseInfoForm.validate_on_submit():
+        # this is where you would run code to process card details and make a transaction
+        # im obviously not going to do that here because that would break the ethics agreement
+        # but i sure can simulate it
+        for item in cart:
+            item.purchase_ticket()
+
+        return render_template("reciept.html", cart=cart, totalPrice=totalPrice)
+    else:
+        for error in purchaseInfoForm.errors:
+            flash(f"{purchaseInfoForm.errors[error][0]}")
+
     return render_template(
-        "purchase.html", form=form, user=current_user, cart=cart, totalPrice=totalPrice
+        "purchase.html",
+        form=purchaseInfoForm,
+        user=current_user,
+        cart=cart,
+        totalPrice=totalPrice,
     )
+
+
+@shop_blueprint.route("/view_ticket", methods=["GET", "POST"])
+@login_required
+def view_ticket():
+    ticket = Ticket.query.filter_by(id=request.form.get("view_ticket")).first()
+
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(f"AAA")
+    qr.make(fit=True)
+
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save("static/qr.png")
+
+    return render_template("ticket.html", ticket=ticket, user=current_user)

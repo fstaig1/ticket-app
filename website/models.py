@@ -167,7 +167,12 @@ class Ticket(db.Model):
     def get_owner(self):
         return User.query.filter_by(id=self.ownerId).first()
 
-    def delete(self):  # FIXME not deleting??
+    def purchase_ticket(self):
+        self.purchased = True
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):  # TODO test if this works in the big chain of deletes
         concert = self.get_concert()
         concert.availableTickets += 1
         db.session.add(concert)
