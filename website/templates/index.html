@@ -2,8 +2,8 @@
 
 {% block content %}
   <div class="position-absolute top-50 start-50 translate-middle container text-center">
-    <h1>Untitled Ticket App</h1>
-    <a>I have to make the ticket purchasing now which im dreading so much im going to go to tesco.</a>
+    <h1>Concert Finder</h1>
+    <a>Time to pretend to accept payment :)</a>
     {% if not current_user.is_authenticated %}
       <div style="margin: auto; padding: 10px; display: table;">
         <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register</button>

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, Blueprint
+from flask import render_template, flash, redirect, url_for, Blueprint, request
 from flask_login import login_user, logout_user, current_user, login_required  # noqa: F401
 from .forms import RegisterForm, LoginForm
 from website.models import User, Ticket
@@ -48,6 +48,10 @@ def login():
         user.current_logged_in = datetime.now()
         db.session.add(user)
         db.session.commit()
+
+        next = request.args.get('next')
+        if next:
+            return redirect(next)
 
         match current_user.role:
             case 'admin': return redirect(url_for('admin.admin'))

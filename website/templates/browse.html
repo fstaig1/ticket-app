@@ -6,6 +6,10 @@
     <h1>Browse Tickets</h1>
     <div class="border"></div>
     <div style="height: 10px;"></div>
+    <h6 class="text-bg-danger rounded">Login required for ticket purchase.</h6>
+    <div style="height: 10px;"></div>
+    <div class="border"></div>
+    <div style="height: 10px;"></div>
 
     <div class="row">
       <form method="POST" action="/browse/sort_by_date" class="col">
@@ -42,7 +46,9 @@
           <th class="border">Venue</th>
           <th class="border">Location</th>
           <th class="border">Price</th>
-          <th class="border">Buy</th>
+          {% if current_user.is_authenticated %}
+            <th class="border">Buy</th>
+          {% endif %}
         </tr>
         {% for concert in concerts %}
           <tr>
@@ -51,11 +57,13 @@
             <td class="border">{{ concert.venueName }}</td>
             <td class="border">{{ concert.venueLocation }}</td>
             <td class="border">£{{ concert.ticketPrice }}0</td>
-            <td class="border">
-              <form method="POST" action="/add_to_cart">
-                <button name="purchase_button" class="btn btn-success" value="{{ concert.id }}">Buy</button>
-              </form>
-            </td>
+            {% if current_user.is_authenticated %}
+              <td class="border">
+                <form method="POST" action="/add_to_cart">
+                  <button name="purchase_button" class="btn btn-success" value="{{ concert.id }}">Buy</button>
+                </form>
+              </td>
+            {% endif %}
           </tr>
         {% endfor %}
       </table>

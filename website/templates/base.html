@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-bs-theme="dark">
   <head>
-    <title>Unnamed Ticket App</title>
+    <title>Concert Finder</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" />
@@ -13,11 +13,9 @@
 
     {% endblock %}
 
-    <!--  -->
-
     <nav class="navbar navbar-expand-lg bg-body-secondary border-bottom">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('index') }}">Untitled Ticket App</a>
+      <div class="container-fluid fw-medium">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Concert Finder</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
@@ -72,7 +70,7 @@
       </div>
     </nav>
 
-    <div class="">
+    <div>
       <div>
         {% block content %}
 

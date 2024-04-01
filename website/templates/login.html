@@ -3,6 +3,7 @@
 {% block content %}
   <div class="position-absolute top-50 start-50 translate-middle text-center">
     <h1>Login</h1>
+    <div class="border-top" style="height: 10px;"></div>
     <div>
       {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -37,6 +38,9 @@
 
         <div>{{ form.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
       </form>
+      <div class="border-bottom" style="height: 10px;"></div>
+      <div style="height: 10px;"></div>
+      <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register instead</button>
     </div>
   </div>
 {% endblock %}

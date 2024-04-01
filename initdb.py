@@ -5,6 +5,9 @@ from datetime import datetime
 
 
 def init_db():
+    print("""
+          Initialising Database ...
+          """)
     db.drop_all()
     db.create_all()
 
@@ -67,3 +70,6 @@ def init_db():
                                        date=datetime(2025, randint(1, 12), randint(1, 28), 19),
                                        availableTickets=venue.capacity)
         concert.create_ticket(ownerId=randint(1, 3), purchased=True)
+    print("""
+          Finished!
+          """)
