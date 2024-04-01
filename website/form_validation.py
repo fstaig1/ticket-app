@@ -2,7 +2,7 @@ from wtforms.validators import ValidationError
 import re
 
 
-class IncludeChars():
+class IncludeChars:
     def __call__(self, form, field):
         for char in field.data:
             if char not in self.characters:
@@ -13,7 +13,7 @@ class IncludeChars():
         self.message = message
 
 
-class ExcludeChars():
+class ExcludeChars:
     def __call__(self, form, field):
         for char in field.data:
             if char in self.characters:
@@ -24,6 +24,10 @@ class ExcludeChars():
 
 
 def validate_password(self, password):
-    p = re.compile(r'(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])')  # i mean this looks disastrous doesnt it
+    p = re.compile(
+        r"(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])"
+    )  # i mean this looks disastrous doesnt it
     if not p.match(self.password.data):
-        raise ValidationError("Invalid password, please use at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.")
+        raise ValidationError(
+            "Invalid password, please use at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character."
+        )

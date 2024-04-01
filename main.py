@@ -14,25 +14,27 @@ def requires_roles(*roles):
         @wraps(f)
         def wrapped(*args, **kwargs):
             if current_user.role not in roles:
-                return abort(403, 'Forbidden')
+                return abort(403, "Forbidden")
             return f(*args, **kwargs)
+
         return wrapped
+
     return wrapper
 
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
-    return render_template('error.html', error=e)
+    return render_template("error.html", error=e)
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     login_manager = LoginManager()
-    login_manager.login_view = 'users.login'
+    login_manager.login_view = "users.login"
     login_manager.init_app(app)
 
     @login_manager.user_loader

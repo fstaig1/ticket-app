@@ -5,17 +5,17 @@ from . import db
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(30), nullable=False)
-    role = db.Column(db.String(100), nullable=False, default='user')
+    role = db.Column(db.String(100), nullable=False, default="user")
 
     venueManager = db.Column(db.Boolean(), nullable=False, default=False)
-    venueId = db.Column(db.Integer, db.ForeignKey('venues.id'), default=None)
+    venueId = db.Column(db.Integer, db.ForeignKey("venues.id"), default=None)
 
     registered_on = db.Column(db.DateTime, nullable=False)
     last_logged_in = db.Column(db.DateTime, nullable=True)
@@ -32,7 +32,9 @@ class User(db.Model, UserMixin):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(self, firstname, lastname, email, password, role, venueManager, venueId):
+    def __init__(
+        self, firstname, lastname, email, password, role, venueManager, venueId
+    ):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -46,7 +48,7 @@ class User(db.Model, UserMixin):
 
 
 class Artist(db.Model):
-    __tablename__ = 'artists'
+    __tablename__ = "artists"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
@@ -63,21 +65,23 @@ class Artist(db.Model):
 
 
 class Venue(db.Model):
-    __tablename__ = 'venues'
+    __tablename__ = "venues"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
 
     def create_Concert(self, artistId, artistName, ticketPrice, date, availableTickets):
-        concert = Concert(artistId=artistId,
-                          artistName=artistName,
-                          venueId=self.id,
-                          venueName=self.name,
-                          venueLocation=self.location,
-                          ticketPrice=ticketPrice,
-                          date=date,
-                          availableTickets=availableTickets)
+        concert = Concert(
+            artistId=artistId,
+            artistName=artistName,
+            venueId=self.id,
+            venueName=self.name,
+            venueLocation=self.location,
+            ticketPrice=ticketPrice,
+            date=date,
+            availableTickets=availableTickets,
+        )
         db.session.add(concert)
         db.session.commit()
         return concert
@@ -97,7 +101,7 @@ class Venue(db.Model):
 
 
 class Concert(db.Model):
-    __tablename__ = 'concerts'
+    __tablename__ = "concerts"
     id = db.Column(db.Integer, primary_key=True)
 
     artistId = db.Column(db.Integer, db.ForeignKey(Artist.id))
@@ -113,9 +117,7 @@ class Concert(db.Model):
     availableTickets = db.Column(db.Integer, nullable=False)
 
     def create_ticket(self, ownerId, purchased):
-        ticket = Ticket(ownerId=ownerId,
-                        purchased=purchased,
-                        concertId=self.id)
+        ticket = Ticket(ownerId=ownerId, purchased=purchased, concertId=self.id)
         self.availableTickets -= 1
         db.session.add(self)
         db.session.add(ticket)
@@ -130,7 +132,17 @@ class Concert(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(self, artistId, artistName, venueId, venueName, venueLocation, ticketPrice, date, availableTickets):
+    def __init__(
+        self,
+        artistId,
+        artistName,
+        venueId,
+        venueName,
+        venueLocation,
+        ticketPrice,
+        date,
+        availableTickets,
+    ):
         self.artistId = artistId
         self.artistName = artistName
         self.venueId = venueId
@@ -142,7 +154,7 @@ class Concert(db.Model):
 
 
 class Ticket(db.Model):
-    __tablename__ = 'tickets'
+    __tablename__ = "tickets"
     id = db.Column(db.Integer, primary_key=True)
 
     ownerId = db.Column(db.Integer, db.ForeignKey(User.id))

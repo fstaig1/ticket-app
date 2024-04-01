@@ -6,23 +6,25 @@ from .forms import ConcertForm
 from .. import db
 from datetime import datetime
 
-venue_blueprint = Blueprint('venue', __name__, template_folder='templates')
+venue_blueprint = Blueprint("venue", __name__, template_folder="templates")
 
 
-@venue_blueprint.route('/venue')
+@venue_blueprint.route("/venue")
 @login_required
-@requires_roles('venue')
+@requires_roles("venue")
 def venue():
     concertForm = ConcertForm()
     user = User.query.filter_by(id=current_user.id).first()
     venue = Venue.query.filter_by(id=current_user.venueId).first()
     concerts = Concert.query.filter_by(venueId=current_user.venueId)
 
-    return render_template('venue.html', user=user, venue=venue, concerts=concerts, form=concertForm)
+    return render_template(
+        "venue.html", user=user, venue=venue, concerts=concerts, form=concertForm
+    )
 
 
-@venue_blueprint.route('/venue/create_concert', methods=['POST'])
-@requires_roles('venue')
+@venue_blueprint.route("/venue/create_concert", methods=["POST"])
+@requires_roles("venue")
 def create_concert():
     concertForm = ConcertForm()
 
@@ -35,20 +37,24 @@ def create_concert():
 
         venue = Venue.query.filter_by(id=current_user.venueId).first()
 
-        venue.create_Concert(artistId=artist.id,
-                             artistName=artist.name,
-                             ticketPrice=int(concertForm.ticketPrice.data),
-                             date=datetime.strptime(concertForm.date.raw_data[0], '%Y-%m-%dT%H:%M'))
+        venue.create_Concert(
+            artistId=artist.id,
+            artistName=artist.name,
+            ticketPrice=int(concertForm.ticketPrice.data),
+            date=datetime.strptime(concertForm.date.raw_data[0], "%Y-%m-%dT%H:%M"),
+        )
     else:
         for i in concertForm.errors.values():
-            flash(f'{i[0]}')
-    return redirect(url_for('venue.venue'))
+            flash(f"{i[0]}")
+    return redirect(url_for("venue.venue"))
 
 
-@venue_blueprint.route('/venue/delete_concert', methods=['POST'])
+@venue_blueprint.route("/venue/delete_concert", methods=["POST"])
 @login_required
-@requires_roles('venue')
+@requires_roles("venue")
 def delete_concert():
-    concert = Concert.query.filter_by(id=request.form.get("delete_concert_button")).first()
+    concert = Concert.query.filter_by(
+        id=request.form.get("delete_concert_button")
+    ).first()
     concert.delete()
-    return redirect(url_for('venue.venue'))
+    return redirect(url_for("venue.venue"))

@@ -5,127 +5,155 @@ from main import requires_roles
 from .forms import CreateUserForm, CreateVenueForm
 from .. import db
 
-admin_blueprint = Blueprint('admin', __name__, template_folder='templates')
+admin_blueprint = Blueprint("admin", __name__, template_folder="templates")
 
 
-@admin_blueprint.route('/admin')
+@admin_blueprint.route("/admin")
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def admin():
     global createUserForm
     global createVenueForm
     createUserForm = CreateUserForm()
     createVenueForm = CreateVenueForm()
-    return render_template('admin.html', createUserForm=createUserForm, createVenueForm=createVenueForm)
+    return render_template(
+        "admin.html", createUserForm=createUserForm, createVenueForm=createVenueForm
+    )
 
 
-@admin_blueprint.route('/admin/view_all_users', methods=['POST'])
+@admin_blueprint.route("/admin/view_all_users", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def view_all_users():
-    return render_template('admin.html', current_users=User.query.all(), createUserForm=createUserForm, createVenueForm=createVenueForm)
+    return render_template(
+        "admin.html",
+        current_users=User.query.all(),
+        createUserForm=createUserForm,
+        createVenueForm=createVenueForm,
+    )
 
 
-@admin_blueprint.route('/admin/view_all_venues', methods=['POST'])
+@admin_blueprint.route("/admin/view_all_venues", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def view_all_venues():
-    return render_template('admin.html', venues=Venue.query.all(), createUserForm=createUserForm, createVenueForm=createVenueForm)
+    return render_template(
+        "admin.html",
+        venues=Venue.query.all(),
+        createUserForm=createUserForm,
+        createVenueForm=createVenueForm,
+    )
 
 
-@admin_blueprint.route('/admin/view_all_artists', methods=['POST'])
+@admin_blueprint.route("/admin/view_all_artists", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def view_all_artists():
-    return render_template('admin.html', artists=Artist.query.all(), createUserForm=createUserForm, createVenueForm=createVenueForm)
+    return render_template(
+        "admin.html",
+        artists=Artist.query.all(),
+        createUserForm=createUserForm,
+        createVenueForm=createVenueForm,
+    )
 
 
-@admin_blueprint.route('/admin/view_all_concerts', methods=['POST'])
+@admin_blueprint.route("/admin/view_all_concerts", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def view_all_concerts():
-    return render_template('admin.html', concerts=Concert.query.all(), createUserForm=createUserForm, createVenueForm=createVenueForm)
+    return render_template(
+        "admin.html",
+        concerts=Concert.query.all(),
+        createUserForm=createUserForm,
+        createVenueForm=createVenueForm,
+    )
 
 
-@admin_blueprint.route('/admin/delete_user', methods=['POST'])
+@admin_blueprint.route("/admin/delete_user", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def delete_user():
     user = User.query.filter_by(id=request.form.get("delete_user_button")).first()
     user.delete()
-    return redirect(url_for('admin.admin'))
+    return redirect(url_for("admin.admin"))
 
 
-@admin_blueprint.route('/admin/delete_venue', methods=['POST'])
+@admin_blueprint.route("/admin/delete_venue", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def delete_venue():
     venue = Venue.query.filter_by(id=request.form.get("delete_venue_button")).first()
     venue.delete()
-    return redirect(url_for('admin.admin'))
+    return redirect(url_for("admin.admin"))
 
 
-@admin_blueprint.route('/admin/delete_artist', methods=['POST'])
+@admin_blueprint.route("/admin/delete_artist", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def delete_artist():
     artist = Artist.query.filter_by(id=request.form.get("delete_artist_button")).first()
     artist.delete()
-    return redirect(url_for('admin.admin'))
+    return redirect(url_for("admin.admin"))
 
 
-@admin_blueprint.route('/admin/delete_concert', methods=['POST'])
+@admin_blueprint.route("/admin/delete_concert", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def delete_concert():
-    concert = Concert.query.filter_by(id=request.form.get("delete_concert_button")).first()
+    concert = Concert.query.filter_by(
+        id=request.form.get("delete_concert_button")
+    ).first()
     concert.delete()
-    return redirect(url_for('admin.admin'))
+    return redirect(url_for("admin.admin"))
 
 
-@admin_blueprint.route('/admin/create_user', methods=['POST'])
+@admin_blueprint.route("/admin/create_user", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def create_user():
     createUserForm = CreateUserForm()
     if createUserForm.validate_on_submit():
-        if createUserForm.venueId.data and createUserForm.role.data == 'venue':
+        if createUserForm.venueId.data and createUserForm.role.data == "venue":
             venueManager = True
             venueId = createUserForm.venueId.data
-        elif not createUserForm.venueId.data and createUserForm.role.data == 'venue':
-            flash('Venue ID required for venue manager role.')
+        elif not createUserForm.venueId.data and createUserForm.role.data == "venue":
+            flash("Venue ID required for venue manager role.")
         else:
             venueManager = False
             venueId = None
 
-        newUser = User(firstname=createUserForm.firstname.data,
-                       lastname=createUserForm.lastname.data,
-                       email=createUserForm.email.data,
-                       password=createUserForm.password.data,
-                       role=createUserForm.role.data,
-                       venueManager=venueManager,
-                       venueId=venueId)
+        newUser = User(
+            firstname=createUserForm.firstname.data,
+            lastname=createUserForm.lastname.data,
+            email=createUserForm.email.data,
+            password=createUserForm.password.data,
+            role=createUserForm.role.data,
+            venueManager=venueManager,
+            venueId=venueId,
+        )
 
         db.session.add(newUser)
         db.session.commit()
     else:
         for i in createUserForm.errors:
-            flash(f'{createUserForm.errors[i][0]}')
-    return redirect(url_for('admin.admin'))
+            flash(f"{createUserForm.errors[i][0]}")
+    return redirect(url_for("admin.admin"))
 
 
-@admin_blueprint.route('/admin/create_venue', methods=['POST'])
+@admin_blueprint.route("/admin/create_venue", methods=["POST"])
 @login_required
-@requires_roles('admin')
+@requires_roles("admin")
 def create_venue():
     createVenueForm = CreateVenueForm()
     if createVenueForm.validate_on_submit():
-        newVenue = Venue(name=createVenueForm.name.data,
-                         location=createVenueForm.location.data,
-                         capacity=createVenueForm.capacity.data)
+        newVenue = Venue(
+            name=createVenueForm.name.data,
+            location=createVenueForm.location.data,
+            capacity=createVenueForm.capacity.data,
+        )
         db.session.add(newVenue)
         db.session.commit()
     else:
         for i in createVenueForm.errors:
-            flash(f'{createVenueForm.errors[i][0]}')
-    return redirect(url_for('admin.admin'))
+            flash(f"{createVenueForm.errors[i][0]}")
+    return redirect(url_for("admin.admin"))
