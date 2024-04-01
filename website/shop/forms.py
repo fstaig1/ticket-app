@@ -9,8 +9,8 @@ class PurchaseInfoForm(FlaskForm):
     lastname = StringField(validators=[InputRequired(), ExcludeChars("*?!'^+%&/\()=}][{$#@<>"), Length(1, 99, "Last Name must be less than 100 characters.")])
     email = StringField(validators=[InputRequired(), Email(), Length(1, 99, "Email must be less than 100 characters.")])
 
-    cardnumber = IntegerField(validators=[Optional()])
+    cardnumber = IntegerField(validators=[InputRequired()])
     expirydate = MonthField(validators=[InputRequired()])
-    cvv = IntegerField(validators=[Optional()])
+    cvv = IntegerField(validators=[InputRequired()])
 
     submit = SubmitField(validators=[InputRequired()])

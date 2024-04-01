@@ -105,10 +105,11 @@ def buy_additional_ticket():
 @shop_blueprint.route('/purchase', methods=['GET', 'POST'])
 @login_required
 def purchase():
+    form = PurchaseInfoForm()
     cart = Ticket.query.\
         filter_by(ownerId=current_user.id).\
         filter_by(purchased=False).all()
     totalPrice = 0
     for item in cart:
         totalPrice += item.get_concert().ticketPrice
-    return render_template('purchase.html', user=current_user, cart=cart, totalPrice=totalPrice)
+    return render_template('purchase.html', form=form, user=current_user, cart=cart, totalPrice=totalPrice)
