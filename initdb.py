@@ -58,7 +58,7 @@ def init_db():
                                        artistName=artists[2187].name,
                                        ticketPrice=randint(10, 100),
                                        date=datetime(2025, randint(1, 12), randint(1, 28), 19),
-                                       availableTickets=venue.capacity)
+                                       availableTickets=randint(0, venue.capacity))
         concert.create_ticket(ownerId=randint(1, 3), purchased=True)
 
     for _ in range(50):  # create 50 random concerts
@@ -68,7 +68,7 @@ def init_db():
                                        artistName=artist.name,
                                        ticketPrice=randint(10, 100),
                                        date=datetime(2025, randint(1, 12), randint(1, 28), 19),
-                                       availableTickets=venue.capacity)
+                                       availableTickets=randint(0, venue.capacity))
         concert.create_ticket(ownerId=randint(1, 3), purchased=True)
     print("""
           Finished!

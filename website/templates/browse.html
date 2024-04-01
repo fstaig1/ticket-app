@@ -6,11 +6,13 @@
     <h1>Browse Tickets</h1>
     <div class="border"></div>
     <div style="height: 10px;"></div>
-    <h6 class="text-bg-danger rounded">Login required for ticket purchase.</h6>
-    <div style="height: 10px;"></div>
-    <div class="border"></div>
-    <div style="height: 10px;"></div>
 
+    {% if not current_user.is_authenticated %}
+      <h6 class="text-bg-danger rounded">Login required for ticket purchase.</h6>
+      <div style="height: 3px;"></div>
+      <div class="border"></div>
+      <div style="height: 10px;"></div>
+    {% endif %}
     <div class="row">
       <form method="POST" action="/browse/sort_by_date" class="col">
         <div>
@@ -58,9 +60,9 @@
             <td class="border">{{ concert.venueLocation }}</td>
             <td class="border">£{{ concert.ticketPrice }}0</td>
             {% if current_user.is_authenticated %}
-              <td class="border">
+              <td class="border text-center">
                 <form method="POST" action="/add_to_cart">
-                  <button name="purchase_button" class="btn btn-success" value="{{ concert.id }}">Buy</button>
+                  <button name="purchase_button" class="btn btn-success" style="text-decoration: underline;" value="{{ concert.id }}">{{ concert.availableTickets }} left</button>
                 </form>
               </td>
             {% endif %}

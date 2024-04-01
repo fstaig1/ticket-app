@@ -1,6 +1,6 @@
 Wembley Stadium,London,90000
 Twickenham Stadium,London,82000
-Wembley Stadium ,London,82000
+Wembley Stadium,London,82000
 London Stadium,London,80000
 Roundhay Park,Leeds,79999
 Old Trafford,Greater Manchester,74879
@@ -54,10 +54,10 @@ Lee Valley VeloPark,London,7000
 St Augustines Cultural Arts,Brighton,2500
 Bournemouth International Centre,Bournemouth,11500
 Royal Albert Hall,London,5544
-Eventim Apollo ,London ,8500
+Eventim Apollo,London,8500
 O2 Brixton Academy,London,4921
 Brighton Centre,Brighton,4500
-Bradford New Victoria ,Bradford,7400
+Bradford New Victoria,Bradford,7400
 Plymouth Pavilions,Plymouth,4000
 Bridlington Spa,Bridlington,3800
 Hull Arena,Kingston upon Hull,3750
@@ -134,7 +134,7 @@ Leith Theatre,Edinburgh,1500
 Regent Theatre,Ipswich,1500
 Koko,London,1500
 Brixton Electric,London,1500
-The Ritz,Manchester ,1500
+The Ritz,Manchester,1500
 York Barbican,York,3400
 Great Hall,Exeter,2150
 Victoria Hall,Stoke-on-Trent,1467
