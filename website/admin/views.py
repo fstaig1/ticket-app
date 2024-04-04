@@ -118,6 +118,7 @@ def create_user():
             venueId = createUserForm.venueId.data
         elif not createUserForm.venueId.data and createUserForm.role.data == "venue":
             flash("Venue ID required for venue manager role.")
+            return redirect(url_for("admin.admin"))
         else:
             venueManager = False
             venueId = None
