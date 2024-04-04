@@ -34,6 +34,7 @@
             <th class="border">Artist Name</th>
             <th class="border">Venue</th>
             <th class="border">Price</th>
+            <th class="border">View Ticket</th>
           </tr>
           {% for ticket in tickets %}
             <tr>
@@ -41,6 +42,11 @@
               <td class="border">{{ ticket.get_concert().artistName }}</td>
               <td class="border">{{ ticket.get_concert().venueName }}, {{ ticket.get_concert().venueLocation }}</td>
               <td class="border">£{{ ticket.get_concert().ticketPrice }}0</td>
+              <td class="border text-center">
+                <form method="POST" action="/view_ticket" target="_blank">
+                  <button name="view_ticket_button" class="btn btn-success" value="{{ ticket.id }}">View</button>
+                </form>
+              </td>
             </tr>
           {% endfor %}
         </table>

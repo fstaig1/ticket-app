@@ -2,6 +2,8 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 from . import db
+from base64 import urlsafe_b64encode as b64e, urlsafe_b64decode as b64d
+from zlib import compress, decompress
 
 
 class User(db.Model, UserMixin):
@@ -116,8 +118,8 @@ class Concert(db.Model):
 
     availableTickets = db.Column(db.Integer, nullable=False)
 
-    def create_ticket(self, ownerId, purchased):
-        ticket = Ticket(ownerId=ownerId, purchased=purchased, concertId=self.id)
+    def create_ticket(self, ownerId):
+        ticket = Ticket(ownerId=ownerId, concertId=self.id)
         self.availableTickets -= 1
         db.session.add(self)
         db.session.add(ticket)
@@ -160,6 +162,7 @@ class Ticket(db.Model):
     ownerId = db.Column(db.Integer, db.ForeignKey(User.id))
     concertId = db.Column(db.Integer, db.ForeignKey(Concert.id))
     purchased = db.Column(db.Boolean, nullable=False)
+    confirmationCode = db.Column(db.String, nullable=True)
 
     def get_concert(self):
         return Concert.query.filter_by(id=self.concertId).first()
@@ -167,8 +170,15 @@ class Ticket(db.Model):
     def get_owner(self):
         return User.query.filter_by(id=self.ownerId).first()
 
+    def encode(self):
+        return b64e(compress((b"concertId:%d, ownerId:%d" % (self.get_concert().id, self.get_owner().id)), 9))
+
+    def decode(self):
+        return decompress(b64d(self.confirmationCode))
+
     def purchase_ticket(self):
         self.purchased = True
+        self.confirmationCode = self.encode()
         db.session.add(self)
         db.session.commit()
 
@@ -179,7 +189,8 @@ class Ticket(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(self, ownerId, concertId, purchased):
+    def __init__(self, ownerId, concertId, purchased=False, confimationCode=None):
         self.ownerId = ownerId
         self.concertId = concertId
         self.purchased = purchased
+        self.confirmationCode = confimationCode
