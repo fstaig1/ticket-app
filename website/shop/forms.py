@@ -8,14 +8,14 @@ class PurchaseInfoForm(FlaskForm):
     firstname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\()=}][{$#@<>"),
+            ExcludeChars("*?!'^+%&/\()=}][{$#@<>£~|¬`¦@;:_"),
             Length(1, 99, "First Name must be less than 100 characters."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\()=}][{$#@<>"),
+            ExcludeChars("*?!'^+%&/\()=}][{$#@<>£~|¬`¦@;:_"),
             Length(1, 99, "Last Name must be less than 100 characters."),
         ]
     )
