@@ -52,6 +52,7 @@ if __name__ == "__main__":
     app.register_blueprint(shop_blueprint)
 
     # uncomment this to re initialise the database
+    # for some reason it always initialises twice i dont know why
     """
     with app.app_context():
         init_db()

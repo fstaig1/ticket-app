@@ -3,44 +3,33 @@
 {% block content %}
   <div class="position-absolute top-50 start-50 translate-middle text-center">
     <h1>Login</h1>
-    <div class="border-top" style="height: 10px;"></div>
-    <div>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <div style="height: 10px;"></div>
-          <div class="border"></div>
-          <div style="height: 10px;"></div>
-          <div class="text-bg-danger rounded">{{ messages[0] }}</div>
-          <div style="height: 10px;"></div>
-          <div class="border"></div>
-          <div style="height: 10px;"></div>
-        {% endif %}
-      {% endwith %}
-      <form method="POST">
+    <div class="border-top mb-2"></div>
+    <form method="POST">
+      <div style="max-width: 300px; width: auto;">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="border mt-2 mb-2"></div>
+            <div class="text-bg-danger rounded">{{ messages[0] }}</div>
+            <div class="border mt-2 mb-2"></div>
+          {% endif %}
+        {% endwith %}
         {{ form.csrf_token() }}
-        <div>
+        <div class="mb-2">
           {{ form.email(placeholder = 'Email', class = 'form-control', required = 'required', type = 'text') }}
           {% for error in form.email.errors %}
             {{ error }}
           {% endfor %}
         </div>
-
-        <div style="height: 10px;"></div>
-
-        <div>
+        <div class="mb-2">
           {{ form.password(placeholder = 'Password', class = 'form-control', required = 'required', type = 'password') }}
           {% for error in form.password.errors %}
             {{ error }}
           {% endfor %}
         </div>
-
-        <div style="height: 10px;"></div>
-
         <div>{{ form.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
-      </form>
-      <div class="border-bottom" style="height: 10px;"></div>
-      <div style="height: 10px;"></div>
-      <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register instead</button>
-    </div>
+        <div class="border-top mt-2 mb-2"></div>
+        <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register instead</button>
+      </div>
+    </form>
   </div>
 {% endblock %}

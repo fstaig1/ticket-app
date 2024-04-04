@@ -2,18 +2,14 @@
 
 {% block content %}
   <div class="container text-center">
-    <div style="height: 10px;"></div>
-    <h1>Venue Dashboard</h1>
+    <h1 class="m-2">Venue Dashboard</h1>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <div style="height: 10px;"></div>
-        <div class="border"></div>
-        <div style="height: 10px;"></div>
+        <div class="border mb-2 mt-2"></div>
         <div class="text-bg-danger rounded">{{ messages[0] }}</div>
       {% endif %}
     {% endwith %}
-    <div class="border"></div>
-    <div style="height: 10px;"></div>
+    <div class="border mb-2"></div>
     <div class="row">
       <div class="col-4 text-center border-end">
         <h3>Manager Information</h3>
@@ -31,37 +27,30 @@
             <td class="border text-start">{{ current_user.email }}</td>
           </tr>
         </table>
-
-        <div style="height: 10px;"></div>
-        <div class="border"></div>
-        <div style="height: 10px;"></div>
-
+        <div class="border mt-2 mb-2"></div>
         <div>
           <h3>Create New Concert</h3>
           <form method="POST" action="/venue/create_concert">
             {{ form.csrf_token() }}
-            <div>
+            <div class="mb-2">
               {{ form.artistName(placeholder = 'Artist Name', class = 'form-control', required = 'required', type = 'text') }}
               {% for error in form.artistName.errors %}
                 {{ error }}
               {% endfor %}
             </div>
-            <div style="height: 10px;"></div>
-            <div>
+            <div class="mb-2">
               {{ form.ticketPrice(placeholder = 'Ticket Price', class = 'form-control', required = 'required', type = 'number') }}
               {% for error in form.ticketPrice.errors %}
                 {{ error }}
               {% endfor %}
             </div>
-            <div style="height: 10px;"></div>
-            <div>
+            <div class="mb-2">
               {{ form.date(class = 'form-control', required = 'required', type = 'datetime-local') }}
               {% for error in form.date.errors %}
                 {{ error }}
               {% endfor %}
             </div>
-            <div style="height: 10px;"></div>
-            <div>{{ form.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+            <div class="mb-2">{{ form.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
           </form>
         </div>
       </div>

@@ -2,80 +2,67 @@
 
 {% block content %}
   <div class="container text-center">
-    <div style="height: 10px;"></div>
-    <h1>Purchase Page</h1>
-    <div class="border"></div>
-    <div style="height: 10px;"></div>
+    <h1 class="m-2">Purchase Cart</h1>
+    <div class="border mb-2"></div>
     <div class="row">
       <div class="col-4 border-end">
-        <h3>Enter Purchasing Details</h3>
-        <div style="height: 10px;"></div>
+        <h3 class="mb-2">Enter Purchasing Details</h3>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             <div class="border"></div>
-            <div style="height: 10px;"></div>
-            <div class="text-bg-danger rounded">{{ messages[0] }}</div>
-            <div style="height: 10px;"></div>
-            <div class="border"></div>
-            <div style="height: 10px;"></div>
+            <div class="text-bg-danger rounded m-2">{{ messages[0] }}</div>
+            <div class="border mb-2"></div>
           {% endif %}
         {% endwith %}
-        <div class="border"></div>
-        <div style="height: 10px;"></div>
-        <div class="text-bg-warning rounded">
+        <div class="border mb-2"></div>
+        <div class="text-bg-warning rounded mb-2">
           <a>Don't enter real credit card details this is just a demonstration.</a>
         </div>
-        <div style="height: 10px;"></div>
+        <div class="border mb-2"></div>
         <form method="POST" action="/purchase" class="text-start">
           {{ form.csrf_token() }}
-          <div>
+          <div class="mb-2">
             <a>First Name</a>
             {{ form.firstname(placeholder = 'First Name', value = user.firstname, class = 'form-control', required = 'required', type = 'text') }}
             {% for error in form.firstname.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mb-2">
             <a>Last Name</a>
             {{ form.lastname(placeholder = 'Last Name', value = user.lastname, class = 'form-control', required = 'required', type = 'text') }}
             {% for error in form.lastname.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mb-2">
             <a>Email</a>
             {{ form.email(placeholder = 'Email', value = user.email, class = 'form-control', required = 'required', type = 'email') }}
             {% for error in form.email.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 30px;"></div>
-          <div>
+          <div class="mb-2">
             <a>Card Number</a>
             {{ form.cardnumber(placeholder = 'Card Number', class = 'form-control', required = 'required', type = 'number', min = '100000000000', max = '999999999999') }}
             {% for error in form.cardnumber.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mb-2">
             <a>Card Expiry Date</a>
             {{ form.expirydate(placeholder = 'Expiry Date', class = 'form-control', required = 'required', type = 'month') }}
             {% for error in form.expirydate.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mb-2">
             <a>CVV Number</a>
             {{ form.cvv(placeholder = 'CVV Number', class = 'form-control', required = 'required', type = 'number', min = '100', max = '999') }}
             {% for error in form.cvv.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 20px;"></div>
           <div class="text-center">{{ form.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
       </div>

@@ -174,11 +174,11 @@ class Ticket(db.Model):
         return b64e(compress((b"concertId:%d, ownerId:%d" % (self.get_concert().id, self.get_owner().id)), 9))
 
     def decode(self):
-        return decompress(b64d(self.confirmationCode))
+        return decompress(b64d(bytes(self.confirmationCode, "utf-8")))
 
     def purchase_ticket(self):
         self.purchased = True
-        self.confirmationCode = self.encode()
+        self.confirmationCode = str(self.encode(), "utf-8")
         db.session.add(self)
         db.session.commit()
 

@@ -150,13 +150,13 @@ def purchase():
 def view_ticket():
     ticket = Ticket.query.filter_by(id=request.form.get("view_ticket_button")).first()
     if ticket:
-        confirmationCode = str(ticket.confirmationCode, "utf-8")
+        confirmationCode = ticket.confirmationCode
 
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
-            border=4,
+            border=2,
         )
 
         qr.add_data(confirmationCode)

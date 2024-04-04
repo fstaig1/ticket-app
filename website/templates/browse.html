@@ -2,16 +2,12 @@
 
 {% block content %}
   <div class="container text-center">
-    <div style="height: 10px;"></div>
-    <h1>Browse Tickets</h1>
-    <div class="border"></div>
-    <div style="height: 10px;"></div>
+    <h1 class="m-2">Browse Tickets</h1>
+    <div class="border mb-2"></div>
 
     {% if not current_user.is_authenticated %}
       <h6 class="text-bg-danger rounded">Login required for ticket purchase.</h6>
-      <div style="height: 3px;"></div>
-      <div class="border"></div>
-      <div style="height: 10px;"></div>
+      <div class="border mt-2 mb-2"></div>
     {% endif %}
     <div class="row">
       <form method="POST" action="/browse/sort_by_date" class="col">
@@ -36,9 +32,7 @@
       </form>
     </div>
 
-    <div style="height: 10px;"></div>
-    <div class="border"></div>
-    <div style="height: 10px;"></div>
+    <div class="border mt-2 mb-2"></div>
 
     <div>
       <table class="table table-striped center table-hover text-start">
@@ -54,7 +48,7 @@
         </tr>
         {% for concert in concerts %}
           <tr>
-            <td class="border" style="font-weight: bold;">{{ concert.date }}</td>
+            <td class="border fw-medium">{{ concert.date }}</td>
             <td class="border">{{ concert.artistName }}</td>
             <td class="border">{{ concert.venueName }}</td>
             <td class="border">{{ concert.venueLocation }}</td>
