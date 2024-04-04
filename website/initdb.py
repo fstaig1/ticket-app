@@ -1,5 +1,5 @@
-from website import db
-from website.models import User, Artist, Venue, Concert  # noqa: F401
+from . import db
+from .models import User, Artist, Venue, Concert  # noqa: F401
 from random import randint
 from datetime import datetime
 
@@ -10,17 +10,18 @@ def init_db():
           Initialising Database ...
           """
     )
+
     db.drop_all()
     db.create_all()
 
     # create all artists from file
-    with open("data\\artists.txt", "r") as file:
+    with open("test_data\\artists.txt", "r") as file:
         for line in file:
             db.session.add(Artist(name=str(line.split("\n")[0])))
         db.session.commit()
 
     # create all users from file
-    with open("data\\users.txt", "r") as file:
+    with open("test_data\\users.txt", "r") as file:
         for line in file:
             data = line.split("\n")[0].split(",")
             db.session.add(
@@ -37,7 +38,7 @@ def init_db():
         db.session.commit()
 
     # create all venues from file
-    with open("data\\venues.txt", "r") as file:
+    with open("test_data\\venues.txt", "r") as file:
         for line in file:
             data = line.split("\n")[0].split(",")
             db.session.add(
@@ -60,7 +61,8 @@ def init_db():
             date=datetime(2025, randint(1, 12), randint(1, 28), 19),
             availableTickets=i + 1,
         )
-        concert.create_ticket(ownerId=randint(1, 3), purchased=True)
+        ticket = concert.create_ticket(ownerId=randint(1, 3))
+        ticket.purchase_ticket()
 
     for _ in range(10):  # create 10 pheobe bridgers concerts
         venue = venues[randint(1, len(venues) - 1)]
@@ -71,7 +73,8 @@ def init_db():
             date=datetime(2025, randint(1, 12), randint(1, 28), 19),
             availableTickets=randint(0, venue.capacity),
         )
-        concert.create_ticket(ownerId=randint(1, 3), purchased=True)
+        ticket = concert.create_ticket(ownerId=randint(1, 3))
+        ticket.purchase_ticket()
 
     for _ in range(50):  # create 50 random concerts
         artist = artists[randint(1, len(artists) - 1)]
@@ -83,7 +86,8 @@ def init_db():
             date=datetime(2025, randint(1, 12), randint(1, 28), 19),
             availableTickets=randint(0, venue.capacity),
         )
-        concert.create_ticket(ownerId=randint(1, 3), purchased=True)
+        ticket = concert.create_ticket(ownerId=randint(1, 3))
+        ticket.purchase_ticket()
     print(
         """
           Finished!

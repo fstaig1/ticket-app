@@ -164,3 +164,4 @@ cython_debug/
 website/shop/__pycache__/views.cpython-312.pyc
 website/shop/__pycache__/views.cpython-312.pyc
 *.pyc
+qr.png

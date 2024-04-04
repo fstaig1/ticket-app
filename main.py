@@ -2,7 +2,7 @@ from website import app
 from functools import wraps
 from flask import render_template, abort
 from flask_login import LoginManager, current_user
-from initdb import init_db  # noqa: F401
+from website.initdb import init_db  # noqa: F401
 from website.models import User
 from werkzeug.exceptions import HTTPException
 
