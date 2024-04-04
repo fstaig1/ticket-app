@@ -2,18 +2,14 @@
 
 {% block content %}
   <div class="container text-center">
-    <div style="height: 10px;"></div>
-    <h1>Admin Dashboard</h1>
+    <h1 class="m-2">Admin Dashboard</h1>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <div style="height: 10px;"></div>
-        <div class="border"></div>
-        <div style="height: 10px;"></div>
+        <div class="border mb-2"></div>
         <div class="text-bg-danger rounded">{{ messages[0] }}</div>
       {% endif %}
     {% endwith %}
-    <div class="border"></div>
-    <div style="height: 10px;"></div>
+    <div class="border mt-2 mb-2"></div>
     <div class="row">
       <div class="col-4 border-end text-center">
         <div class="row">
@@ -29,8 +25,7 @@
             </div>
           </form>
         </div>
-        <div style="height: 10px;"></div>
-        <div class="row">
+        <div class="row mt-2">
           <form method="POST" action="/admin/view_all_artists" class="col">
             <div>
               <button class="btn btn-primary">View All Artists</button>
@@ -43,9 +38,7 @@
             </div>
           </form>
         </div>
-        <div style="height: 10px;"></div>
-        <div class="border"></div>
-        <div style="height: 10px;"></div>
+        <div class="border mt-2 mb-2"></div>
         <h3>Create New User</h3>
         <form method="POST" action="/admin/create_user">
           {{ createUserForm.csrf_token() }}
@@ -55,56 +48,47 @@
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createUserForm.lastname(placeholder = 'Last Name', class = 'form-control', required = 'required', type = 'text') }}
             {% for error in createUserForm.lastname.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createUserForm.email(placeholder = 'Email', class = 'form-control', required = 'required', type = 'email') }}
             {% for error in createUserForm.email.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createUserForm.password(placeholder = 'Password', class = 'form-control', required = 'required', type = 'password') }}
             {% for error in createUserForm.password.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createUserForm.confirm_password(placeholder = 'Confirm Password', class = 'form-control', required = 'required', type = 'password') }}
             {% for error in createUserForm.confirm_password.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             <select class="form-select" id="role" name="role" required="" selected="user">
               <option value="user">User</option>
               <option value="admin">Admin</option>
               <option value="venue">Venue</option>
             </select>
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createUserForm.venueId(placeholder = 'Venue ID (only enter if role is venue)', class = 'form-control', type = 'number') }}
             {% for error in createUserForm.venueId.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>{{ createUserForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2">{{ createUserForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
 
-        <div style="height: 10px;"></div>
-        <div class="border"></div>
-        <div style="height: 10px;"></div>
+        <div class="border mt-2 mb-2"></div>
 
         <h3>Create New Venue</h3>
         <form method="POST" action="/admin/create_venue">
@@ -115,22 +99,19 @@
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createVenueForm.location(placeholder = 'Location', class = 'form-control', required = 'required', type = 'text') }}
             {% for error in createVenueForm.location.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>
+          <div class="mt-2">
             {{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control', required = 'required', type = 'nunber') }}
             {% for error in createVenueForm.capacity.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div style="height: 10px;"></div>
-          <div>{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
       </div> <!-- end of column -->
 
@@ -164,7 +145,7 @@
                       {% endif %}
                       <td class="border text-center">
                         <form method="POST" action="/admin/delete_user">
-                          <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %} >X</button>
+                          <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>X</button>
                         </form>
                       </td>
                     </tr>
