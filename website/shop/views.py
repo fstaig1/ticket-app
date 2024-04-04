@@ -71,7 +71,7 @@ def cart():
 @login_required
 def add_to_cart():
     concert = Concert.query.filter_by(id=request.form.get("purchase_button")).first()
-    concert.create_ticket(ownerId=current_user.id, purchased=False)
+    concert.create_ticket(ownerId=current_user.id)
     return redirect(url_for("shop.cart"))
 
 
@@ -105,7 +105,7 @@ def buy_additional_ticket():
         id=request.form.get("buy_additional_ticket_button")
     ).first()
     concert = ticket.get_concert()
-    concert.create_ticket(ownerId=current_user.id, purchased=False)
+    concert.create_ticket(ownerId=current_user.id)
     return redirect(url_for("shop.cart"))
 
 
