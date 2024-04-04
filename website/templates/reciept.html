@@ -34,7 +34,7 @@
           <td class="border">{{ item.confirmationCode }}</td>
           <td class="border">£{{ item.get_concert().ticketPrice }}0</td>
           <td class="border text-center">
-            <form method="POST" action="/view_ticket">
+            <form method="POST" action="/view_ticket" target="_blank">
               <button name="view_ticket_button" class="btn btn-success" value="{{ item.id }}">View</button>
             </form>
           </td>

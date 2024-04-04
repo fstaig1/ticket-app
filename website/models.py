@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(300), nullable=False)
     role = db.Column(db.String(100), nullable=False, default="user")
 
     venueManager = db.Column(db.Boolean(), nullable=False, default=False)
@@ -182,7 +182,7 @@ class Ticket(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def delete(self):  # TODO test if this works in the big chain of deletes
+    def delete(self):  # FIXME doesnt work in big chain of deletes from venue page
         concert = self.get_concert()
         concert.availableTickets += 1
         db.session.add(concert)
