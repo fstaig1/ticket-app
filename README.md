@@ -7,8 +7,8 @@ ___
 
 > 1. Open project file in VSCode or IDE of your choice.
 > 2. Create a new venv and install `requirements.txt`
-    `python -m venv /venv`
-    `pip install -r requirements.txt`
+>    `python -m venv /venv`
+>    `pip install -r requirements.txt`
 > 3. Run `main.py`
 > 4. Open <http://127.0.0.1:38255>
 
