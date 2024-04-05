@@ -12,32 +12,27 @@
     <div class="border mt-2 mb-2"></div>
     <div class="row">
       <div class="col-4 border-end text-center">
-        <div class="row">
-          <form method="POST" action="/admin/view_all_users" class="col">
-            <div>
-              <button class="btn btn-primary">View All Users</button>
+        <form method="POST" action="/admin">
+          <div class="row mb-2">
+            <div class="col">
+              <button class="btn btn-primary" name="view_button" type="submit" value="users">View All Users</button>
             </div>
-          </form>
-
-          <form method="POST" action="/admin/view_all_venues" class="col">
-            <div>
-              <button class="btn btn-primary">View All Venues</button>
+            <div class="col">
+              <button class="btn btn-primary" name="view_button" type="submit" value="venues">View All Venues</button>
             </div>
-          </form>
-        </div>
-        <div class="row mt-2">
-          <form method="POST" action="/admin/view_all_artists" class="col">
-            <div>
-              <button class="btn btn-primary">View All Artists</button>
+          </div>
+          <div class="row mb-2">
+            <div class="col">
+              <button class="btn btn-primary" name="view_button" type="submit" value="artists">View All Artists</button>
             </div>
-          </form>
-
-          <form method="POST" action="/admin/view_all_concerts" class="col">
-            <div>
-              <button class="btn btn-primary">View All Concerts</button>
+            <div class="col">
+              <button class="btn btn-primary" name="view_button" type="submit" value="concerts">View All Concerts</button>
             </div>
-          </form>
-        </div>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" name="view_button" type="submit" value="tickets">View All Tickets</button>
+          </div>
+        </form>
         <div class="border mt-2 mb-2"></div>
         <h3>Create New User</h3>
         <form method="POST" action="/admin/create_user">
@@ -117,155 +112,171 @@
 
       <div class="col">
         <div>
-          <div>
-            {% if current_users %}
-              <h2>All Users</h2>
-              <div>
-                <table class="table table-striped center table-hover table-bordered table-sm">
-                  <tr class="fw-medium text-start table-active">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Registered</th>
-                    <th>Last Logged In</th>
-                    <th>Delete User</th>
-                  </tr>
-                  {% for user in current_users %}
-                    <tr class="text-start">
-                      <td class="fw-medium">{{ user.id }}</td>
-                      <td>{{ user.firstname + ' ' + user.lastname }}</td>
-                      <td>{{ user.email }}</td>
-                      <td>{{ user.role }}</td>
-                      <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                      {% if user.current_logged_in %}
-                        <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
-                      {% else %}
-                        <td>Not yet logged in</td>
-                      {% endif %}
-                      <td class="text-center">
-                        <form method="POST" action="/admin/delete_user">
-                          <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
-                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                            </svg>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
-            {% endif %}
-          </div>
+          {% if current_users %}
+            <h2>All Users</h2>
+            <table class="table table-striped center table-hover table-bordered table-sm">
+              <tr class="fw-medium text-start table-active">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Registered</th>
+                <th>Last Logged In</th>
+                <th>Delete User</th>
+              </tr>
+              {% for user in current_users %}
+                <tr class="text-start">
+                  <td class="fw-medium">{{ user.id }}</td>
+                  <td>{{ user.firstname + ' ' + user.lastname }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.role }}</td>
+                  <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                  {% if user.current_logged_in %}
+                    <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                  {% else %}
+                    <td>Not yet logged in</td>
+                  {% endif %}
+                  <td class="text-center">
+                    <form method="POST" action="/admin/delete_user">
+                      <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
         </div>
 
         <div>
-          <div>
-            {% if venues %}
-              <h2>All Venues</h2>
-              <div>
-                <table class="table table-striped center table-hover table-bordered table-sm">
-                  <tr class="fw-medium text-start table-active">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Capacity</th>
-                    <th>Delete Venue</th>
-                  </tr>
-                  {% for venue in venues %}
-                    <tr class="text-start">
-                      <td class="fw-medium">{{ venue.id }}</td>
-                      <td>{{ venue.name }}</td>
-                      <td>{{ venue.location }}</td>
-                      <td>{{ venue.capacity }}</td>
-                      <td class="text-center">
-                        <form method="POST" action="/admin/delete_venue">
-                          <button name="delete_venue_button" class="btn btn-danger" value="{{ venue.id }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
-                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                            </svg>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
-            {% endif %}
-          </div>
+          {% if venues %}
+            <h2>All Venues</h2>
+            <table class="table table-striped center table-hover table-bordered table-sm">
+              <tr class="fw-medium text-start table-active">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Delete Venue</th>
+              </tr>
+              {% for venue in venues %}
+                <tr class="text-start">
+                  <td class="fw-medium">{{ venue.id }}</td>
+                  <td>{{ venue.name }}</td>
+                  <td>{{ venue.location }}</td>
+                  <td>{{ venue.capacity }}</td>
+                  <td class="text-center">
+                    <form method="POST" action="/admin/delete_venue">
+                      <button name="delete_venue_button" class="btn btn-danger" value="{{ venue.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
         </div>
 
         <div>
-          <div>
-            {% if artists %}
-              <h2>All Artists</h2>
-              <div>
-                <table class="table table-striped center table-hover table-bordered table-sm">
-                  <tr class="fw-medium text-start table-active">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Delete Artist</th>
-                  </tr>
-                  {% for artist in artists %}
-                    <tr class="text-start">
-                      <td class="fw-medium">{{ artist.id }}</td>
-                      <td>{{ artist.name }}</td>
-                      <td class="text-center">
-                        <form method="POST" action="/admin/delete_artist">
-                          <button name="delete_artist_button" class="btn btn-danger" value="{{ artist.id }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
-                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                            </svg>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
-            {% endif %}
-          </div>
+          {% if artists %}
+            <h2>All Artists</h2>
+            <table class="table table-striped center table-hover table-bordered table-sm">
+              <tr class="fw-medium text-start table-active">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Delete Artist</th>
+              </tr>
+              {% for artist in artists %}
+                <tr class="text-start">
+                  <td class="fw-medium">{{ artist.id }}</td>
+                  <td>{{ artist.name }}</td>
+                  <td class="text-center">
+                    <form method="POST" action="/admin/delete_artist">
+                      <button name="delete_artist_button" class="btn btn-danger" value="{{ artist.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
         </div>
 
         <div>
-          <div>
-            {% if concerts %}
-              <h2>All Concerts</h2>
-              <div>
-                <table class="table table-striped center table-hover table-bordered table-sm">
-                  <tr class="fw-medium text-start table-active">
-                    <th>Concert ID</th>
-                    <th>Artist ID</th>
-                    <th>Artist Name</th>
-                    <th>Venue ID</th>
-                    <th>Venue Name</th>
-                    <th>Ticket Price</th>
-                    <th>Delete Concert</th>
-                  </tr>
-                  {% for concert in concerts %}
-                    <tr class="text-start">
-                      <td class="fw-medium">{{ concert.id }}</td>
-                      <td>{{ concert.artistId }}</td>
-                      <td>{{ concert.artistName }}</td>
-                      <td>{{ concert.venueId }}</td>
-                      <td>{{ concert.venueName }}</td>
-                      <td>£{{ concert.ticketPrice }}</td>
-                      <td class="text-center">
-                        <form method="POST" action="/admin/delete_concert">
-                          <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
-                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                            </svg>
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  {% endfor %}
-                </table>
-              </div>
-            {% endif %}
-          </div>
+          {% if concerts %}
+            <h2>All Concerts</h2>
+            <table class="table table-striped center table-hover table-bordered table-sm">
+              <tr class="fw-medium text-start table-active">
+                <th>Concert ID</th>
+                <th>Artist ID</th>
+                <th>Artist Name</th>
+                <th>Venue ID</th>
+                <th>Venue Name</th>
+                <th>Ticket Price</th>
+                <th>Delete Concert</th>
+              </tr>
+              {% for concert in concerts %}
+                <tr class="text-start">
+                  <td class="fw-medium">{{ concert.id }}</td>
+                  <td>{{ concert.artistId }}</td>
+                  <td>{{ concert.artistName }}</td>
+                  <td>{{ concert.venueId }}</td>
+                  <td>{{ concert.venueName }}</td>
+                  <td>£{{ concert.ticketPrice }}</td>
+                  <td class="text-center">
+                    <form method="POST" action="/admin/delete_concert">
+                      <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
+        </div>
+
+        <div>
+          {% if tickets %}
+            <h2>All Tickets</h2>
+            <table class="table table-striped center table-hover table-bordered text-start table-sm">
+              <tr class="fw-medium text-start table-active">
+                <th>Ticket ID</th>
+                <th>Owner</th>
+                <th>Concert</th>
+                <th>Purchased?</th>
+                <th>Delete Ticket</th>
+              </tr>
+              {% for ticket in tickets %}
+                <tr>
+                  <td>{{ ticket.id }}</td>
+                  <td>{{ ticket.get_owner().id }} - {{ ticket.get_owner().firstname + ' ' + ticket.get_owner().lastname }}</td>
+                  <td>{{ ticket.get_concert().id }} - {{ ticket.get_concert().artistName }} - {{ ticket.get_concert().venueName + ', ' + ticket.get_concert().venueLocation }}</td>
+                  <td>{{ ticket.purchased }}</td>
+                  <td class="text-center">
+                    <form method="POST" action="/admin/delete_ticket">
+                      <button name="delete_ticket_button" class="btn btn-danger" value="{{ ticket.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
         </div>
       </div>
     </div>

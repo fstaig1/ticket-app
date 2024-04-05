@@ -2,7 +2,7 @@ from flask import render_template, Blueprint, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from ..models import User, Venue, Concert, Artist
 from main import requires_roles
-from .forms import ConcertForm
+from .forms import CreateConcertForm, CreateVenueForm
 from .. import db
 from datetime import datetime
 
@@ -13,25 +13,29 @@ venue_blueprint = Blueprint("venue", __name__, template_folder="templates")
 @login_required
 @requires_roles("venue")
 def venue():
-    concertForm = ConcertForm()
     user = User.query.filter_by(id=current_user.id).first()
     venue = Venue.query.filter_by(id=current_user.venueId).first()
     concerts = Concert.query.filter_by(venueId=current_user.venueId)
 
     return render_template(
-        "venue.html", user=user, venue=venue, concerts=concerts, form=concertForm
+        "venue.html",
+        user=user,
+        venue=venue,
+        concerts=concerts,
+        createConcertForm=CreateConcertForm(),
+        createVenueForm=CreateVenueForm(),
     )
 
 
 @venue_blueprint.route("/venue/create_concert", methods=["POST"])
 @requires_roles("venue")
 def create_concert():
-    concertForm = ConcertForm()
+    createConcertForm = CreateConcertForm()
 
-    if concertForm.validate_on_submit():
-        artist = Artist.query.filter_by(name=concertForm.artistName.data).first()
+    if createConcertForm.validate_on_submit():
+        artist = Artist.query.filter_by(name=createConcertForm.artistName.data).first()
         if not artist:
-            artist = Artist(name=concertForm.artistName.data)
+            artist = Artist(name=createConcertForm.artistName.data)
             db.session.add(artist)
             db.session.commit
 
@@ -40,11 +44,13 @@ def create_concert():
         venue.create_Concert(
             artistId=artist.id,
             artistName=artist.name,
-            ticketPrice=int(concertForm.ticketPrice.data),
-            date=datetime.strptime(concertForm.date.raw_data[0], "%Y-%m-%dT%H:%M"),
+            ticketPrice=int(createConcertForm.ticketPrice.data),
+            date=datetime.strptime(
+                createConcertForm.date.raw_data[0], "%Y-%m-%dT%H:%M"
+            ),
         )
     else:
-        for i in concertForm.errors.values():
+        for i in createConcertForm.errors.values():
             flash(f"{i[0]}")
     return redirect(url_for("venue.venue"))
 
@@ -57,4 +63,29 @@ def delete_concert():
         id=request.form.get("delete_concert_button")
     ).first()
     concert.delete()
+    return redirect(url_for("venue.venue"))
+
+
+@venue_blueprint.route("/venue/create_venue", methods=["POST"])
+@login_required
+@requires_roles("venue")
+def create_venue():
+    createVenueForm = CreateVenueForm()
+    if createVenueForm.validate_on_submit():
+        newVenue = Venue(
+            name=createVenueForm.name.data,
+            location=createVenueForm.location.data,
+            capacity=createVenueForm.capacity.data,
+        )
+        db.session.add(newVenue)
+        db.session.commit()
+        user = User.query.filter_by(id=current_user.id).first()
+        user.venueId = newVenue.id
+
+        db.session.add(user)
+        db.session.commit()
+    else:
+        for i in createVenueForm.errors:
+            flash(f"{createVenueForm.errors[i][0]}")
+
     return redirect(url_for("venue.venue"))

@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, request, redirect, url_for, flash
 from flask_login import login_required
-from ..models import User, Venue, Artist, Concert
+from ..models import User, Venue, Artist, Concert, Ticket
 from main import requires_roles
 from .forms import CreateUserForm, CreateVenueForm
 from .. import db
@@ -8,64 +8,49 @@ from .. import db
 admin_blueprint = Blueprint("admin", __name__, template_folder="templates")
 
 
-@admin_blueprint.route("/admin")
+@admin_blueprint.route("/admin", methods=["GET", "POST"])
 @login_required
 @requires_roles("admin")
 def admin():
-    global createUserForm
-    global createVenueForm
-    createUserForm = CreateUserForm()
-    createVenueForm = CreateVenueForm()
+    match request.form.get("view_button"):
+        case "users":
+            return render_template(
+                "admin.html",
+                current_users=User.query.all(),
+                createUserForm=CreateUserForm(),
+                createVenueForm=CreateVenueForm(),
+            )
+        case "venues":
+            return render_template(
+                "admin.html",
+                venues=Venue.query.all(),
+                createUserForm=CreateUserForm(),
+                createVenueForm=CreateVenueForm(),
+            )
+        case "artists":
+            return render_template(
+                "admin.html",
+                artists=Artist.query.all(),
+                createUserForm=CreateUserForm(),
+                createVenueForm=CreateVenueForm(),
+            )
+        case "concerts":
+            return render_template(
+                "admin.html",
+                concerts=Concert.query.all(),
+                createUserForm=CreateUserForm(),
+                createVenueForm=CreateVenueForm(),
+            )
+        case "tickets":
+            return render_template(
+                "admin.html",
+                tickets=Ticket.query.all(),
+                createUserForm=CreateUserForm(),
+                createVenueForm=CreateVenueForm(),
+            )
+
     return render_template(
-        "admin.html", createUserForm=createUserForm, createVenueForm=createVenueForm
-    )
-
-
-@admin_blueprint.route("/admin/view_all_users", methods=["POST"])
-@login_required
-@requires_roles("admin")
-def view_all_users():
-    return render_template(
-        "admin.html",
-        current_users=User.query.all(),
-        createUserForm=createUserForm,
-        createVenueForm=createVenueForm,
-    )
-
-
-@admin_blueprint.route("/admin/view_all_venues", methods=["POST"])
-@login_required
-@requires_roles("admin")
-def view_all_venues():
-    return render_template(
-        "admin.html",
-        venues=Venue.query.all(),
-        createUserForm=createUserForm,
-        createVenueForm=createVenueForm,
-    )
-
-
-@admin_blueprint.route("/admin/view_all_artists", methods=["POST"])
-@login_required
-@requires_roles("admin")
-def view_all_artists():
-    return render_template(
-        "admin.html",
-        artists=Artist.query.all(),
-        createUserForm=createUserForm,
-        createVenueForm=createVenueForm,
-    )
-
-
-@admin_blueprint.route("/admin/view_all_concerts", methods=["POST"])
-@login_required
-@requires_roles("admin")
-def view_all_concerts():
-    return render_template(
-        "admin.html",
-        concerts=Concert.query.all(),
-        createUserForm=createUserForm,
-        createVenueForm=createVenueForm,
+        "admin.html", createUserForm=CreateUserForm(), createVenueForm=CreateVenueForm()
     )
 
 
@@ -75,7 +60,12 @@ def view_all_concerts():
 def delete_user():
     user = User.query.filter_by(id=request.form.get("delete_user_button")).first()
     user.delete()
-    return redirect(url_for("admin.admin"))
+    return render_template(
+        "admin.html",
+        current_users=User.query.all(),
+        createUserForm=CreateUserForm(),
+        createVenueForm=CreateVenueForm(),
+    )
 
 
 @admin_blueprint.route("/admin/delete_venue", methods=["POST"])
@@ -84,7 +74,12 @@ def delete_user():
 def delete_venue():
     venue = Venue.query.filter_by(id=request.form.get("delete_venue_button")).first()
     venue.delete()
-    return redirect(url_for("admin.admin"))
+    return render_template(
+        "admin.html",
+        venues=Venue.query.all(),
+        createUserForm=CreateUserForm(),
+        createVenueForm=CreateVenueForm(),
+    )
 
 
 @admin_blueprint.route("/admin/delete_artist", methods=["POST"])
@@ -93,7 +88,12 @@ def delete_venue():
 def delete_artist():
     artist = Artist.query.filter_by(id=request.form.get("delete_artist_button")).first()
     artist.delete()
-    return redirect(url_for("admin.admin"))
+    return render_template(
+        "admin.html",
+        artists=Artist.query.all(),
+        createUserForm=CreateUserForm(),
+        createVenueForm=CreateVenueForm(),
+    )
 
 
 @admin_blueprint.route("/admin/delete_concert", methods=["POST"])
@@ -104,7 +104,26 @@ def delete_concert():
         id=request.form.get("delete_concert_button")
     ).first()
     concert.delete()
-    return redirect(url_for("admin.admin"))
+    return render_template(
+        "admin.html",
+        concerts=Concert.query.all(),
+        createUserForm=CreateUserForm(),
+        createVenueForm=CreateVenueForm(),
+    )
+
+
+@admin_blueprint.route("/admin/delete_ticket", methods=["GET", "POST"])
+@login_required
+@requires_roles("admin")
+def delete_ticket():
+    ticket = Ticket.query.filter_by(id=request.form.get("delete_ticket_button")).first()
+    ticket.delete()
+    return render_template(
+        "admin.html",
+        tickets=Ticket.query.all(),
+        createUserForm=CreateUserForm(),
+        createVenueForm=CreateVenueForm(),
+    )
 
 
 @admin_blueprint.route("/admin/create_user", methods=["POST"])
@@ -114,13 +133,11 @@ def create_user():
     createUserForm = CreateUserForm()
     if createUserForm.validate_on_submit():
         if createUserForm.venueId.data and createUserForm.role.data == "venue":
-            venueManager = True
             venueId = createUserForm.venueId.data
         elif not createUserForm.venueId.data and createUserForm.role.data == "venue":
             flash("Venue ID required for venue manager role.")
             return redirect(url_for("admin.admin"))
         else:
-            venueManager = False
             venueId = None
 
         newUser = User(
@@ -129,7 +146,6 @@ def create_user():
             email=createUserForm.email.data,
             password=createUserForm.password.data,
             role=createUserForm.role.data,
-            venueManager=venueManager,
             venueId=venueId,
         )
 

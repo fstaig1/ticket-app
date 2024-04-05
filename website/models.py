@@ -16,7 +16,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(300), nullable=False)
     role = db.Column(db.String(100), nullable=False, default="user")
 
-    venueManager = db.Column(db.Boolean(), nullable=False, default=False)
     venueId = db.Column(db.Integer, db.ForeignKey("venues.id"), default=None)
 
     registered_on = db.Column(db.DateTime, nullable=False)
@@ -34,9 +33,7 @@ class User(db.Model, UserMixin):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(
-        self, firstname, lastname, email, password, role, venueManager, venueId
-    ):
+    def __init__(self, firstname, lastname, email, password, role, venueId):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -45,7 +42,6 @@ class User(db.Model, UserMixin):
         self.registered_on = datetime.now()
         self.last_logged_in = None
         self.current_logged_in = None
-        self.venueManager = venueManager
         self.venueId = venueId
 
 
@@ -92,7 +88,10 @@ class Venue(db.Model):
         concerts = Concert.query.filter_by(venueId=self.id).all()
         for concert in concerts:
             concert.delete()
+        manager = User.query.filter_by(venueId=self.id).first()
+        manager.venueId = None
 
+        db.session.add(manager)
         db.session.delete(self)
         db.session.commit()
 
@@ -171,7 +170,15 @@ class Ticket(db.Model):
         return User.query.filter_by(id=self.ownerId).first()
 
     def encode(self):
-        return b64e(compress((b"concertId:%d, ownerId:%d" % (self.get_concert().id, self.get_owner().id)), 9))
+        return b64e(
+            compress(
+                (
+                    b"concertId:%d, ownerId:%d"
+                    % (self.get_concert().id, self.get_owner().id)
+                ),
+                9,
+            )
+        )
 
     def decode(self):
         return decompress(b64d(bytes(self.confirmationCode, "utf-8")))
