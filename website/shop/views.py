@@ -8,68 +8,48 @@ import qrcode
 shop_blueprint = Blueprint("shop", __name__, template_folder="/templates")
 
 
-@shop_blueprint.route("/browse")
+@shop_blueprint.route("/browse", methods=["POST", "GET"])
 def browse():
-    concerts = (
-        Concert.query.filter(Concert.availableTickets >= 1)
-        .order_by(asc(Concert.date))
-        .all()
-    )
-    return render_template("browse.html", concerts=concerts)
-
-
-@shop_blueprint.route("/browse/sort_by_date", methods=["POST"])
-def sort_by_date():
-    concerts = (
-        Concert.query.filter(Concert.availableTickets >= 1)
-        .order_by(asc(Concert.date))
-        .all()
-    )
-    return render_template("browse.html", concerts=concerts)
-
-
-@shop_blueprint.route("/browse/sort_by_name", methods=["POST"])
-def sort_by_name():
-    concerts = (
-        Concert.query.filter(Concert.availableTickets >= 1)
-        .order_by(asc(Concert.artistName))
-        .all()
-    )
-    return render_template("browse.html", concerts=concerts)
-
-
-@shop_blueprint.route("/browse/sort_by_location", methods=["POST"])
-def sort_by_location():
-    concerts = (
-        Concert.query.filter(Concert.availableTickets >= 1)
-        .order_by(asc(Concert.venueLocation))
-        .all()
-    )
-    return render_template("browse.html", concerts=concerts)
-
-
-@shop_blueprint.route("/browse/sort_by_price", methods=["POST"])
-def sort_by_price():
-    concerts = (
-        Concert.query.filter(Concert.availableTickets >= 1)
-        .order_by(asc(Concert.ticketPrice))
-        .all()
-    )
-    return render_template("browse.html", concerts=concerts)
-
-
-@shop_blueprint.route("/browse/search", methods=["POST"])
-def search():
-    concertList = (
-        Concert.query.filter(Concert.availableTickets >= 1)
-        .order_by(asc(Concert.date))
-        .all()
-    )
-    search = request.form.get("search_bar").lower()
     concerts = []
-    for concert in concertList:
-        if search in concert.artistName.lower():
-            concerts.append(concert)
+    match request.form.get("sort_button"):
+        case "date":
+            concerts = (
+                Concert.query.filter(Concert.availableTickets >= 1)
+                .order_by(asc(Concert.date))
+                .all()
+            )
+        case "artistName":
+            concerts = (
+                Concert.query.filter(Concert.availableTickets >= 1)
+                .order_by(asc(Concert.artistName))
+                .all()
+            )
+        case "location":
+            concerts = (
+                Concert.query.filter(Concert.availableTickets >= 1)
+                .order_by(asc(Concert.venueLocation))
+                .all()
+            )
+        case "price":
+            concerts = (
+                Concert.query.filter(Concert.availableTickets >= 1)
+                .order_by(asc(Concert.ticketPrice))
+                .all()
+            )
+        case _:
+            concerts = (
+                Concert.query.filter(Concert.availableTickets >= 1)
+                .order_by(asc(Concert.date))
+                .all()
+            )
+
+    search = request.form.get("search_bar")
+    if search:
+        found = []
+        for concert in concerts:
+            if search.lower() in concert.artistName.lower():
+                found.append(concert)
+        return render_template("browse.html", concerts=found)
 
     return render_template("browse.html", concerts=concerts)
 
