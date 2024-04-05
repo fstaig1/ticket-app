@@ -5,6 +5,10 @@ from datetime import datetime
 
 
 def init_db():
+    """Method to create test data from files.
+
+    Path: test_data\\*"""
+
     print(
         """
           Initialising Database ...
