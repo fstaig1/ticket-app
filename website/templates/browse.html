@@ -6,7 +6,11 @@
     <div class="border mb-2"></div>
 
     {% if not current_user.is_authenticated %}
-      <h6 class="text-bg-danger rounded">Login required for ticket purchase.</h6>
+      <div class="text-bg-danger rounded">
+        <p class="fw-medium">
+          <a href="{{ url_for('users.login') }}">Login</a> required for ticket purchase.
+        </p>
+      </div>
       <div class="border mt-2 mb-2"></div>
     {% endif %}
     <div class="row">
@@ -28,6 +32,12 @@
       <form method="POST" action="/browse/sort_by_price" class="col">
         <div>
           <button class="btn btn-primary">Sort by Ticket Price</button>
+        </div>
+      </form>
+      <form method="POST" action="/browse/search" class="col">
+        <div class="input-group">
+          <input class="form-control" type="text" placeholder="Search for Artist" name="search_bar" />
+          <button class="btn btn-outline-success" type="submit">Search</button>
         </div>
       </form>
     </div>

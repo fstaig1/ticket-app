@@ -58,6 +58,22 @@ def sort_by_price():
     return render_template("browse.html", concerts=concerts)
 
 
+@shop_blueprint.route("/browse/search", methods=["POST"])
+def search():
+    concertList = (
+        Concert.query.filter(Concert.availableTickets >= 1)
+        .order_by(asc(Concert.date))
+        .all()
+    )
+    search = request.form.get("search_bar").lower()
+    concerts = []
+    for concert in concertList:
+        if search in concert.artistName.lower():
+            concerts.append(concert)
+
+    return render_template("browse.html", concerts=concerts)
+
+
 @shop_blueprint.route("/cart", methods=["GET", "POST"])
 @login_required
 def cart():
