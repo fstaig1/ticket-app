@@ -33,9 +33,7 @@ class User(db.Model, UserMixin):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(
-        self, firstname, lastname, email, password, role, venueId
-    ):
+    def __init__(self, firstname, lastname, email, password, role, venueId):
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -90,7 +88,10 @@ class Venue(db.Model):
         concerts = Concert.query.filter_by(venueId=self.id).all()
         for concert in concerts:
             concert.delete()
+        manager = User.query.filter_by(venueId=self.id).first()
+        manager.venueId = None
 
+        db.session.add(manager)
         db.session.delete(self)
         db.session.commit()
 
@@ -169,7 +170,15 @@ class Ticket(db.Model):
         return User.query.filter_by(id=self.ownerId).first()
 
     def encode(self):
-        return b64e(compress((b"concertId:%d, ownerId:%d" % (self.get_concert().id, self.get_owner().id)), 9))
+        return b64e(
+            compress(
+                (
+                    b"concertId:%d, ownerId:%d"
+                    % (self.get_concert().id, self.get_owner().id)
+                ),
+                9,
+            )
+        )
 
     def decode(self):
         return decompress(b64d(bytes(self.confirmationCode, "utf-8")))
