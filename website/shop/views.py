@@ -10,48 +10,49 @@ shop_blueprint = Blueprint("shop", __name__, template_folder="/templates")
 
 @shop_blueprint.route("/browse", methods=["POST", "GET"])
 def browse():
-    concerts = []
+    global browseConcerts
     match request.form.get("sort_button"):
         case "date":
-            concerts = (
+            browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.date))
                 .all()
             )
         case "artistName":
-            concerts = (
+            browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.artistName))
                 .all()
             )
         case "location":
-            concerts = (
+            browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.venueLocation))
                 .all()
             )
         case "price":
-            concerts = (
+            browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.ticketPrice))
                 .all()
             )
+        case "search":
+            print("pass")
+            search = request.form.get("search_bar")
+            if search:
+                found = []
+                for concert in browseConcerts:
+                    if search.lower() in concert.artistName.lower():
+                        found.append(concert)
+                return render_template("browse.html", concerts=found)
         case _:
-            concerts = (
+            browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.date))
                 .all()
             )
 
-    search = request.form.get("search_bar")
-    if search:
-        found = []
-        for concert in concerts:
-            if search.lower() in concert.artistName.lower():
-                found.append(concert)
-        return render_template("browse.html", concerts=found)
-
-    return render_template("browse.html", concerts=concerts)
+    return render_template("browse.html", concerts=browseConcerts)
 
 
 @shop_blueprint.route("/cart", methods=["GET", "POST"])
