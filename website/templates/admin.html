@@ -35,39 +35,45 @@
         </form>
         <div class="border mt-2 mb-2"></div>
         <h3>Create New User</h3>
-        <form method="POST" action="/admin/create_user">
+        <form method="POST" action="/admin/create_user" class="text-start">
           {{ createUserForm.csrf_token() }}
           <div>
-            {{ createUserForm.firstname(placeholder = 'First Name', class = 'form-control', required = 'required', type = 'text') }}
+            <a>First Name</a>
+            {{ createUserForm.firstname(placeholder = 'First Name', class = 'form-control form-control-sm', required = 'required', type = 'text') }}
             {% for error in createUserForm.firstname.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
-            {{ createUserForm.lastname(placeholder = 'Last Name', class = 'form-control', required = 'required', type = 'text') }}
+            <a>Last Name</a>
+            {{ createUserForm.lastname(placeholder = 'Last Name', class = 'form-control form-control-sm', required = 'required', type = 'text') }}
             {% for error in createUserForm.lastname.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
-            {{ createUserForm.email(placeholder = 'Email', class = 'form-control', required = 'required', type = 'email') }}
+            <a>Email</a>
+            {{ createUserForm.email(placeholder = 'Email', class = 'form-control form-control-sm', required = 'required', type = 'email') }}
             {% for error in createUserForm.email.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
-            {{ createUserForm.password(placeholder = 'Password', class = 'form-control', required = 'required', type = 'password') }}
+            <a>Password</a>
+            {{ createUserForm.password(placeholder = 'Password', class = 'form-control form-control-sm', required = 'required', type = 'password') }}
             {% for error in createUserForm.password.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
-            {{ createUserForm.confirm_password(placeholder = 'Confirm Password', class = 'form-control', required = 'required', type = 'password') }}
+            <a>Confirm Password</a>
+            {{ createUserForm.confirm_password(placeholder = 'Confirm Password', class = 'form-control form-control-sm', required = 'required', type = 'password') }}
             {% for error in createUserForm.confirm_password.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
+            <a>Role</a>
             <select class="form-select" id="role" name="role" required="" selected="user">
               <option value="user">User</option>
               <option value="admin">Admin</option>
@@ -75,38 +81,42 @@
             </select>
           </div>
           <div class="mt-2">
+            <a>Venue ID (only enter if role is venue)</a>
             {{ createUserForm.venueId(placeholder = 'Venue ID (only enter if role is venue)', class = 'form-control', type = 'number') }}
             {% for error in createUserForm.venueId.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mt-2">{{ createUserForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2 text-center">{{ createUserForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
 
         <div class="border mt-2 mb-2"></div>
 
         <h3>Create New Venue</h3>
-        <form method="POST" action="/admin/create_venue">
+        <form method="POST" action="/admin/create_venue" class="text-start">
           {{ createVenueForm.csrf_token() }}
           <div>
-            {{ createVenueForm.name(placeholder = 'Name', class = 'form-control', required = 'required', type = 'text') }}
+            <a>Name</a>
+            {{ createVenueForm.name(placeholder = 'Name', class = 'form-control form-control-sm', required = 'required', type = 'text') }}
             {% for error in createVenueForm.name.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
-            {{ createVenueForm.location(placeholder = 'Location', class = 'form-control', required = 'required', type = 'text') }}
+            <a>Location</a>
+            {{ createVenueForm.location(placeholder = 'Location', class = 'form-control form-control-sm', required = 'required', type = 'text') }}
             {% for error in createVenueForm.location.errors %}
               {{ error }}
             {% endfor %}
           </div>
           <div class="mt-2">
-            {{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control', required = 'required', type = 'nunber') }}
+            <a>Capacity</a>
+            {{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control form-control-sm', required = 'required', type = 'nunber') }}
             {% for error in createVenueForm.capacity.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mt-2">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2 text-center">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
       </div> <!-- end of column -->
 
