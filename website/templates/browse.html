@@ -29,7 +29,11 @@
         </div>
         <div class="input-group col">
           <input class="form-control" type="text" placeholder="Search for Artist" name="search_bar" />
-          <button class="btn btn-outline-success" name="sort_button" type="submit" value="search">Search</button>
+          <button class="btn btn-outline-success" name="sort_button" type="submit" value="search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mb-1" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
         </div>
       </form>
     </div>
@@ -37,26 +41,26 @@
     <div class="border mt-2 mb-2"></div>
 
     <div>
-      <table class="table table-striped center table-hover text-start">
+      <table class="table table-striped center table-hover text-start table-bordered">
         <tr class="fw-medium table-active">
-          <th class="border">Date</th>
-          <th class="border">Artist Name</th>
-          <th class="border">Venue</th>
-          <th class="border">Location</th>
-          <th class="border">Price</th>
+          <th>Date</th>
+          <th>Artist Name</th>
+          <th>Venue</th>
+          <th>Location</th>
+          <th>Price</th>
           {% if current_user.is_authenticated %}
-            <th class="border">Buy</th>
+            <th>Buy</th>
           {% endif %}
         </tr>
         {% for concert in concerts %}
           <tr>
-            <td class="border fw-medium">{{ concert.date }}</td>
-            <td class="border">{{ concert.artistName }}</td>
-            <td class="border">{{ concert.venueName }}</td>
-            <td class="border">{{ concert.venueLocation }}</td>
-            <td class="border">£{{ concert.ticketPrice }}0</td>
+            <td class="fw-medium">{{ concert.date }}</td>
+            <td>{{ concert.artistName }}</td>
+            <td>{{ concert.venueName }}</td>
+            <td>{{ concert.venueLocation }}</td>
+            <td>£{{ concert.ticketPrice }}0</td>
             {% if current_user.is_authenticated %}
-              <td class="border text-center">
+              <td class="text-center">
                 <form method="POST" action="/add_to_cart">
                   <button name="purchase_button" class="btn btn-success" style="text-decoration: underline;" value="{{ concert.id }}">{{ concert.availableTickets }} left</button>
                 </form>

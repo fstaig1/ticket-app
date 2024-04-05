@@ -13,18 +13,18 @@
     <div class="row">
       <div class="col-4 text-center border-end">
         <h3>Manager Information</h3>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-bordered">
           <tr>
-            <th class="border text-end">ID</th>
-            <td class="border text-start">{{ current_user.id }}</td>
+            <th class="text-end">ID</th>
+            <td class="text-start">{{ current_user.id }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Name</th>
-            <td class="border text-start">{{ current_user.firstname + ' ' + current_user.lastname }}</td>
+            <th class="text-end">Name</th>
+            <td class="text-start">{{ current_user.firstname + ' ' + current_user.lastname }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Email</th>
-            <td class="border text-start">{{ current_user.email }}</td>
+            <th class="text-end">Email</th>
+            <td class="text-start">{{ current_user.email }}</td>
           </tr>
         </table>
         <div class="border mt-2 mb-2"></div>
@@ -57,45 +57,49 @@
 
       <div class="col text-center">
         <h3>Venue Information</h3>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-bordered">
           <tr>
-            <th class="border text-end">ID</th>
-            <td class="border text-start">{{ venue.id }}</td>
+            <th class="text-end">ID</th>
+            <td class="text-start">{{ venue.id }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Name</th>
-            <td class="border text-start">{{ venue.name }}</td>
+            <th class="text-end">Name</th>
+            <td class="text-start">{{ venue.name }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Location</th>
-            <td class="border text-start">{{ venue.location }}</td>
+            <th class="text-end">Location</th>
+            <td class="text-start">{{ venue.location }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Capacity</th>
-            <td class="border text-start">{{ venue.capacity }}</td>
+            <th class="text-end">Capacity</th>
+            <td class="text-start">{{ venue.capacity }}</td>
           </tr>
           <tr>
-            <th class="border">Concerts</th>
-            <td class="border">
-              <table class="table table-striped table-hover text-start">
+            <th>Concerts</th>
+            <td>
+              <table class="table table-striped table-hover text-start table-bordered table-sm">
                 <tr class="fw-medium table-active">
-                  <td class="border">ID</td>
-                  <td class="border">Artist ID</td>
-                  <td class="border">Artist Name</td>
-                  <td class="border">Date</td>
-                  <td class="border">Ticket Price</td>
-                  <td class="border">Delete</td>
+                  <td>ID</td>
+                  <td>Artist ID</td>
+                  <td>Artist Name</td>
+                  <td>Date</td>
+                  <td>Ticket Price</td>
+                  <td>Delete</td>
                 </tr>
                 {% for concert in concerts %}
                   <tr>
-                    <td class="border fw-medium">{{ concert.id }}</td>
-                    <td class="border">{{ concert.artistId }}</td>
-                    <td class="border">{{ concert.artistName }}</td>
-                    <td class="border">{{ concert.date }}</td>
-                    <td class="border">£{{ concert.ticketPrice }}0</td>
-                    <td class="border text-center">
+                    <td class="fw-medium">{{ concert.id }}</td>
+                    <td>{{ concert.artistId }}</td>
+                    <td>{{ concert.artistName }}</td>
+                    <td>{{ concert.date }}</td>
+                    <td>£{{ concert.ticketPrice }}0</td>
+                    <td class="text-center">
                       <form method="POST" action="/venue/delete_concert">
-                        <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">X</button>
+                        <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                          </svg>
+                        </button>
                       </form>
                     </td>
                   </tr>

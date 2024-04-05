@@ -159,7 +159,7 @@ def view_ticket():
         qr.add_data(confirmationCode)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white")
-        img.save("website/static/img/qr.png")
+        img.save("website/static/qr.png")
 
         return render_template(
             "ticket.html",

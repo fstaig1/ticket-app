@@ -7,38 +7,38 @@
     <div class="row">
       <div class="col-4 border-end">
         <h3 class="mb-2">User Information</h3>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-bordered">
           <tr>
-            <th class="border text-end">User Id</th>
-            <td class="border text-start">{{ current_user.id }}</td>
+            <th class="text-end">User Id</th>
+            <td class="text-start">{{ current_user.id }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Name</th>
-            <td class="border text-start">{{ current_user.firstname + ' ' + current_user.lastname }}</td>
+            <th class="text-end">Name</th>
+            <td class="text-start">{{ current_user.firstname + ' ' + current_user.lastname }}</td>
           </tr>
           <tr>
-            <th class="border text-end">Email</th>
-            <td class="border text-start">{{ current_user.email }}</td>
+            <th class="text-end">Email</th>
+            <td class="text-start">{{ current_user.email }}</td>
           </tr>
         </table>
       </div>
       <div class="col">
         <h3 class="mb-2">Your Tickets</h3>
-        <table class="table table-striped table-hover text-start">
+        <table class="table table-striped table-hover text-start table-bordered">
           <tr class="fw-medium table-active">
-            <th class="border">Date</th>
-            <th class="border">Artist Name</th>
-            <th class="border">Venue</th>
-            <th class="border">Price</th>
-            <th class="border">View Ticket</th>
+            <th>Date</th>
+            <th>Artist Name</th>
+            <th>Venue</th>
+            <th>Price</th>
+            <th>View Ticket</th>
           </tr>
           {% for ticket in tickets %}
             <tr>
-              <td class="border">{{ ticket.get_concert().date }}</td>
-              <td class="border">{{ ticket.get_concert().artistName }}</td>
-              <td class="border">{{ ticket.get_concert().venueName }}, {{ ticket.get_concert().venueLocation }}</td>
-              <td class="border">£{{ ticket.get_concert().ticketPrice }}0</td>
-              <td class="border text-center">
+              <td>{{ ticket.get_concert().date }}</td>
+              <td>{{ ticket.get_concert().artistName }}</td>
+              <td>{{ ticket.get_concert().venueName }}, {{ ticket.get_concert().venueLocation }}</td>
+              <td>£{{ ticket.get_concert().ticketPrice }}0</td>
+              <td class="text-center">
                 <form method="POST" action="/view_ticket" target="_blank">
                   <button name="view_ticket_button" class="btn btn-success" value="{{ ticket.id }}">View</button>
                 </form>

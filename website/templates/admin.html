@@ -121,31 +121,35 @@
             {% if current_users %}
               <h2>All Users</h2>
               <div>
-                <table class="table table-striped center table-hover">
+                <table class="table table-striped center table-hover table-bordered table-sm">
                   <tr class="fw-medium text-start table-active">
-                    <th class="border">ID</th>
-                    <th class="border">Name</th>
-                    <th class="border">Email</th>
-                    <th class="border">Role</th>
-                    <th class="border">Registered</th>
-                    <th class="border">Last Logged In</th>
-                    <th class="border">Delete User</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Registered</th>
+                    <th>Last Logged In</th>
+                    <th>Delete User</th>
                   </tr>
                   {% for user in current_users %}
                     <tr class="text-start">
-                      <td class="border fw-medium">{{ user.id }}</td>
-                      <td class="border">{{ user.firstname + ' ' + user.lastname }}</td>
-                      <td class="border">{{ user.email }}</td>
-                      <td class="border">{{ user.role }}</td>
-                      <td class="border">{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                      <td class="fw-medium">{{ user.id }}</td>
+                      <td>{{ user.firstname + ' ' + user.lastname }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.role }}</td>
+                      <td>{{ user.registered_on.strftime('%d/%m/%Y %H:%M:%S') }}</td>
                       {% if user.current_logged_in %}
-                        <td class="border">{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                        <td>{{ user.current_logged_in.strftime('%d/%m/%Y %H:%M:%S') }}</td>
                       {% else %}
-                        <td class="border">Not yet logged in</td>
+                        <td>Not yet logged in</td>
                       {% endif %}
-                      <td class="border text-center">
+                      <td class="text-center">
                         <form method="POST" action="/admin/delete_user">
-                          <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>X</button>
+                          <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                            </svg>
+                          </button>
                         </form>
                       </td>
                     </tr>
@@ -161,23 +165,27 @@
             {% if venues %}
               <h2>All Venues</h2>
               <div>
-                <table class="table table-striped center table-hover">
+                <table class="table table-striped center table-hover table-bordered table-sm">
                   <tr class="fw-medium text-start table-active">
-                    <th class="border">ID</th>
-                    <th class="border">Name</th>
-                    <th class="border">Location</th>
-                    <th class="border">Capacity</th>
-                    <th class="border">Delete Venue</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Capacity</th>
+                    <th>Delete Venue</th>
                   </tr>
                   {% for venue in venues %}
                     <tr class="text-start">
-                      <td class="border fw-medium">{{ venue.id }}</td>
-                      <td class="border">{{ venue.name }}</td>
-                      <td class="border">{{ venue.location }}</td>
-                      <td class="border">{{ venue.capacity }}</td>
-                      <td class="border text-center">
+                      <td class="fw-medium">{{ venue.id }}</td>
+                      <td>{{ venue.name }}</td>
+                      <td>{{ venue.location }}</td>
+                      <td>{{ venue.capacity }}</td>
+                      <td class="text-center">
                         <form method="POST" action="/admin/delete_venue">
-                          <button name="delete_venue_button" class="btn btn-danger" value="{{ venue.id }}">X</button>
+                          <button name="delete_venue_button" class="btn btn-danger" value="{{ venue.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                            </svg>
+                          </button>
                         </form>
                       </td>
                     </tr>
@@ -193,19 +201,23 @@
             {% if artists %}
               <h2>All Artists</h2>
               <div>
-                <table class="table table-striped center table-hover">
+                <table class="table table-striped center table-hover table-bordered table-sm">
                   <tr class="fw-medium text-start table-active">
-                    <th class="border">ID</th>
-                    <th class="border">Name</th>
-                    <th class="border">Delete Artist</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Delete Artist</th>
                   </tr>
                   {% for artist in artists %}
                     <tr class="text-start">
-                      <td class="border fw-medium">{{ artist.id }}</td>
-                      <td class="border">{{ artist.name }}</td>
-                      <td class="border text-center">
+                      <td class="fw-medium">{{ artist.id }}</td>
+                      <td>{{ artist.name }}</td>
+                      <td class="text-center">
                         <form method="POST" action="/admin/delete_artist">
-                          <button name="delete_artist_button" class="btn btn-danger" value="{{ artist.id }}">X</button>
+                          <button name="delete_artist_button" class="btn btn-danger" value="{{ artist.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                            </svg>
+                          </button>
                         </form>
                       </td>
                     </tr>
@@ -221,27 +233,31 @@
             {% if concerts %}
               <h2>All Concerts</h2>
               <div>
-                <table class="table table-striped center table-hover">
+                <table class="table table-striped center table-hover table-bordered table-sm">
                   <tr class="fw-medium text-start table-active">
-                    <th class="border">Concert ID</th>
-                    <th class="border">Artist ID</th>
-                    <th class="border">Artist Name</th>
-                    <th class="border">Venue ID</th>
-                    <th class="border">Venue Name</th>
-                    <th class="border">Ticket Price</th>
-                    <th class="border">Delete Concert</th>
+                    <th>Concert ID</th>
+                    <th>Artist ID</th>
+                    <th>Artist Name</th>
+                    <th>Venue ID</th>
+                    <th>Venue Name</th>
+                    <th>Ticket Price</th>
+                    <th>Delete Concert</th>
                   </tr>
                   {% for concert in concerts %}
                     <tr class="text-start">
-                      <td class="border fw-medium">{{ concert.id }}</td>
-                      <td class="border">{{ concert.artistId }}</td>
-                      <td class="border">{{ concert.artistName }}</td>
-                      <td class="border">{{ concert.venueId }}</td>
-                      <td class="border">{{ concert.venueName }}</td>
-                      <td class="border">£{{ concert.ticketPrice }}</td>
-                      <td class="border text-center">
+                      <td class="fw-medium">{{ concert.id }}</td>
+                      <td>{{ concert.artistId }}</td>
+                      <td>{{ concert.artistName }}</td>
+                      <td>{{ concert.venueId }}</td>
+                      <td>{{ concert.venueName }}</td>
+                      <td>£{{ concert.ticketPrice }}</td>
+                      <td class="text-center">
                         <form method="POST" action="/admin/delete_concert">
-                          <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">X</button>
+                          <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                            </svg>
+                          </button>
                         </form>
                       </td>
                     </tr>
