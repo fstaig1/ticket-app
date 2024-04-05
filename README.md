@@ -46,12 +46,12 @@ ___
 ## Important
 
 - This is only deployed on a localhost as a proof of concept.
-- If the database must be initialised, remove the quote marks from lines 68-71 in `main.py`
+- If the database must be initialised, remove the quote marks from lines 59-62 in `main.py`
 
     ``` Python
-    68.  # uncomment this to re initialise the database
-    69.  """
-    70.  with app.app_context():
-    71.      init_db()
-    72.  """
+    58.  # uncomment this to re initialise the database
+    59.  """
+    60.  with app.app_context():
+    61.      init_db()
+    62.  """
     ```
