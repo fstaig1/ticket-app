@@ -6,9 +6,11 @@ from website.initdb import init_db  # noqa: F401
 from website.models import User
 from werkzeug.exceptions import HTTPException
 
+# app config from __init__.py
 app = app()
 
 
+# enforces that a user has a role before accessing a page
 def requires_roles(*roles):
     def wrapper(f):
         @wraps(f)
@@ -22,16 +24,19 @@ def requires_roles(*roles):
     return wrapper
 
 
+# routes user to error page
 @app.errorhandler(HTTPException)
 def handle_exception(e):
     return render_template("error.html", error=e)
 
 
+# routes user to homepage
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
+# starts app
 if __name__ == "__main__":
     login_manager = LoginManager()
     login_manager.login_view = "users.login"
@@ -45,18 +50,14 @@ if __name__ == "__main__":
     from website.admin.views import admin_blueprint
     from website.venue.views import venue_blueprint
     from website.shop.views import shop_blueprint
-
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(venue_blueprint)
     app.register_blueprint(shop_blueprint)
 
     # uncomment this to re initialise the database
-    
-    run = False
-    if not run:
-        run = True
+    """
         with app.app_context():
             init_db()
-    
+    """
     app.run(host="127.0.0.1", port="38255", debug=True)

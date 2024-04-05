@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-
 db = SQLAlchemy()
 
 
+# configures app
 def app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "6LfaX9ocAAAAABWeVBjjXEZTI5tmcxVkO0fDi32J"
