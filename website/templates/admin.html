@@ -118,8 +118,8 @@
           </div>
           <div class="mt-2">
             <a>Manager ID</a>
-            {{ createVenueForm.managar(placeholder = 'Manager ID', class = 'form-control form-control-sm', required = 'required', type = 'nunber', min = '0') }}
-            {% for error in createVenueForm.managar.errors %}
+            {{ createVenueForm.managerId(placeholder = 'Manager ID', class = 'form-control form-control-sm', required = 'required', type = 'nunber', min = '0') }}
+            {% for error in createVenueForm.managerId.errors %}
               {{ error }}
             {% endfor %}
           </div>

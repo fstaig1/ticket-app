@@ -23,29 +23,35 @@
         </table>
       </div>
       <div class="col">
-        <h3 class="mb-2">Your Tickets</h3>
-        <table class="table table-striped table-hover text-start table-bordered">
-          <tr class="fw-medium table-active">
-            <th>Date</th>
-            <th>Artist Name</th>
-            <th>Venue</th>
-            <th>Price</th>
-            <th>View Ticket</th>
-          </tr>
-          {% for ticket in tickets %}
-            <tr>
-              <td>{{ ticket.get_concert().date }}</td>
-              <td>{{ ticket.get_concert().artistName }}</td>
-              <td>{{ ticket.get_concert().venueName }}, {{ ticket.get_concert().venueLocation }}</td>
-              <td>£{{ ticket.get_concert().ticketPrice }}0</td>
-              <td class="text-center">
-                <form method="POST" action="/view_ticket" target="_blank">
-                  <button name="view_ticket_button" class="btn btn-success" value="{{ ticket.id }}">View</button>
-                </form>
-              </td>
+        {% if tickets %}
+          <h3 class="mb-2">Your Tickets</h3>
+          <table class="table table-striped table-hover text-start table-bordered">
+            <tr class="fw-medium table-active">
+              <th>Date</th>
+              <th>Artist Name</th>
+              <th>Venue</th>
+              <th>Price</th>
+              <th>View Ticket</th>
             </tr>
-          {% endfor %}
-        </table>
+            {% for ticket in tickets %}
+              <tr>
+                <td>{{ ticket.get_concert().date }}</td>
+                <td>{{ ticket.get_concert().artistName }}</td>
+                <td>{{ ticket.get_concert().venueName }}, {{ ticket.get_concert().venueLocation }}</td>
+                <td>£{{ ticket.get_concert().ticketPrice }}0</td>
+                <td class="text-center">
+                  <form method="POST" action="/view_ticket" target="_blank">
+                    <button name="view_ticket_button" class="btn btn-success" value="{{ ticket.id }}">View</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+        {% else %}
+          <h3>You currently have no tickets.</h3>
+          <div class="border mt-2 mb-2"></div>
+          <button type="button" class="btn btn-primary mt-2" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy Tickets</button>
+        {% endif %}
       </div>
     </div>
   </div>

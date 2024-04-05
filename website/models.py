@@ -64,7 +64,7 @@ class User(db.Model, UserMixin):
         email: str,
         password: str,
         role: str,
-        venueId: int,
+        venueId: int = None,
     ):
         self.firstname = firstname
         self.lastname = lastname
