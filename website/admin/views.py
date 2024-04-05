@@ -133,13 +133,11 @@ def create_user():
     createUserForm = CreateUserForm()
     if createUserForm.validate_on_submit():
         if createUserForm.venueId.data and createUserForm.role.data == "venue":
-            venueManager = True
             venueId = createUserForm.venueId.data
         elif not createUserForm.venueId.data and createUserForm.role.data == "venue":
             flash("Venue ID required for venue manager role.")
             return redirect(url_for("admin.admin"))
         else:
-            venueManager = False
             venueId = None
 
         newUser = User(
@@ -148,7 +146,6 @@ def create_user():
             email=createUserForm.email.data,
             password=createUserForm.password.data,
             role=createUserForm.role.data,
-            venueManager=venueManager,
             venueId=venueId,
         )
 

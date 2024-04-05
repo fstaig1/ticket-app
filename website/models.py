@@ -16,7 +16,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(300), nullable=False)
     role = db.Column(db.String(100), nullable=False, default="user")
 
-    venueManager = db.Column(db.Boolean(), nullable=False, default=False)
     venueId = db.Column(db.Integer, db.ForeignKey("venues.id"), default=None)
 
     registered_on = db.Column(db.DateTime, nullable=False)
@@ -35,7 +34,7 @@ class User(db.Model, UserMixin):
         db.session.commit()
 
     def __init__(
-        self, firstname, lastname, email, password, role, venueManager, venueId
+        self, firstname, lastname, email, password, role, venueId
     ):
         self.firstname = firstname
         self.lastname = lastname
@@ -45,7 +44,6 @@ class User(db.Model, UserMixin):
         self.registered_on = datetime.now()
         self.last_logged_in = None
         self.current_logged_in = None
-        self.venueManager = venueManager
         self.venueId = venueId
 
 

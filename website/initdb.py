@@ -31,8 +31,7 @@ def init_db():
                     email=str(data[2]),
                     password=str(data[3]),
                     role=str(data[4]),
-                    venueManager=bool(data[5]),
-                    venueId=data[6],
+                    venueId=data[5],
                 )
             )
         db.session.commit()
