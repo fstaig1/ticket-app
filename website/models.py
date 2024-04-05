@@ -127,7 +127,7 @@ class Concert(db.Model):
         return ticket
 
     def delete(self):
-        tickets = Ticket.query.filter_by(concertId=self.artistId).all()
+        tickets = Ticket.query.filter_by(concertId=self.id).all()
         for ticket in tickets:
             ticket.delete()
 
@@ -182,7 +182,7 @@ class Ticket(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def delete(self):  # FIXME doesnt work in big chain of deletes from venue page
+    def delete(self):
         concert = self.get_concert()
         concert.availableTickets += 1
         db.session.add(concert)
