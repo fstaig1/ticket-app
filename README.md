@@ -5,12 +5,12 @@ ___
 
 ## How to run
 
-> 1. Open project file in VSCode or IDE of your choice.
-> 2. Create a new venv and install `requirements.txt`
-    `python -m venv /venv`
-    `pip install -r requirements.txt`
-> 3. Run `main.py`
-> 4. Open <http://127.0.0.1:38255>
+1. Open project file in VSCode or IDE of your choice.
+2. Create a new venv and install `requirements.txt`
+    -   `python -m venv /venv`
+    -   `pip install -r requirements.txt`
+3. Run `main.py`
+4. Open <http://127.0.0.1:38255>
 
 ___
 
@@ -46,12 +46,12 @@ ___
 ## Important
 
 - This is only deployed on a localhost as a proof of concept.
-- If the database must be initialised, remove the quote marks from lines 68-71 in `main.py`
+- If the database must be initialised, remove the quote marks from lines 59-62 in `main.py`
 
     ``` Python
-    68.  # uncomment this to re initialise the database
-    69.  """
-    70.  with app.app_context():
-    71.      init_db()
-    72.  """
+    58.  # uncomment this to re initialise the database
+    59.  """
+    60.  with app.app_context():
+    61.      init_db()
+    62.  """
     ```
