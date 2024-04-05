@@ -61,8 +61,9 @@ class AdminCreateUserForm(FlaskForm):
 class AdminCreateVenueForm(FlaskForm):
     """FlaskForm for creating new venues on the admin page.
 
-    Fields: name, location, capacity, submit.
+    Fields: name, location, capacity, managerId, submit.
     """
+
     name = StringField(
         validators=[
             InputRequired(),
@@ -76,4 +77,5 @@ class AdminCreateVenueForm(FlaskForm):
         ]
     )
     capacity = IntegerField(validators=[InputRequired()])
+    managerId = IntegerField(validators=[InputRequired()])
     submit = SubmitField(validators=[InputRequired()])

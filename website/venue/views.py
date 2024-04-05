@@ -13,6 +13,11 @@ venue_blueprint = Blueprint("venue", __name__, template_folder="templates")
 @login_required
 @requires_roles("venue")
 def venue():
+    """Venue page to show user and venue details.
+
+    Renders:
+        venue.html: on load
+    """
     user = User.query.filter_by(id=current_user.id).first()
     venue = Venue.query.filter_by(id=current_user.venueId).first()
     concerts = Concert.query.filter_by(venueId=current_user.venueId)
@@ -30,6 +35,11 @@ def venue():
 @venue_blueprint.route("/venue/create_concert", methods=["POST"])
 @requires_roles("venue")
 def create_concert():
+    """Creates new Concert obj at this venue from form. Creates new Artist if required.
+
+    Redirects:
+        venue.venue: on load
+    """
     createConcertForm = CreateConcertForm()
 
     if createConcertForm.validate_on_submit():
@@ -63,6 +73,11 @@ def create_concert():
 @login_required
 @requires_roles("venue")
 def delete_concert():
+    """Deletes concert by press of delete_concert_button.
+
+    Redirects:
+        venue.venue: on load
+    """
     concert = Concert.query.filter_by(
         id=request.form.get("delete_concert_button")
     ).first()
@@ -77,6 +92,11 @@ def delete_concert():
 @login_required
 @requires_roles("venue")
 def create_venue():
+    """Creates new Venue obj from form. Updates User to be a venue manager.
+
+    Redirects:
+        venue.venue: on load
+    """
     createVenueForm = CreateVenueForm()
 
     if createVenueForm.validate_on_submit():
@@ -89,10 +109,11 @@ def create_venue():
         db.session.add(newVenue)
         db.session.commit()
 
-        user = User.query.filter_by(id=current_user.id).first()
-        user.venueId = newVenue.id
+        manager = User.query.filter_by(id=current_user.id).first()
+        manager.role = "venue"
+        manager.venueId = newVenue.id
 
-        db.session.add(user)
+        db.session.add(manager)
         db.session.commit()
 
     else:

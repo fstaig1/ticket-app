@@ -12,6 +12,11 @@ admin_blueprint = Blueprint("admin", __name__, template_folder="templates")
 @login_required
 @requires_roles("admin")
 def admin():
+    """Loads admin page,  manages view_button
+
+    Renders:
+        admin.html: on load, on press of view_button
+    """
     match request.form.get("view_button"):
         case "users":
             return render_template(
@@ -54,7 +59,9 @@ def admin():
             )
 
     return render_template(
-        "admin.html", createUserForm=AdminCreateUserForm(), createVenueForm=AdminCreateVenueForm()
+        "admin.html",
+        createUserForm=AdminCreateUserForm(),
+        createVenueForm=AdminCreateVenueForm(),
     )
 
 
@@ -62,6 +69,11 @@ def admin():
 @login_required
 @requires_roles("admin")
 def delete_user():
+    """Deletes User from db.
+
+    Renders:
+        admin.html: on load
+    """
     user = User.query.filter_by(id=request.form.get("delete_user_button")).first()
 
     if user:
@@ -79,6 +91,11 @@ def delete_user():
 @login_required
 @requires_roles("admin")
 def delete_venue():
+    """Deletes Venue from db.
+
+    Renders:
+        admin.html: on load
+    """
     venue = Venue.query.filter_by(id=request.form.get("delete_venue_button")).first()
 
     if venue:
@@ -96,6 +113,11 @@ def delete_venue():
 @login_required
 @requires_roles("admin")
 def delete_artist():
+    """Deletes Artist from db.
+
+    Renders:
+        admin.html: on load
+    """
     artist = Artist.query.filter_by(id=request.form.get("delete_artist_button")).first()
 
     if artist:
@@ -113,6 +135,11 @@ def delete_artist():
 @login_required
 @requires_roles("admin")
 def delete_concert():
+    """Deletes Concert from db.
+
+    Renders:
+        admin.html: on load
+    """
     concert = Concert.query.filter_by(
         id=request.form.get("delete_concert_button")
     ).first()
@@ -132,6 +159,11 @@ def delete_concert():
 @login_required
 @requires_roles("admin")
 def delete_ticket():
+    """Deletes Ticket from db.
+
+    Renders:
+        admin.html: on load
+    """
     ticket = Ticket.query.filter_by(id=request.form.get("delete_ticket_button")).first()
 
     if ticket:
@@ -149,6 +181,11 @@ def delete_ticket():
 @login_required
 @requires_roles("admin")
 def create_user():
+    """Creates new user from form.
+
+    Redirects:
+        admin.admin: on load, on unsuccessful creation
+    """
     createUserForm = AdminCreateUserForm()
 
     if createUserForm.validate_on_submit():
@@ -186,20 +223,45 @@ def create_user():
 @login_required
 @requires_roles("admin")
 def create_venue():
-    createVenueForm = AdminCreateVenueForm()
+    """Creates new venue from form.
 
-    if createVenueForm.validate_on_submit():
+    Redirects:
+        admin.admin: on load, on unsuccessful creation
+    """
+    adminCreateVenueForm = AdminCreateVenueForm()
+
+    if adminCreateVenueForm.validate_on_submit():
+        manager = User.query.filter_by(id=adminCreateVenueForm.managerId.data).first()
+
+        if not manager:
+            flash(f"No user with id = {adminCreateVenueForm.managerId.data}")
+            return redirect(url_for("admin.admin"))
+
+        if manager.role == "admin":
+            flash("You cannot make an admin a venue manager.")
+            return redirect(url_for("admin.admin"))
+
+        if manager.role == "venue" and manager.venueId:
+            flash(f"User ID {manager.id} already manages a venue.")
+            return redirect(url_for("admin.admin"))
+
         newVenue = Venue(
-            name=createVenueForm.name.data,
-            location=createVenueForm.location.data,
-            capacity=createVenueForm.capacity.data,
+            name=adminCreateVenueForm.name.data,
+            location=adminCreateVenueForm.location.data,
+            capacity=adminCreateVenueForm.capacity.data,
         )
 
         db.session.add(newVenue)
         db.session.commit()
 
+        manager.role = "venue"
+        manager.venueId = newVenue.id
+
+        db.session.add(manager)
+        db.session.commit()
+
     else:
-        for i in createVenueForm.errors:
-            flash(f"{createVenueForm.errors[i][0]}")
+        for i in adminCreateVenueForm.errors:
+            flash(f"{adminCreateVenueForm.errors[i][0]}")
 
     return redirect(url_for("admin.admin"))

@@ -11,6 +11,14 @@ users_blueprint = Blueprint("users", __name__, template_folder="/templates")
 
 @users_blueprint.route("/register", methods=["GET", "POST"])
 def register():
+    """Register page to create new User obj from form.
+
+    Renders:
+        register.html: on load, on unsuccessful registration
+
+    Redirects:
+        users.login: after successful registration
+    """
     form = RegisterForm()
 
     if form.validate_on_submit():
@@ -38,6 +46,17 @@ def register():
 
 @users_blueprint.route("/login", methods=["GET", "POST"])
 def login():
+    """Login page to login users.
+
+    Renders:
+        login.html: on load, on unsuccessful login
+
+    Redirects:
+        next: when forced to login
+        admin.admin: when role = admin
+        users.profile: when role = user
+        venue.venue: when role = venue
+    """
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -62,11 +81,11 @@ def login():
             case "admin":
                 return redirect(url_for("admin.admin"))
 
-            case "venue":
-                return redirect(url_for("venue.venue"))
-
             case "user":
                 return redirect(url_for("users.profile"))
+
+            case "venue":
+                return redirect(url_for("venue.venue"))
 
     return render_template("login.html", form=form)
 
@@ -74,6 +93,11 @@ def login():
 @users_blueprint.route("/profile")
 @login_required
 def profile():
+    """Profile page to show user details and all their purchased tickets.
+
+    Renders:
+        profile.html: on load
+    """
     user = User.query.filter_by(id=current_user.id).first()
 
     tickets = (
@@ -85,6 +109,11 @@ def profile():
 
 @users_blueprint.route("/logout")
 def logout():
+    """Logs out current user.
+
+    Redirects:
+        index: on load
+    """
     user = User.query.filter_by(id=current_user.id).first()
 
     user.last_logged_in = user.current_logged_in

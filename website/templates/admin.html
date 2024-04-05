@@ -111,8 +111,15 @@
           </div>
           <div class="mt-2">
             <a>Capacity</a>
-            {{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control form-control-sm', required = 'required', type = 'nunber') }}
+            {{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control form-control-sm', required = 'required', type = 'nunber', min = '0') }}
             {% for error in createVenueForm.capacity.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+          <div class="mt-2">
+            <a>Manager ID</a>
+            {{ createVenueForm.managar(placeholder = 'Manager ID', class = 'form-control form-control-sm', required = 'required', type = 'nunber', min = '0') }}
+            {% for error in createVenueForm.managar.errors %}
               {{ error }}
             {% endfor %}
           </div>
