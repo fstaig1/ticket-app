@@ -33,29 +33,29 @@
             <h3>Create New Concert</h3>
             <form method="POST" action="/venue/create_concert">
               {{ createConcertForm.csrf_token() }}
-              <div class="mb-2 text-start">
-                <a>Artist Name</a>
+              <div class="mb-2 text-start input-group">
+                <span class="input-group-text">Artist Name</span>
                 {{ createConcertForm.artistName(placeholder = 'Artist Name', class = 'form-control', required = 'required', type = 'text') }}
                 {% for error in createConcertForm.artistName.errors %}
                   {{ error }}
                 {% endfor %}
               </div>
-              <div class="mb-2 text-start">
-                <a>Date and Time</a>
+              <div class="mb-2 text-start input-group">
+                <span class="input-group-text">Date and Time</span>
                 {{ createConcertForm.date(class = 'form-control', required = 'required', type = 'datetime-local') }}
                 {% for error in createConcertForm.date.errors %}
                   {{ error }}
                 {% endfor %}
               </div>
-              <div class="mb-2 text-start">
-                <a>Capacity</a>
+              <div class="mb-2 text-start input-group">
+                <span class="input-group-text">Capacity</span>
                 {{ createConcertForm.capacity(placeholder = 'Capacity', class = 'form-control', required = 'required', type = 'number', value = venue.capacity, min = '0') }}
                 {% for error in createConcertForm.capacity.errors %}
                   {{ error }}
                 {% endfor %}
               </div>
-              <div class="mb-2 text-start">
-                <a>Ticket Price (in £)</a>
+              <div class="mb-2 text-start input-group">
+                <span class="input-group-text">Ticket Price (in £)</span>
                 {{ createConcertForm.ticketPrice(placeholder = 'Ticket Price', class = 'form-control', required = 'required', type = 'number', min = '0') }}
                 {% for error in createConcertForm.ticketPrice.errors %}
                   {{ error }}

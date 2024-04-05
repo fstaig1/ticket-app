@@ -16,48 +16,48 @@
         {% endwith %}
         <div class="border mb-2"></div>
         <div class="text-bg-warning rounded mb-2">
-          <a>Don't enter real credit card details this is just a demonstration.</a>
+          <a >Don't enter real credit card details this is just a demonstration.</a>
         </div>
         <div class="border mb-2"></div>
         <form method="POST" action="/purchase" class="text-start">
           {{ form.csrf_token() }}
-          <div class="mb-2">
-            <a>First Name</a>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">First Name</span>
             {{ form.firstname(placeholder = 'First Name', value = user.firstname, class = 'form-control', required = 'required', type = 'text') }}
             {% for error in form.firstname.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mb-2">
-            <a>Last Name</a>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">Last Name</span>
             {{ form.lastname(placeholder = 'Last Name', value = user.lastname, class = 'form-control', required = 'required', type = 'text') }}
             {% for error in form.lastname.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mb-2">
-            <a>Email</a>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">Email</span>
             {{ form.email(placeholder = 'Email', value = user.email, class = 'form-control', required = 'required', type = 'email') }}
             {% for error in form.email.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mb-2">
-            <a>Card Number</a>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">Card Number</span>
             {{ form.cardnumber(placeholder = 'Card Number', class = 'form-control', required = 'required', type = 'number', min = '100000000000', max = '999999999999') }}
             {% for error in form.cardnumber.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mb-2">
-            <a>Card Expiry Date</a>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">Card Expiry Date</span>
             {{ form.expirydate(placeholder = 'Expiry Date', class = 'form-control', required = 'required', type = 'month') }}
             {% for error in form.expirydate.errors %}
               {{ error }}
             {% endfor %}
           </div>
-          <div class="mb-2">
-            <a>CVV Number</a>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">CVV Number</span>
             {{ form.cvv(placeholder = 'CVV Number', class = 'form-control', required = 'required', type = 'number', min = '100', max = '999') }}
             {% for error in form.cvv.errors %}
               {{ error }}
