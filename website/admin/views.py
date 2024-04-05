@@ -2,7 +2,7 @@ from flask import render_template, Blueprint, request, redirect, url_for, flash
 from flask_login import login_required
 from ..models import User, Venue, Artist, Concert, Ticket
 from main import requires_roles
-from .forms import CreateUserForm, CreateVenueForm
+from .forms import AdminCreateUserForm, AdminCreateVenueForm
 from .. import db
 
 admin_blueprint = Blueprint("admin", __name__, template_folder="templates")
@@ -17,44 +17,44 @@ def admin():
             return render_template(
                 "admin.html",
                 current_users=User.query.all(),
-                createUserForm=CreateUserForm(),
-                createVenueForm=CreateVenueForm(),
+                createUserForm=AdminCreateUserForm(),
+                createVenueForm=AdminCreateVenueForm(),
             )
 
         case "venues":
             return render_template(
                 "admin.html",
                 venues=Venue.query.all(),
-                createUserForm=CreateUserForm(),
-                createVenueForm=CreateVenueForm(),
+                createUserForm=AdminCreateUserForm(),
+                createVenueForm=AdminCreateVenueForm(),
             )
 
         case "artists":
             return render_template(
                 "admin.html",
                 artists=Artist.query.all(),
-                createUserForm=CreateUserForm(),
-                createVenueForm=CreateVenueForm(),
+                createUserForm=AdminCreateUserForm(),
+                createVenueForm=AdminCreateVenueForm(),
             )
 
         case "concerts":
             return render_template(
                 "admin.html",
                 concerts=Concert.query.all(),
-                createUserForm=CreateUserForm(),
-                createVenueForm=CreateVenueForm(),
+                createUserForm=AdminCreateUserForm(),
+                createVenueForm=AdminCreateVenueForm(),
             )
 
         case "tickets":
             return render_template(
                 "admin.html",
                 tickets=Ticket.query.all(),
-                createUserForm=CreateUserForm(),
-                createVenueForm=CreateVenueForm(),
+                createUserForm=AdminCreateUserForm(),
+                createVenueForm=AdminCreateVenueForm(),
             )
 
     return render_template(
-        "admin.html", createUserForm=CreateUserForm(), createVenueForm=CreateVenueForm()
+        "admin.html", createUserForm=AdminCreateUserForm(), createVenueForm=AdminCreateVenueForm()
     )
 
 
@@ -70,8 +70,8 @@ def delete_user():
     return render_template(
         "admin.html",
         current_users=User.query.all(),
-        createUserForm=CreateUserForm(),
-        createVenueForm=CreateVenueForm(),
+        createUserForm=AdminCreateUserForm(),
+        createVenueForm=AdminCreateVenueForm(),
     )
 
 
@@ -87,8 +87,8 @@ def delete_venue():
     return render_template(
         "admin.html",
         venues=Venue.query.all(),
-        createUserForm=CreateUserForm(),
-        createVenueForm=CreateVenueForm(),
+        createUserForm=AdminCreateUserForm(),
+        createVenueForm=AdminCreateVenueForm(),
     )
 
 
@@ -104,8 +104,8 @@ def delete_artist():
     return render_template(
         "admin.html",
         artists=Artist.query.all(),
-        createUserForm=CreateUserForm(),
-        createVenueForm=CreateVenueForm(),
+        createUserForm=AdminCreateUserForm(),
+        createVenueForm=AdminCreateVenueForm(),
     )
 
 
@@ -123,8 +123,8 @@ def delete_concert():
     return render_template(
         "admin.html",
         concerts=Concert.query.all(),
-        createUserForm=CreateUserForm(),
-        createVenueForm=CreateVenueForm(),
+        createUserForm=AdminCreateUserForm(),
+        createVenueForm=AdminCreateVenueForm(),
     )
 
 
@@ -140,8 +140,8 @@ def delete_ticket():
     return render_template(
         "admin.html",
         tickets=Ticket.query.all(),
-        createUserForm=CreateUserForm(),
-        createVenueForm=CreateVenueForm(),
+        createUserForm=AdminCreateUserForm(),
+        createVenueForm=AdminCreateVenueForm(),
     )
 
 
@@ -149,7 +149,7 @@ def delete_ticket():
 @login_required
 @requires_roles("admin")
 def create_user():
-    createUserForm = CreateUserForm()
+    createUserForm = AdminCreateUserForm()
 
     if createUserForm.validate_on_submit():
         if createUserForm.venueId.data and createUserForm.role.data == "venue":
@@ -186,7 +186,7 @@ def create_user():
 @login_required
 @requires_roles("admin")
 def create_venue():
-    createVenueForm = CreateVenueForm()
+    createVenueForm = AdminCreateVenueForm()
 
     if createVenueForm.validate_on_submit():
         newVenue = Venue(

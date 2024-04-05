@@ -4,6 +4,10 @@ from wtforms.validators import InputRequired, Length
 
 
 class CreateConcertForm(FlaskForm):
+    """FlaskForm for creating Concerts on the venue page
+
+    Fields: artistName, date, capacity, ticketPrice, submit.
+    """
     artistName = StringField(
         validators=[
             InputRequired(),
@@ -17,6 +21,10 @@ class CreateConcertForm(FlaskForm):
 
 
 class CreateVenueForm(FlaskForm):
+    """FlaskForm for creating new Venue on the venue page
+
+    Fields: name, location, capacity, submit.
+    """
     name = StringField(
         validators=[
             InputRequired(),

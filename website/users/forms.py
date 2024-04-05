@@ -5,6 +5,11 @@ from ..form_validation import ExcludeChars, validate_password
 
 
 class RegisterForm(FlaskForm):
+    """FlaskForm for user registration.
+
+    Fields: firstname, lastname, email, password, confirm_password, submit.
+    """
+
     passwordError = "Password must be between 8 and 30 characters in length."
 
     firstname = StringField(
@@ -35,6 +40,10 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """FlaskForm for user logins.
+
+    Fields: email, password, submit.
+    """
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
     submit = SubmitField(validators=[InputRequired()])

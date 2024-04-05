@@ -4,7 +4,12 @@ from wtforms.validators import InputRequired, Length, EqualTo, Email, Optional
 from ..form_validation import ExcludeChars, validate_password
 
 
-class CreateUserForm(FlaskForm):
+class AdminCreateUserForm(FlaskForm):
+    """FlaskForm for creating new users on the admin page.
+
+    Fields: firstname, lastname, email, password, confirm_password, role, venueid, submit.
+    """
+
     passwordError = "Password must be between 8 and 30 characters in length."
 
     firstname = StringField(
@@ -53,7 +58,11 @@ class CreateUserForm(FlaskForm):
     submit = SubmitField(validators=[InputRequired()])
 
 
-class CreateVenueForm(FlaskForm):
+class AdminCreateVenueForm(FlaskForm):
+    """FlaskForm for creating new venues on the admin page.
+
+    Fields: name, location, capacity, submit.
+    """
     name = StringField(
         validators=[
             InputRequired(),
