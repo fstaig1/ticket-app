@@ -15,6 +15,7 @@ def register():
 
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+
         if user:
             flash("A user with this email already exists, try logging in.")
             return render_template("register.html", form=form)
@@ -38,15 +39,19 @@ def register():
 @users_blueprint.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+
         if not user or not check_password_hash(user.password, form.password.data):
             flash("Incorrect login details, please try again.")
             return render_template("login.html", form=form)
 
         login_user(user)
+
         user.last_logged_in = user.current_logged_in
         user.current_logged_in = datetime.now()
+
         db.session.add(user)
         db.session.commit()
 
@@ -57,8 +62,10 @@ def login():
         match current_user.role:
             case "admin":
                 return redirect(url_for("admin.admin"))
+
             case "venue":
                 return redirect(url_for("venue.venue"))
+
             case "user":
                 return redirect(url_for("users.profile"))
 
@@ -69,13 +76,16 @@ def login():
 @login_required
 def profile():
     user = User.query.filter_by(id=current_user.id).first()
+
     tickets = (
         Ticket.query.filter_by(ownerId=current_user.id).filter_by(purchased=True).all()
     )
+
     return render_template("profile.html", current_user=user, tickets=tickets)
 
 
 @users_blueprint.route("/logout")
 def logout():
     logout_user()
+
     return redirect(url_for("index"))

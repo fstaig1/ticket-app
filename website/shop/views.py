@@ -11,6 +11,7 @@ shop_blueprint = Blueprint("shop", __name__, template_folder="/templates")
 @shop_blueprint.route("/browse", methods=["POST", "GET"])
 def browse():
     global browseConcerts
+
     match request.form.get("sort_button"):
         case "date":
             browseConcerts = (
@@ -18,24 +19,28 @@ def browse():
                 .order_by(asc(Concert.date))
                 .all()
             )
+
         case "artistName":
             browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.artistName))
                 .all()
             )
+
         case "location":
             browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.venueLocation))
                 .all()
             )
+
         case "price":
             browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.ticketPrice))
                 .all()
             )
+
         case "search":
             print("pass")
             search = request.form.get("search_bar")
@@ -45,6 +50,7 @@ def browse():
                     if search.lower() in concert.artistName.lower():
                         found.append(concert)
                 return render_template("browse.html", concerts=found)
+
         case _:
             browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
@@ -61,6 +67,7 @@ def cart():
     cart = (
         Ticket.query.filter_by(ownerId=current_user.id).filter_by(purchased=False).all()
     )
+
     return render_template("cart.html", user=current_user, cart=cart)
 
 
@@ -68,17 +75,24 @@ def cart():
 @login_required
 def add_to_cart():
     concert = Concert.query.filter_by(id=request.form.get("purchase_button")).first()
-    concert.create_ticket(ownerId=current_user.id)
+
+    if concert:
+        concert.create_ticket(ownerId=current_user.id)
+
     return redirect(url_for("shop.cart"))
 
 
 @shop_blueprint.route("/remove_from_cart", methods=["POST"])
 @login_required
 def remove_from_cart():
+
     ticket = Ticket.query.filter_by(
         id=request.form.get("remove_from_cart_button")
     ).first()
-    ticket.delete()
+
+    if ticket:
+        ticket.delete()
+
     return redirect(url_for("shop.cart"))
 
 
@@ -101,18 +115,21 @@ def buy_additional_ticket():
     ticket = Ticket.query.filter_by(
         id=request.form.get("buy_additional_ticket_button")
     ).first()
-    concert = ticket.get_concert()
-    concert.create_ticket(ownerId=current_user.id)
+
+    if ticket:
+        concert = ticket.get_concert()
+        concert.create_ticket(ownerId=current_user.id)
+
     return redirect(url_for("shop.cart"))
 
 
 @shop_blueprint.route("/purchase", methods=["GET", "POST"])
 @login_required
 def purchase():
-
     cart = (
         Ticket.query.filter_by(ownerId=current_user.id).filter_by(purchased=False).all()
     )
+
     if cart:
         purchaseInfoForm = PurchaseInfoForm()
         totalPrice = 0
@@ -138,6 +155,7 @@ def purchase():
             cart=cart,
             totalPrice=totalPrice,
         )
+        
     else:
         return abort(403, "Forbidden")
 
@@ -146,6 +164,7 @@ def purchase():
 @login_required
 def view_ticket():
     ticket = Ticket.query.filter_by(id=request.form.get("view_ticket_button")).first()
+
     if ticket:
         confirmationCode = ticket.confirmationCode
 
@@ -166,5 +185,6 @@ def view_ticket():
             ticket=ticket,
             confirmationCode=confirmationCode,
         )
+        
     else:
         return abort(403, "Forbidden")

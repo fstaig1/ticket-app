@@ -6,17 +6,22 @@ from ..form_validation import ExcludeChars, validate_password
 
 class RegisterForm(FlaskForm):
     passwordError = "Password must be between 8 and 30 characters in length."
+
     firstname = StringField(
-        validators=[InputRequired(), ExcludeChars("*?!'^+%&/\()=}][{$#@<>£~|¬`¦@;:_")]
+        validators=[InputRequired(), ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_")]
     )
     lastname = StringField(
-        validators=[InputRequired(), ExcludeChars("*?!'^+%&/\()=}][{$#@<>£~|¬`¦@;:_")]
+        validators=[InputRequired(), ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_")]
     )
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(
         validators=[
             InputRequired(),
-            Length(min=8, max=30, message=passwordError),
+            Length(
+                min=8,
+                max=30,
+                message="Password must be between 8 and 30 characters in length.",
+            ),
             validate_password,
         ]
     )

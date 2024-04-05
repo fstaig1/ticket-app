@@ -10,14 +10,14 @@ class CreateUserForm(FlaskForm):
     firstname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\()=}][{$#@<>£~|¬`¦@;:_"),
+            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
             Length(1, 99, "First Name must be less than 100 characters."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\()=}][{$#@<>£~|¬`¦@;:_"),
+            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
             Length(1, 99, "Last Name must be less than 100 characters."),
         ]
     )
@@ -31,7 +31,11 @@ class CreateUserForm(FlaskForm):
     password = PasswordField(
         validators=[
             InputRequired(),
-            Length(min=8, max=30, message=passwordError),
+            Length(
+                min=8,
+                max=30,
+                message="Password must be between 8 and 30 characters in length.",
+            ),
             validate_password,
         ]
     )

@@ -15,9 +15,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(300), nullable=False)
     role = db.Column(db.String(100), nullable=False, default="user")
-
     venueId = db.Column(db.Integer, db.ForeignKey("venues.id"), default=None)
-
     registered_on = db.Column(db.DateTime, nullable=False)
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
@@ -27,6 +25,7 @@ class User(db.Model, UserMixin):
 
     def delete(self):
         tickets = Ticket.query.filter_by(ownerId=self.id).all()
+
         for ticket in tickets:
             ticket.delete()
 
@@ -52,6 +51,7 @@ class Artist(db.Model):
 
     def delete(self):
         concerts = Concert.query.filter_by(artistId=self.id).all()
+
         for concert in concerts:
             concert.delete()
 
@@ -64,6 +64,7 @@ class Artist(db.Model):
 
 class Venue(db.Model):
     __tablename__ = "venues"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
@@ -80,18 +81,23 @@ class Venue(db.Model):
             date=date,
             availableTickets=availableTickets,
         )
+
         db.session.add(concert)
         db.session.commit()
+
         return concert
 
     def delete(self):
         concerts = Concert.query.filter_by(venueId=self.id).all()
+
         for concert in concerts:
             concert.delete()
-        manager = User.query.filter_by(venueId=self.id).first()
-        manager.venueId = None
 
-        db.session.add(manager)
+        manager = User.query.filter_by(venueId=self.id).first()
+        if manager:
+            manager.venueId = None
+            db.session.add(manager)
+
         db.session.delete(self)
         db.session.commit()
 
@@ -103,30 +109,30 @@ class Venue(db.Model):
 
 class Concert(db.Model):
     __tablename__ = "concerts"
-    id = db.Column(db.Integer, primary_key=True)
 
+    id = db.Column(db.Integer, primary_key=True)
     artistId = db.Column(db.Integer, db.ForeignKey(Artist.id))
     artistName = db.Column(db.String(100), nullable=False)
-
     venueId = db.Column(db.Integer, db.ForeignKey(Venue.id))
     venueName = db.Column(db.String(100), nullable=False)
     venueLocation = db.Column(db.String(100), nullable=False)
-
     date = db.Column(db.DateTime, nullable=True)
     ticketPrice = db.Column(db.Float, nullable=False)
-
     availableTickets = db.Column(db.Integer, nullable=False)
 
     def create_ticket(self, ownerId):
         ticket = Ticket(ownerId=ownerId, concertId=self.id)
         self.availableTickets -= 1
+
         db.session.add(self)
         db.session.add(ticket)
         db.session.commit()
+
         return ticket
 
     def delete(self):
         tickets = Ticket.query.filter_by(concertId=self.id).all()
+
         for ticket in tickets:
             ticket.delete()
 
@@ -156,8 +162,8 @@ class Concert(db.Model):
 
 class Ticket(db.Model):
     __tablename__ = "tickets"
-    id = db.Column(db.Integer, primary_key=True)
 
+    id = db.Column(db.Integer, primary_key=True)
     ownerId = db.Column(db.Integer, db.ForeignKey(User.id))
     concertId = db.Column(db.Integer, db.ForeignKey(Concert.id))
     purchased = db.Column(db.Boolean, nullable=False)
@@ -186,12 +192,14 @@ class Ticket(db.Model):
     def purchase_ticket(self):
         self.purchased = True
         self.confirmationCode = str(self.encode(), "utf-8")
+
         db.session.add(self)
         db.session.commit()
 
     def delete(self):
         concert = self.get_concert()
         concert.availableTickets += 1
+
         db.session.add(concert)
         db.session.delete(self)
         db.session.commit()

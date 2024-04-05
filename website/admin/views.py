@@ -20,6 +20,7 @@ def admin():
                 createUserForm=CreateUserForm(),
                 createVenueForm=CreateVenueForm(),
             )
+
         case "venues":
             return render_template(
                 "admin.html",
@@ -27,6 +28,7 @@ def admin():
                 createUserForm=CreateUserForm(),
                 createVenueForm=CreateVenueForm(),
             )
+
         case "artists":
             return render_template(
                 "admin.html",
@@ -34,6 +36,7 @@ def admin():
                 createUserForm=CreateUserForm(),
                 createVenueForm=CreateVenueForm(),
             )
+
         case "concerts":
             return render_template(
                 "admin.html",
@@ -41,6 +44,7 @@ def admin():
                 createUserForm=CreateUserForm(),
                 createVenueForm=CreateVenueForm(),
             )
+
         case "tickets":
             return render_template(
                 "admin.html",
@@ -59,7 +63,10 @@ def admin():
 @requires_roles("admin")
 def delete_user():
     user = User.query.filter_by(id=request.form.get("delete_user_button")).first()
-    user.delete()
+
+    if user:
+        user.delete()
+
     return render_template(
         "admin.html",
         current_users=User.query.all(),
@@ -73,7 +80,10 @@ def delete_user():
 @requires_roles("admin")
 def delete_venue():
     venue = Venue.query.filter_by(id=request.form.get("delete_venue_button")).first()
-    venue.delete()
+
+    if venue:
+        venue.delete()
+
     return render_template(
         "admin.html",
         venues=Venue.query.all(),
@@ -87,7 +97,10 @@ def delete_venue():
 @requires_roles("admin")
 def delete_artist():
     artist = Artist.query.filter_by(id=request.form.get("delete_artist_button")).first()
-    artist.delete()
+
+    if artist:
+        artist.delete()
+
     return render_template(
         "admin.html",
         artists=Artist.query.all(),
@@ -103,7 +116,10 @@ def delete_concert():
     concert = Concert.query.filter_by(
         id=request.form.get("delete_concert_button")
     ).first()
-    concert.delete()
+
+    if concert:
+        concert.delete()
+
     return render_template(
         "admin.html",
         concerts=Concert.query.all(),
@@ -117,7 +133,10 @@ def delete_concert():
 @requires_roles("admin")
 def delete_ticket():
     ticket = Ticket.query.filter_by(id=request.form.get("delete_ticket_button")).first()
-    ticket.delete()
+
+    if ticket:
+        ticket.delete()
+
     return render_template(
         "admin.html",
         tickets=Ticket.query.all(),
@@ -131,12 +150,16 @@ def delete_ticket():
 @requires_roles("admin")
 def create_user():
     createUserForm = CreateUserForm()
+
     if createUserForm.validate_on_submit():
         if createUserForm.venueId.data and createUserForm.role.data == "venue":
             venueId = createUserForm.venueId.data
+
         elif not createUserForm.venueId.data and createUserForm.role.data == "venue":
             flash("Venue ID required for venue manager role.")
+
             return redirect(url_for("admin.admin"))
+
         else:
             venueId = None
 
@@ -151,9 +174,11 @@ def create_user():
 
         db.session.add(newUser)
         db.session.commit()
+
     else:
         for i in createUserForm.errors:
             flash(f"{createUserForm.errors[i][0]}")
+
     return redirect(url_for("admin.admin"))
 
 
@@ -162,15 +187,19 @@ def create_user():
 @requires_roles("admin")
 def create_venue():
     createVenueForm = CreateVenueForm()
+
     if createVenueForm.validate_on_submit():
         newVenue = Venue(
             name=createVenueForm.name.data,
             location=createVenueForm.location.data,
             capacity=createVenueForm.capacity.data,
         )
+
         db.session.add(newVenue)
         db.session.commit()
+
     else:
         for i in createVenueForm.errors:
             flash(f"{createVenueForm.errors[i][0]}")
+
     return redirect(url_for("admin.admin"))

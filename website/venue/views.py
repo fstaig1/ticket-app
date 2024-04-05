@@ -34,6 +34,7 @@ def create_concert():
 
     if createConcertForm.validate_on_submit():
         artist = Artist.query.filter_by(name=createConcertForm.artistName.data).first()
+
         if not artist:
             artist = Artist(name=createConcertForm.artistName.data)
             db.session.add(artist)
@@ -48,10 +49,13 @@ def create_concert():
             date=datetime.strptime(
                 createConcertForm.date.raw_data[0], "%Y-%m-%dT%H:%M"
             ),
+            availableTickets=createConcertForm.capacity.data,
         )
+
     else:
         for i in createConcertForm.errors.values():
             flash(f"{i[0]}")
+
     return redirect(url_for("venue.venue"))
 
 
@@ -62,7 +66,10 @@ def delete_concert():
     concert = Concert.query.filter_by(
         id=request.form.get("delete_concert_button")
     ).first()
-    concert.delete()
+
+    if concert:
+        concert.delete()
+
     return redirect(url_for("venue.venue"))
 
 
@@ -71,19 +78,23 @@ def delete_concert():
 @requires_roles("venue")
 def create_venue():
     createVenueForm = CreateVenueForm()
+
     if createVenueForm.validate_on_submit():
         newVenue = Venue(
             name=createVenueForm.name.data,
             location=createVenueForm.location.data,
             capacity=createVenueForm.capacity.data,
         )
+
         db.session.add(newVenue)
         db.session.commit()
+
         user = User.query.filter_by(id=current_user.id).first()
         user.venueId = newVenue.id
 
         db.session.add(user)
         db.session.commit()
+
     else:
         for i in createVenueForm.errors:
             flash(f"{createVenueForm.errors[i][0]}")
