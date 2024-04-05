@@ -115,13 +115,14 @@ def logout():
         index: on load
     """
     user = User.query.filter_by(id=current_user.id).first()
+    if user:
 
-    user.last_logged_in = user.current_logged_in
-    user.current_logged_in = None
+        user.last_logged_in = user.current_logged_in
+        user.current_logged_in = None
 
-    db.session.add(user)
-    db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
-    logout_user()
+        logout_user()
 
     return redirect(url_for("index"))
