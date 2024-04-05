@@ -49,7 +49,6 @@ def login():
 
         login_user(user)
 
-        user.last_logged_in = user.current_logged_in
         user.current_logged_in = datetime.now()
 
         db.session.add(user)
@@ -86,6 +85,14 @@ def profile():
 
 @users_blueprint.route("/logout")
 def logout():
+    user = User.query.filter_by(id=current_user.id).first()
+
+    user.last_logged_in = user.current_logged_in
+    user.current_logged_in = None
+
+    db.session.add(user)
+    db.session.commit()
+
     logout_user()
 
     return redirect(url_for("index"))
