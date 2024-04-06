@@ -8,7 +8,7 @@
     {% if not current_user.is_authenticated %}
       <div class="text-bg-danger rounded">
         <p class="fw-medium">
-          <a href="{{ url_for('users.login') }}">Login</a> required for ticket purchase.
+          <a href="{{ url_for('users.login') }}?next=%2Fbrowse">Login</a> required for ticket purchase.
         </p>
       </div>
       <div class="border mt-2 mb-2"></div>
