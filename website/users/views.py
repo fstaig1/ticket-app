@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, Blueprint, request
+from flask import render_template, flash, redirect, url_for, Blueprint, request, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from .forms import RegisterForm, LoginForm
 from website.models import User, Ticket
@@ -19,6 +19,9 @@ def register():
     Redirects:
         users.login: after successful registration
     """
+    if current_user.is_authenticated:
+        return abort(403, "Forbidden")
+    
     form = RegisterForm()
 
     if form.validate_on_submit():
@@ -57,6 +60,9 @@ def login():
         users.profile: when role = user
         venue.venue: when role = venue
     """
+    if current_user.is_authenticated:
+        return abort(403, "Forbidden")
+    
     form = LoginForm()
 
     if form.validate_on_submit():
