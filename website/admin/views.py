@@ -189,6 +189,12 @@ def create_user():
     createUserForm = AdminCreateUserForm()
 
     if createUserForm.validate_on_submit():
+        user = User.query.filter_by(email=createUserForm.email.data).first()
+
+        if user:
+            flash("A user with this email already exists")
+            return redirect(url_for("admin.admin"))
+
         if createUserForm.venueId.data and createUserForm.role.data == "venue":
             venueId = createUserForm.venueId.data
 
@@ -231,6 +237,16 @@ def create_venue():
     adminCreateVenueForm = AdminCreateVenueForm()
 
     if adminCreateVenueForm.validate_on_submit():
+        venue = (
+            Venue.query.filter_by(name=adminCreateVenueForm.name.data)
+            .filter_by(location=adminCreateVenueForm.location.data)
+            .first()
+        )
+
+        if venue:
+            flash("A venue with that name and location already exists.")
+            return redirect(url_for("admin.admin"))
+
         manager = User.query.filter_by(id=adminCreateVenueForm.managerId.data).first()
 
         if not manager:

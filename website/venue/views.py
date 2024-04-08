@@ -100,6 +100,16 @@ def create_venue():
     createVenueForm = CreateVenueForm()
 
     if createVenueForm.validate_on_submit():
+        venue = (
+            Venue.query.filter_by(name=createVenueForm.name.data)
+            .filter_by(location=createVenueForm.location.data)
+            .first()
+        )
+
+        if venue:
+            flash("A venue with that name and location already exists.")
+            return redirect(url_for("venue.venue"))
+
         newVenue = Venue(
             name=createVenueForm.name.data,
             location=createVenueForm.location.data,
