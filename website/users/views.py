@@ -21,7 +21,7 @@ def register():
     """
     if current_user.is_authenticated:
         return abort(403, "Forbidden")
-    
+
     form = RegisterForm()
 
     if form.validate_on_submit():
@@ -62,7 +62,7 @@ def login():
     """
     if current_user.is_authenticated:
         return abort(403, "Forbidden")
-    
+
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -109,6 +109,7 @@ def profile():
     tickets = (
         Ticket.query.filter_by(ownerId=current_user.id).filter_by(purchased=True).all()
     )
+    tickets.sort(key=lambda ticket: ticket.get_concert().date, reverse=False)
 
     return render_template("profile.html", current_user=user, tickets=tickets)
 
