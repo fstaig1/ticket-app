@@ -157,10 +157,11 @@ def buy_additional_ticket():
 @shop_blueprint.route("/purchase", methods=["GET", "POST"])
 @login_required
 def purchase():
-    """Loads purchase page, allows user to input payment details, if successful purchases all tickets in cart.
+    """Loads purchase page, allows user to input payment details,
+    if successful purchases all tickets in cart and loads receipt page.
 
     Renders:
-        reciept.html: on successful purchase
+        receipt.html: on successful purchase
         purchase.html: on unsuccessful purchase
     Errors:
         403: Forbidden
@@ -182,7 +183,7 @@ def purchase():
             for item in cart:
                 item.purchase_ticket()
 
-            return render_template("reciept.html", cart=cart, totalPrice=totalPrice)
+            return render_template("receipt.html", cart=cart, totalPrice=totalPrice)
         else:
             for error in purchaseInfoForm.errors:
                 flash(f"{purchaseInfoForm.errors[error][0]}")
