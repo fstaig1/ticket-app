@@ -33,7 +33,6 @@ def venue():
 
 
 @venue_blueprint.route("/venue/create_concert", methods=["POST"])
-@login_required
 @requires_roles("venue")
 def create_concert():
     """Creates new Concert obj at this venue from form. Creates new Artist if required.
