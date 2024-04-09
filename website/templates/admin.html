@@ -73,6 +73,10 @@
               <p class="p-1">{{ error }}</p>
             {% endfor %}
           </div>
+
+          <div class="mt-2 p-2 text-center rounded border border-warning">
+            <a>Password must be at least 8 characters and contain at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.</a>
+          </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Confirm Password</span>
             {{ createUserForm.confirm_password(class = 'form-control form-control-sm', required = 'required', type = 'password') }}
@@ -143,7 +147,10 @@
               <p class="p-1">{{ error }}</p>
             {% endfor %}
           </div>
-          <div class="mt-2 text-center">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mb-2 pt-2 text-center rounded border border-warning">
+            <p>ID must be for an existing user with a 'user' role.</p>
+          </div>
+          <div class="text-center">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
       </div> <!-- end of column -->
 

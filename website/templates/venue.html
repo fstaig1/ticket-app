@@ -135,7 +135,7 @@
             <div class="border border-light m-2"></div>
             <h3>Create New Venue</h3>
             <div>
-              <form method="POST" action="/venue/create_venue" class="w-50 offset-3">
+              <form method="POST" action="/venue/create_venue" class="w-50 mx-auto">
                 {{ createVenueForm.csrf_token() }}
                 <div>{{ createVenueForm.name(placeholder = 'Name', class = 'form-control', required = 'required', type = 'text') }}</div>
                 <div class="text-bg-danger rounded text-center mb-2">
