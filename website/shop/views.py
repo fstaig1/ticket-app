@@ -212,7 +212,7 @@ def view_ticket():
     Renders:
         ticket.html: if ticket exists
     Errors:
-        403: Forbidden
+        404: Not Found
     """
     ticket = Ticket.query.filter_by(id=request.form.get("view_ticket_button")).first()
 
@@ -236,4 +236,4 @@ def view_ticket():
         )
 
     else:
-        return abort(403, "Forbidden")
+        return abort(404, "Not Found")
