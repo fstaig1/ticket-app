@@ -17,7 +17,7 @@ def register():
         register.html: on load, on unsuccessful registration
 
     Redirects:
-        users.login: after successful registration
+        users.profile: after successful registration
     """
     if current_user.is_authenticated:
         return abort(403, "Forbidden")
@@ -42,7 +42,16 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for("users.login"))
+        user = User.query.filter_by(email=form.email.data).first()
+
+        login_user(user)
+
+        user.current_logged_in = datetime.now()
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for("users.profile"))
 
     return render_template("register.html", form=form)
 
