@@ -121,15 +121,18 @@ def logout():
     Redirects:
         index: on load
     """
+
+    if not current_user.is_authenticated:
+        return abort(403, "Forbidden")
+
     user = User.query.filter_by(id=current_user.id).first()
-    if user:
 
-        user.last_logged_in = user.current_logged_in
-        user.current_logged_in = None
+    user.last_logged_in = user.current_logged_in
+    user.current_logged_in = None
 
-        db.session.add(user)
-        db.session.commit()
+    db.session.add(user)
+    db.session.commit()
 
-        logout_user()
+    logout_user()
 
     return redirect(url_for("index"))
