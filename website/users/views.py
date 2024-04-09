@@ -20,7 +20,7 @@ def register():
         users.profile: after successful registration
     """
     if current_user.is_authenticated:
-        return abort(403, "Forbidden")
+        return abort(401, "Unauthorized")
 
     form = RegisterForm()
 
@@ -68,9 +68,12 @@ def login():
         admin.admin: when role = admin
         users.profile: when role = user
         venue.venue: when role = venue
+
+    Errors:
+        401: Unauthorized
     """
     if current_user.is_authenticated:
-        return abort(403, "Forbidden")
+        return abort(401, "Unauthorized ")
 
     form = LoginForm()
 
@@ -132,7 +135,7 @@ def logout():
     """
 
     if not current_user.is_authenticated:
-        return abort(403, "Forbidden")
+        return abort(401, "Unauthorized")
 
     user = User.query.filter_by(id=current_user.id).first()
 
