@@ -50,7 +50,7 @@ if __name__ == "__main__":
     from website.admin.views import admin_blueprint
     from website.venue.views import venue_blueprint
     from website.shop.views import shop_blueprint
-    
+
     app.register_blueprint(users_blueprint)
     app.register_blueprint(admin_blueprint)
     app.register_blueprint(venue_blueprint)

@@ -8,9 +8,7 @@
       <div style="max-width: 400px; width: auto;">
         {% with messages = get_flashed_messages() %}
           {% if messages %}
-            <div class="border mt-2 mb-2"></div>
-            <div class="text-bg-danger rounded">{{ messages[0] }}</div>
-            <div class="border mt-2 mb-2"></div>
+            <div class="text-bg-danger rounded mb-2">{{ messages[0] }}</div>
           {% endif %}
         {% endwith %}
         {{ form.csrf_token() }}

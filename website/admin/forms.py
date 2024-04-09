@@ -9,28 +9,25 @@ class AdminCreateUserForm(FlaskForm):
 
     Fields: firstname, lastname, email, password, confirm_password, role, venueid, submit.
     """
-
-    passwordError = "Password must be between 8 and 30 characters in length."
-
     firstname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
-            Length(1, 99, "First Name must be less than 100 characters."),
+            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:"),
+            Length(1, 50, "First Name must be between 1 and 50 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
-            Length(1, 99, "Last Name must be less than 100 characters."),
+            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:"),
+            Length(1, 50, "Last Name must be between 1 and 50 characters in length."),
         ]
     )
     email = StringField(
         validators=[
             InputRequired(),
             Email(),
-            Length(1, 99, "Email must be less than 100 characters."),
+            Length(1, 50, "Last Name must be between 1 and 50 characters in length."),
         ]
     )
     password = PasswordField(

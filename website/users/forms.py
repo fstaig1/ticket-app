@@ -10,15 +10,27 @@ class RegisterForm(FlaskForm):
     Fields: firstname, lastname, email, password, confirm_password, submit.
     """
 
-    passwordError = "Password must be between 8 and 30 characters in length."
-
     firstname = StringField(
-        validators=[InputRequired(), ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_")]
+        validators=[
+            InputRequired(),
+            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
+            Length(1, 50, "First Name must be between 1 and 50 characters."),
+        ]
     )
     lastname = StringField(
-        validators=[InputRequired(), ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_")]
+        validators=[
+            InputRequired(),
+            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
+            Length(1, 50, "Last Name must be between 1 and 50 characters."),
+        ]
     )
-    email = StringField(validators=[InputRequired(), Email()])
+    email = StringField(
+        validators=[
+            InputRequired(),
+            Email(),
+            Length(1, 50, "Email must be less than 50 characters."),
+        ]
+    )
     password = PasswordField(
         validators=[
             InputRequired(),
@@ -44,6 +56,7 @@ class LoginForm(FlaskForm):
 
     Fields: email, password, submit.
     """
+
     email = StringField(validators=[InputRequired(), Email()])
     password = PasswordField(validators=[InputRequired()])
     submit = SubmitField(validators=[InputRequired()])
