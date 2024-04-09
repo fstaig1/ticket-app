@@ -5,9 +5,9 @@
     <h1>Concert Finder</h1>
     <h4>Browse and purchase concerts from all your favourite artists!</h4>
     {% if not current_user.is_authenticated %}
-      <div style="margin: auto; padding: 10px; display: table;">
+      <div class="p-1">
         <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('users.register') }}`;">Register</button>
-        <button type="button" class="btn btn-primary" style="margin-left:20px;" onclick="window.location.href=`{{ url_for('users.login') }}`;">Login</button>
+        <button type="button" class="btn btn-primary ms-2"onclick="window.location.href=`{{ url_for('users.login') }}`;">Login</button>
       </div>
     {% endif %}
   </div>
