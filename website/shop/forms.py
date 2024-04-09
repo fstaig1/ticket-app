@@ -9,21 +9,21 @@ class PurchaseInfoForm(FlaskForm):
         validators=[
             InputRequired(),
             ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
-            Length(1, 99, "First Name must be less than 100 characters."),
+            Length(1, 30, "First Name must be between 1 and 30 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
             ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
-            Length(1, 99, "Last Name must be less than 100 characters."),
+            Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )
     email = StringField(
         validators=[
             InputRequired(),
             Email(),
-            Length(1, 99, "Email must be less than 100 characters."),
+            Length(1, 30, "Email must be between 1 and 30 characters in length."),
         ]
     )
     cardnumber = IntegerField(validators=[InputRequired()])

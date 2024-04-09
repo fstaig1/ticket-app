@@ -11,7 +11,7 @@ class CreateConcertForm(FlaskForm):
     artistName = StringField(
         validators=[
             InputRequired(),
-            Length(1, 99, "Artist name must be less than 100 characters."),
+            Length(1, 30, "Artist name must be between 1 and 30 characters in length."),
         ]
     )
     date = StringField(validators=[InputRequired()])
@@ -28,13 +28,13 @@ class CreateVenueForm(FlaskForm):
     name = StringField(
         validators=[
             InputRequired(),
-            Length(1, 99, "Name must be less than 100 characters."),
+            Length(1, 30, "Name must be between 1 and 30 characters in length."),
         ]
     )
     location = StringField(
         validators=[
             InputRequired(),
-            Length(1, 99, "Location must be less than 100 characters."),
+            Length(1, 30, "Location must be between 1 and 30 characters in length."),
         ]
     )
     capacity = IntegerField(validators=[InputRequired()])

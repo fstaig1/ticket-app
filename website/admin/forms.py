@@ -13,21 +13,21 @@ class AdminCreateUserForm(FlaskForm):
         validators=[
             InputRequired(),
             ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:"),
-            Length(1, 50, "First Name must be between 1 and 50 characters in length."),
+            Length(1, 30, "First Name must be between 1 and 30 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
             ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:"),
-            Length(1, 50, "Last Name must be between 1 and 50 characters in length."),
+            Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )
     email = StringField(
         validators=[
             InputRequired(),
             Email(),
-            Length(1, 50, "Last Name must be between 1 and 50 characters in length."),
+            Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )
     password = PasswordField(
@@ -64,13 +64,13 @@ class AdminCreateVenueForm(FlaskForm):
     name = StringField(
         validators=[
             InputRequired(),
-            Length(1, 99, "Name must be less than 100 characters."),
+            Length(1, 30, "Name must be between 1 and 30 characters in length."),
         ]
     )
     location = StringField(
         validators=[
             InputRequired(),
-            Length(1, 99, "Location must be less than 100 characters."),
+            Length(1, 30, "Location must be between 1 and 30 characters in length."),
         ]
     )
     capacity = IntegerField(validators=[InputRequired()])
