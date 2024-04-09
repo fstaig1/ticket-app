@@ -54,7 +54,11 @@ def browse():
                 for concert in browseConcerts:
                     if search.lower() in concert.artistName.lower():
                         found.append(concert)
-                return render_template("browse.html", concerts=found)
+
+                if len(found) == 0:
+                    return render_template("browse.html", empty=True)
+                else:
+                    return render_template("browse.html", concerts=found)
 
         case _:
             browseConcerts = (
