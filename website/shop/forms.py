@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, MonthField
-from wtforms.validators import InputRequired, Length, NumberRange
+from wtforms.validators import InputRequired, Length
 from ..form_validation import ExcludeChars, validate_email
 
 

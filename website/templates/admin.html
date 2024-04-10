@@ -183,12 +183,10 @@
                     <td>Not yet logged in</td>
                   {% endif %}
                   <td class="text-center">
-                    <!--
-                      TODO ensure disable check is in the button
-                      my html formatter hates the inline if statement
-                    -->
+                    <!-- TODO ensure disable check is in the buttonmy html formatter hates the inline if statement -->
+                    {% if user == current_user %}disabled{% endif %}
                     <form method="POST" action="/admin/delete_user">
-                      <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>
+                      <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
                           <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                         </svg>
@@ -267,21 +265,19 @@
             <table class="table table-striped center table-hover table-bordered table-sm">
               <tr class="fw-medium text-start table-active">
                 <th>Concert ID</th>
-                <th>Artist ID</th>
-                <th>Artist Name</th>
-                <th>Venue ID</th>
-                <th>Venue Name</th>
+                <th>Artist</th>
+                <th>Venue</th>
+                <th>Date</th>
                 <th>Ticket Price</th>
                 <th>Delete Concert</th>
               </tr>
               {% for concert in concerts %}
                 <tr class="text-start">
                   <td class="fw-medium">{{ concert.id }}</td>
-                  <td>{{ concert.artistId }}</td>
-                  <td>{{ concert.artistName }}</td>
-                  <td>{{ concert.venueId }}</td>
-                  <td>{{ concert.venueName }}</td>
-                  <td>£{{ concert.ticketPrice }}</td>
+                  <td>{{ concert.artistId }}, {{ concert.artistName }}</td>
+                  <td>{{ concert.venueId }}, {{ concert.venueName }}</td>
+                  <td>{{ concert.date.strftime('%d/%m/%Y %H:%M') }}</td>
+                  <td>£{{ concert.ticketPrice }}0</td>
                   <td class="text-center">
                     <form method="POST" action="/admin/delete_concert">
                       <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
@@ -311,8 +307,10 @@
               {% for ticket in tickets %}
                 <tr>
                   <td>{{ ticket.id }}</td>
-                  <td>{{ ticket.get_owner().id }} - {{ ticket.get_owner().firstname + ' ' + ticket.get_owner().lastname }}</td>
-                  <td>{{ ticket.get_concert().id }} - {{ ticket.get_concert().artistName }} - {{ ticket.get_concert().venueName + ', ' + ticket.get_concert().venueLocation }}</td>
+                  <td>{{ ticket.get_owner().id }}, {{ ticket.get_owner().firstname + ' ' + ticket.get_owner().lastname }}</td>
+                  <td>
+                    {{ ticket.get_concert().id }}, {{ ticket.get_concert().artistName }} <br /> {{ ticket.get_concert().venueName + ', ' + ticket.get_concert().venueLocation }}<br />{{ ticket.get_concert().date.strftime('%d/%m/%Y %H:%M') }}
+                  </td>
                   <td>{{ ticket.purchased }}</td>
                   <td class="text-center">
                     <form method="POST" action="/admin/delete_ticket">

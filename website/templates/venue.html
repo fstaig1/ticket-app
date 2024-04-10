@@ -115,7 +115,7 @@
                       <tr>
                         <td class="fw-medium">{{ concert.id }}</td>
                         <td>{{ concert.artistId }} - {{ concert.artistName }}</td>
-                        <td>{{ concert.date }}</td>
+                        <td>{{ concert.date.strftime('%d/%m/%Y %H:%M') }}</td>
                         <td>£{{ concert.ticketPrice }}0</td>
                         <td>{{ concert.availableTickets }}</td>
                         <td class="text-center">
