@@ -211,8 +211,8 @@ def delete_ticket():
 def create_user():
     """Creates new user from form.
 
-    Redirects:
-        admin.admin: on load, on unsuccessful creation
+    Renders:
+        admin.html: on load, on unsuccessful creation
     """
     adminCreateUserForm = AdminCreateUserForm()
     adminCreateVenueForm = AdminCreateVenueForm()
@@ -272,8 +272,8 @@ def create_user():
 def create_venue():
     """Creates new venue from form.
 
-    Redirects:
-        admin.admin: on load, on unsuccessful creation
+    Renders:
+        admin.html: on load, on unsuccessful creation
     """
     adminCreateUserForm = AdminCreateUserForm()
     adminCreateVenueForm = AdminCreateVenueForm()
