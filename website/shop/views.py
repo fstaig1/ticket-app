@@ -48,7 +48,7 @@ def browse():
 
         case "search":
             print("pass")
-            search = request.form.get("search_bar")
+            search = str(request.form.get("search_bar")).strip()
             if search:
                 found = []
                 for concert in browseConcerts:
