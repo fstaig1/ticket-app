@@ -10,7 +10,7 @@ shop_blueprint = Blueprint("shop", __name__, template_folder="/templates")
 
 @shop_blueprint.route("/browse", methods=["POST", "GET"])
 def browse():
-    """Loads browse page to display all purchasable tickets, manages sort_button and search_bar
+    """Loads browse page to display all purchasable tickets, manages sort_button
 
     Renders:
         browse.html: on load
@@ -46,26 +46,34 @@ def browse():
                 .all()
             )
 
-        case "search":
-            print("pass")
-            search = str(request.form.get("search_bar")).strip()
-            if search:
-                found = []
-                for concert in browseConcerts:
-                    if search.lower() in concert.artistName.lower():
-                        found.append(concert)
-
-                if len(found) == 0:
-                    return render_template("browse.html", empty=True)
-                else:
-                    return render_template("browse.html", concerts=found)
-
         case _:
             browseConcerts = (
                 Concert.query.filter(Concert.availableTickets >= 1)
                 .order_by(asc(Concert.date))
                 .all()
             )
+
+    return render_template("browse.html", concerts=browseConcerts)
+
+
+@shop_blueprint.route("/browse/search", methods=["POST", "GET"])
+def search():
+    """Manages the search bar.
+
+    Renders:
+        browse.html: on load
+    """
+    search = str(request.form.get("search_bar")).strip()
+    if search:
+        found = []
+        for concert in browseConcerts:
+            if search.lower() in concert.artistName.lower():
+                found.append(concert)
+
+        if len(found) == 0:
+            return render_template("browse.html", empty=True)
+        else:
+            return render_template("browse.html", concerts=found)
 
     return render_template("browse.html", concerts=browseConcerts)
 
