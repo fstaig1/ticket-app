@@ -23,7 +23,7 @@ def venue():
         "venue.html",
         user=User.query.filter_by(id=current_user.id).first(),
         venue=Venue.query.filter_by(id=current_user.venueId).first(),
-        concerts=Concert.query.filter_by(venueId=current_user.venueId),
+        concerts=Concert.query.filter_by(venueId=current_user.venueId).all(),
         createConcertForm=CreateConcertForm(),
         createVenueForm=CreateVenueForm(),
     )
