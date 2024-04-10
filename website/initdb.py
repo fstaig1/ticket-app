@@ -30,6 +30,9 @@ def init_db():
         for line in file:
             data = line.split("\n")[0].split(",")
 
+            if data[5] == "":
+                data[5] = None
+
             db.session.add(
                 User(
                     firstname=str(data[0]),
