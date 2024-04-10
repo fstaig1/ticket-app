@@ -29,11 +29,6 @@ class PurchaseInfoForm(FlaskForm):
     cardnumber = IntegerField(
         validators=[
             InputRequired(),
-            NumberRange(
-                1000000000000000,
-                9999999999999999,
-                "Please enter a valid 16 digit card number.",
-            ),
         ]
     )
     expirydate = MonthField(validators=[InputRequired()])

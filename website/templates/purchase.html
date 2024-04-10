@@ -10,7 +10,7 @@
         {% with messages = get_flashed_messages(with_categories = true) %}
           {% if messages %}
             <div class="border mb-3"></div>
-            {% for category, message  in messages %}
+            {% for category, message in messages %}
               <div class="{{ category }} w-50 mx-auto">{{ message }}</div>
             {% endfor %}
           {% endif %}
@@ -24,7 +24,7 @@
           {{ form.csrf_token() }}
           <div class="mb-2 input-group">
             <span class="input-group-text">First Name</span>
-            {{ form.firstname(placeholder = 'First Name', value = user.firstname, class = 'form-control', required = 'required', type = 'text') }}
+            {{ form.firstname(value = user.firstname, class = 'form-control', required = 'required', type = 'text') }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.firstname.errors %}
@@ -33,7 +33,7 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Last Name</span>
-            {{ form.lastname(placeholder = 'Last Name', value = user.lastname, class = 'form-control', required = 'required', type = 'text') }}
+            {{ form.lastname(value = user.lastname, class = 'form-control', required = 'required', type = 'text') }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.lastname.errors %}
@@ -42,7 +42,7 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Email</span>
-            {{ form.email(placeholder = 'Email', value = user.email, class = 'form-control', required = 'required', type = 'email') }}
+            {{ form.email(value = user.email, class = 'form-control', required = 'required', type = 'email') }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.email.errors %}
@@ -51,7 +51,7 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Card Number</span>
-            {{ form.cardnumber(placeholder = 'Card Number', class = 'form-control', required = 'required', type = 'number', min = '1000000000000000', max = '9999999999999999') }}
+            {{ form.cardnumber(class = 'form-control', required = 'required', type = 'text', pattern = '[0-9]{16}', title = '16 digit card number.') }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.cardnumber.errors %}
@@ -60,14 +60,14 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Card Expiry Date</span>
-            {{ form.expirydate(placeholder = 'Expiry Date', class = 'form-control', required = 'required', type = 'month') }}
+            {{ form.expirydate(class = 'form-control', required = 'required', type = 'month') }}
             {% for error in form.expirydate.errors %}
               {{ error|escape }}
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">CVV Number</span>
-            {{ form.cvv(placeholder = 'CVV Number', class = 'form-control', required = 'required', type = 'number', min = '100', max = '999') }}
+            {{ form.cvv(class = 'form-control', required = 'required', type = 'text', pattern = '[0-9]{3}', title = '3 digit cvv number.') }}
             {% for error in form.cvv.errors %}
               {{ error|escape }}
             {% endfor %}
