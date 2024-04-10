@@ -14,25 +14,26 @@
     <div class="border mb-2"></div>
     <div class="row">
       <div class="col-4 border-end text-center">
-        <form method="POST" action="/admin">
+        <span id="spinner" class="spinner-border m-2 visually-hidden" style="width: 6.9rem; height: 6.9rem;"></span>
+        <form id="buttonForm" method="POST" action="/admin">
           <div class="row mb-2">
             <div class="col">
-              <button class="btn btn-primary" name="view_button" type="submit" value="users">View All Users</button>
+              <button class="btn btn-primary" name="view_button" type="submit" value="users" onclick="loadSpinner()">View All Users</button>
             </div>
             <div class="col">
-              <button class="btn btn-primary" name="view_button" type="submit" value="venues">View All Venues</button>
+              <button class="btn btn-primary" name="view_button" type="submit" value="venues" onclick="loadSpinner()">View All Venues</button>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col">
-              <button class="btn btn-primary" name="view_button" type="submit" value="artists">View All Artists</button>
+              <button class="btn btn-primary" name="view_button" type="submit" value="artists" onclick="loadSpinner()">View All Artists</button>
             </div>
             <div class="col">
-              <button class="btn btn-primary" name="view_button" type="submit" value="concerts">View All Concerts</button>
+              <button class="btn btn-primary" name="view_button" type="submit" value="concerts" onclick="loadSpinner()">View All Concerts</button>
             </div>
           </div>
           <div class="col">
-            <button class="btn btn-primary" name="view_button" type="submit" value="tickets">View All Tickets</button>
+            <button class="btn btn-primary" name="view_button" type="submit" value="tickets" onclick="loadSpinner()">View All Tickets</button>
           </div>
         </form>
         <div class="border mt-2 mb-2"></div>
@@ -329,4 +330,10 @@
       </div>
     </div>
   </div>
+  <script>
+    function loadSpinner() {
+      document.getElementById('buttonForm').classList.add('visually-hidden')
+      document.getElementById('spinner').classList.remove('visually-hidden')
+    }
+  </script>
 {% endblock %}
