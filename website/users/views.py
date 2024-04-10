@@ -28,7 +28,7 @@ def register():
         user = User.query.filter_by(email=str(form.email.data).strip()).first()
 
         if user:
-            flash("A user with this email already exists, try logging in.")
+            flash("A user with this email already exists, try logging in.", "alert alert-danger")
             return render_template("register.html", form=form)
 
         new_user = User(
@@ -75,10 +75,10 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=str(form.email.data).strip()).first()
 
-        if not user or not check_password_hash(user.password, form.password.data):
-            flash("Incorrect login details, please try again.")
+        if not user or not check_password_hash(user.password, str(form.password.data).strip()):
+            flash("Incorrect login details, please try again.", "alert alert-danger")
             return render_template("login.html", form=form)
 
         login_user(user)

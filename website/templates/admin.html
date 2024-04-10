@@ -3,13 +3,15 @@
 {% block content %}
   <div class="container text-center">
     <h1 class="m-2">Admin Dashboard</h1>
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories = true) %}
       {% if messages %}
-        <div class="border mb-2"></div>
-        <div class="text-bg-danger rounded">{{ messages[0] }}</div>
+        <div class="border mb-3"></div>
+        {% for category, message in messages %}
+          <p class="{{ category }} w-50 mx-auto">{{ message }}</p>
+        {% endfor %}
       {% endif %}
     {% endwith %}
-    <div class="border mt-2 mb-2"></div>
+    <div class="border mb-2"></div>
     <div class="row">
       <div class="col-4 border-end text-center">
         <form method="POST" action="/admin">
@@ -41,49 +43,48 @@
             <span class="input-group-text">First Name</span>
             {{ createUserForm.firstname(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createUserForm.firstname.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Last Name</span>
             {{ createUserForm.lastname(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createUserForm.lastname.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Email</span>
             {{ createUserForm.email(class = 'form-control form-control-sm', required = 'required', type = 'email') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createUserForm.email.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
+          </div>
+          <div class="mt-2 p-2 text-center rounded border border-warning">
+            <a>Password must be at least 8 characters and contain at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.</a>
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Password</span>
             {{ createUserForm.password(class = 'form-control form-control-sm', required = 'required', type = 'password') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createUserForm.password.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
-          </div>
-
-          <div class="mt-2 p-2 text-center rounded border border-warning">
-            <a>Password must be at least 8 characters and contain at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.</a>
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Confirm Password</span>
             {{ createUserForm.confirm_password(class = 'form-control form-control-sm', required = 'required', type = 'password') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createUserForm.confirm_password.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 input-group">
@@ -94,13 +95,14 @@
               <option value="venue">Venue</option>
             </select>
           </div>
+
           <div class="mt-2 input-group">
             <span class="input-group-text">Venue ID</span>
             {{ createUserForm.venueId(placeholder = '(only enter if role is venue)', class = 'form-control', type = 'number') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createUserForm.venueId.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 text-center">{{ createUserForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
@@ -115,42 +117,42 @@
             <span class="input-group-text">Name</span>
             {{ createVenueForm.name(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createVenueForm.name.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Location</span>
             {{ createVenueForm.location(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createVenueForm.location.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Capacity</span>
-            {{ createVenueForm.capacity(class = 'form-control form-control-sm', required = 'required', type = 'nunber', min = '0') }}
+            {{ createVenueForm.capacity(class = 'form-control form-control-sm', required = 'required', type = 'number', min = '0') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createVenueForm.capacity.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Manager ID</span>
-            {{ createVenueForm.managerId(class = 'form-control form-control-sm', required = 'required', type = 'nunber', min = '0') }}
+            {{ createVenueForm.managerId(class = 'form-control form-control-sm', required = 'required', type = 'number', min = '0') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mt-1 mb-2">
             {% for error in createVenueForm.managerId.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
-          <div class="mb-2 pt-2 text-center rounded border border-warning">
-            <p>ID must be for an existing user with a 'user' role.</p>
+          <div class="mt-2 p-2 text-center rounded border border-warning">
+            <a>ID must be for an existing user with a 'user' role.</a>
           </div>
-          <div class="text-center">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2 text-center">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
         </form>
       </div> <!-- end of column -->
 
@@ -181,8 +183,10 @@
                     <td>Not yet logged in</td>
                   {% endif %}
                   <td class="text-center">
+                    <!-- TODO ensure disable check is in the button -->
+                    {% if user == current_user %}disabled{% endif %}
                     <form method="POST" action="/admin/delete_user">
-                      <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}" {% if user == current_user %}disabled{% endif %}>
+                      <button name="delete_user_button" class="btn btn-danger" value="{{ user.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
                           <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
                         </svg>

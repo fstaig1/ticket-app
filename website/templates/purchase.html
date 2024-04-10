@@ -7,11 +7,12 @@
     <div class="row">
       <div class="col-4 border-end">
         <h3 class="mb-2">Enter Purchasing Details</h3>
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
           {% if messages %}
-            <div class="border"></div>
-            <div class="text-bg-danger rounded m-2">{{ messages[0] }}</div>
-            <div class="border mb-2"></div>
+            <div class="border mb-3"></div>
+            {% for category, message  in messages %}
+              <div class="{{ category }} w-50 mx-auto">{{ message }}</div>
+            {% endfor %}
           {% endif %}
         {% endwith %}
         <div class="border mb-2"></div>
@@ -27,7 +28,7 @@
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.firstname.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
@@ -36,7 +37,7 @@
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.lastname.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
@@ -45,7 +46,7 @@
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.email.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
@@ -54,21 +55,21 @@
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.cardnumber.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Card Expiry Date</span>
             {{ form.expirydate(placeholder = 'Expiry Date', class = 'form-control', required = 'required', type = 'month') }}
             {% for error in form.expirydate.errors %}
-              {{ error }}
+              {{ error|escape }}
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">CVV Number</span>
             {{ form.cvv(placeholder = 'CVV Number', class = 'form-control', required = 'required', type = 'number', min = '100', max = '999') }}
             {% for error in form.cvv.errors %}
-              {{ error }}
+              {{ error|escape }}
             {% endfor %}
           </div>
           <div class="text-center">{{ form.submit(type = 'submit', class = 'btn btn-primary center') }}</div>

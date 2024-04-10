@@ -3,10 +3,12 @@
 {% block content %}
   <div class="container text-center">
     <h1 class="mt-2">Venue Dashboard</h1>
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories = true) %}
       {% if messages %}
-        <div class="border mb-2 mt-2"></div>
-        <div class="text-bg-danger rounded">{{ messages[0] }}</div>
+        <div class="border mb-3"></div>
+        {% for category, message in messages %}
+          <div class="{{ category }} w-50 mx-auto">{{ message }}</div>
+        {% endfor %}
       {% endif %}
     {% endwith %}
     <div class="border mb-2"></div>
@@ -37,36 +39,37 @@
                 <span class="input-group-text">Artist Name</span>
                 {{ createConcertForm.artistName(placeholder = 'Artist Name', class = 'form-control', required = 'required', type = 'text') }}
               </div>
-              <div class="text-bg-danger rounded text-center mb-2">
+              <div class="text-center mb-2">
                 {% for error in createConcertForm.artistName.errors %}
-                  <p class="p-1">{{ error }}</p>
+                  <p class="alert alert-danger p-1">{{ error|escape }}</p>
                 {% endfor %}
               </div>
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Date and Time</span>
                 {{ createConcertForm.date(class = 'form-control', required = 'required', type = 'datetime-local') }}
               </div>
-              <div class="text-bg-danger rounded text-center mb-2">
+              <div class="text-center mb-2">
                 {% for error in createConcertForm.date.errors %}
-                  <p class="p-1">{{ error }}</p>
+                  <p class="alert alert-danger p-1">{{ error|escape }}</p>
                 {% endfor %}
               </div>
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Capacity</span>
                 {{ createConcertForm.capacity(placeholder = 'Capacity', class = 'form-control', required = 'required', type = 'number', value = venue.capacity, min = '0') }}
               </div>
-              <div class="text-bg-danger rounded text-center mb-2">
+              <div class="text-center mb-2">
                 {% for error in createConcertForm.capacity.errors %}
-                  <p class="p-1">{{ error }}</p>
+                  <p class="alert alert-danger p-1">{{ error|escape }}</p>
                 {% endfor %}
               </div>
               <div class="mb-2 text-start input-group">
-                <span class="input-group-text">Ticket Price (in £)</span>
+                <span class="input-group-text">Ticket Price </span>
+                <span class="input-group-text">£</span>
                 {{ createConcertForm.ticketPrice(placeholder = 'Ticket Price', class = 'form-control', required = 'required', type = 'number', min = '0') }}
               </div>
-              <div class="text-bg-danger rounded text-center mb-2">
+              <div class="text-center mb-2">
                 {% for error in createConcertForm.ticketPrice.errors %}
-                  <p class="p-1">{{ error }}</p>
+                  <p class="alert alert-danger p-1">{{ error|escape }}</p>
                 {% endfor %}
               </div>
               <div class="mb-2">{{ createConcertForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
@@ -130,7 +133,7 @@
             </tr>
           </table>
         {% else %}
-          <div class="text-bg-danger rounded pb-2 container justify-content-center">
+          <div class="alert alert-danger pb-2 container justify-content-center">
             <h3>There is no venue linked to your account.</h3>
             <div class="border border-light m-2"></div>
             <h3>Create New Venue</h3>
@@ -138,21 +141,21 @@
               <form method="POST" action="/venue/create_venue" class="w-50 mx-auto">
                 {{ createVenueForm.csrf_token() }}
                 <div>{{ createVenueForm.name(placeholder = 'Name', class = 'form-control', required = 'required', type = 'text') }}</div>
-                <div class="text-bg-danger rounded text-center mb-2">
+                <div class="text-center mb-2">
                   {% for error in createVenueForm.name.errors %}
-                    <p class="p-1">{{ error }}</p>
+                    <p class="alert alert-danger p-1">{{ error|escape }}</p>
                   {% endfor %}
                 </div>
                 <div class="mt-2">{{ createVenueForm.location(placeholder = 'Location', class = 'form-control', required = 'required', type = 'text') }}</div>
-                <div class="text-bg-danger rounded text-center mb-2">
+                <div class="text-center mb-2">
                   {% for error in createVenueForm.location.errors %}
-                    <p class="p-1">{{ error }}</p>
+                    <p class="alert alert-danger p-1">{{ error|escape }}</p>
                   {% endfor %}
                 </div>
-                <div class="mt-2">{{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control', required = 'required', type = 'nunber') }}</div>
-                <div class="text-bg-danger rounded text-center mb-2">
+                <div class="mt-2">{{ createVenueForm.capacity(placeholder = 'Capacity', class = 'form-control', required = 'required', type = 'number') }}</div>
+                <div class="text-center mb-2">
                   {% for error in createVenueForm.capacity.errors %}
-                    <p class="p-1">{{ error }}</p>
+                    <p class="alert alert-danger p-1">{{ error|escape }}</p>
                   {% endfor %}
                 </div>
                 <div class="mt-2">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>

@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, redirect, url_for, flash, request, abort
+from flask import render_template, Blueprint, redirect, url_for, request, abort
 from flask_login import login_required, current_user
 from ..models import Concert, Ticket
 from .forms import PurchaseInfoForm
@@ -188,9 +188,6 @@ def purchase():
                 item.purchase_ticket()
 
             return render_template("receipt.html", cart=cart, totalPrice=totalPrice)
-        else:
-            for error in purchaseInfoForm.errors:
-                flash(f"{purchaseInfoForm.errors[error][0]}")
 
         return render_template(
             "purchase.html",

@@ -6,13 +6,15 @@
     <div class="border-top mb-2"></div>
     <form method="POST">
       <div style="max-width: 400px; width: auto;">
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories = true) %}
           {% if messages %}
-            <div class="border mt-2 mb-2"></div>
-            <div class="text-bg-danger rounded">
-              {{ messages[0] }} Go to <a href="{{ url_for('users.login') }}">login page</a>.
-            </div>
-            <div class="border mt-2 mb-2"></div>
+          {{ messages }}
+            {% for category, message in messages %}
+              <div class="{{ category }} mb-2 mx-auto">
+                {{ message }}
+                Go to <a class="alert-link" href="{{ url_for('users.login') }}">login page</a>.
+              </div>
+            {% endfor %}
           {% endif %}
         {% endwith %}
         <div class="mb-2 text-start">
@@ -21,48 +23,48 @@
             <span class="input-group-text">First Name</span>
             {{ form.firstname(class = 'form-control', required = 'required', type = 'text') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mb-2">
             {% for error in form.firstname.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger w-75 mx-auto p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Last Name</span>
             {{ form.lastname(class = 'form-control', required = 'required', type = 'text') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mb-2">
             {% for error in form.lastname.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Email</span>
-            {{ form.email(class = 'form-control', required = 'required', type = 'text') }}
+            {{ form.email(class = 'form-control', required = 'required', type = 'email') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mb-2">
             {% for error in form.email.errors %}
-              <p class="p-1">{{ error }}</p>
-            {% endfor %}
-          </div>
-          <div class="mb-2 input-group">
-            <span class="input-group-text">Password</span>
-            {{ form.password(class = 'form-control', required = 'required', type = 'password') }}
-          </div>
-          <div class="text-bg-danger rounded text-center mb-2">
-            {% for error in form.password.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="m-3 p-2 text-center rounded border border-warning">
             <a>Password must be at least 8 characters and contain at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.</a>
           </div>
           <div class="mb-2 input-group">
+            <span class="input-group-text">Password</span>
+            {{ form.password(class = 'form-control', required = 'required', type = 'password') }}
+          </div>
+          <div class="text-center mb-2">
+            {% for error in form.password.errors %}
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+          <div class="mb-2 input-group">
             <span class="input-group-text">Confirm Password</span>
             {{ form.confirm_password(class = 'form-control', required = 'required', type = 'password') }}
           </div>
-          <div class="text-bg-danger rounded text-center mb-2">
+          <div class="text-center mb-2">
             {% for error in form.confirm_password.errors %}
-              <p class="p-1">{{ error }}</p>
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
           <div class="text-center">{{ form.submit(type = 'submit', class = 'btn btn-primary text-center') }}</div>

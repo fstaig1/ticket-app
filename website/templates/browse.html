@@ -6,10 +6,8 @@
     <div class="border mb-2"></div>
 
     {% if not current_user.is_authenticated %}
-      <div class="text-bg-danger rounded">
-        <p class="fw-medium">
-          <a href="{{ url_for('users.login') }}?next=%2Fbrowse">Login</a> required for ticket purchase.
-        </p>
+      <div class="alert alert-warning w-25 mx-auto">
+        <a class="alert-link" href="{{ url_for('users.login') }}?next=%2Fbrowse">Login</a> required for ticket purchase.
       </div>
       <div class="border mt-2 mb-2"></div>
     {% endif %}

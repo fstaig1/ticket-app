@@ -18,15 +18,12 @@ def venue():
     Renders:
         venue.html: on load
     """
-    user = User.query.filter_by(id=current_user.id).first()
-    venue = Venue.query.filter_by(id=current_user.venueId).first()
-    concerts = Concert.query.filter_by(venueId=current_user.venueId)
 
     return render_template(
         "venue.html",
-        user=user,
-        venue=venue,
-        concerts=concerts,
+        user=User.query.filter_by(id=current_user.id).first(),
+        venue=Venue.query.filter_by(id=current_user.venueId).first(),
+        concerts=Concert.query.filter_by(venueId=current_user.venueId),
         createConcertForm=CreateConcertForm(),
         createVenueForm=CreateVenueForm(),
     )
@@ -65,11 +62,16 @@ def create_concert():
             availableTickets=createConcertForm.capacity.data,
         )
 
-    else:
-        for i in createConcertForm.errors.values():
-            flash(f"{i[0]}")
+        flash("Concert successfully created.", "alert alert-success")
 
-    return redirect(url_for("venue.venue"))
+    return render_template(
+        "venue.html",
+        user=User.query.filter_by(id=current_user.id).first(),
+        venue=Venue.query.filter_by(id=current_user.venueId).first(),
+        concerts=Concert.query.filter_by(venueId=current_user.venueId),
+        createConcertForm=CreateConcertForm(),
+        createVenueForm=CreateVenueForm(),
+    )
 
 
 @venue_blueprint.route("/venue/delete_concert", methods=["POST"])
@@ -87,6 +89,8 @@ def delete_concert():
 
     if concert:
         concert.delete()
+
+        flash("Concert successfully deleted.", "alert alert-success")
 
     return redirect(url_for("venue.venue"))
 
@@ -110,7 +114,10 @@ def create_venue():
         )
 
         if venue:
-            flash("A venue with that name and location already exists.")
+            flash(
+                "A venue with that name and location already exists.",
+                "alert alert-danger",
+            )
             return redirect(url_for("venue.venue"))
 
         newVenue = Venue(
@@ -129,8 +136,13 @@ def create_venue():
         db.session.add(manager)
         db.session.commit()
 
-    else:
-        for i in createVenueForm.errors:
-            flash(f"{createVenueForm.errors[i][0]}")
+        flash("Venue successfully created.", "alert alert-success")
 
-    return redirect(url_for("venue.venue"))
+    return render_template(
+        "venue.html",
+        user=User.query.filter_by(id=current_user.id).first(),
+        venue=Venue.query.filter_by(id=current_user.venueId).first(),
+        concerts=Concert.query.filter_by(venueId=current_user.venueId),
+        createConcertForm=CreateConcertForm(),
+        createVenueForm=CreateVenueForm(),
+    )
