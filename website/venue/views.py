@@ -35,8 +35,8 @@ def venue():
 def create_concert():
     """Creates new Concert obj at this venue from form. Creates new Artist if required.
 
-    Redirects:
-        venue.venue: on load
+    Renders:
+        venue.html: on load
     """
     createConcertForm = CreateConcertForm()
 
@@ -101,8 +101,8 @@ def delete_concert():
 def create_venue():
     """Creates new Venue obj from form. Updates User to be a venue manager.
 
-    Redirects:
-        venue.venue: on load
+    Renderss:
+        venue.html: on load
     """
     createVenueForm = CreateVenueForm()
 
