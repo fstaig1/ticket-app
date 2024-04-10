@@ -1,21 +1,27 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, MonthField
-from wtforms.validators import InputRequired, Length
-from ..form_validation import ExcludeChars, validate_email
+from wtforms.validators import InputRequired, Length, Regexp
+from ..form_validation import validate_email
 
 
 class PurchaseInfoForm(FlaskForm):
     firstname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
+            Regexp(
+                "^[a-zA-Z',.\s-]+$",
+                message="Invalid name, make sure you are not using any numbers or special characters outside of the following ' , . -",
+            ),
             Length(1, 30, "First Name must be between 1 and 30 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
+            Regexp(
+                "^[a-zA-Z',.\s-]+$",
+                message="Invalid name, make sure you are not using any numbers or special characters outside of the following ' , . -",
+            ),
             Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )

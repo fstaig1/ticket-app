@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired, Length, EqualTo
-from ..form_validation import ExcludeChars, validate_password, validate_email
+from wtforms.validators import InputRequired, Length, EqualTo, Regexp
+from ..form_validation import validate_password, validate_email
 
 
 class RegisterForm(FlaskForm):
@@ -13,14 +13,20 @@ class RegisterForm(FlaskForm):
     firstname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
+            Regexp(
+                "^[a-zA-Z',.\s-]+$",
+                message="Invalid name, make sure you are not using any numbers or special characters outside of the following ' , . -",
+            ),
             Length(1, 30, "First Name must be between 1 and 30 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
+            Regexp(
+                "^[a-zA-Z',.\s-]+$",
+                message="Invalid name, make sure you are not using any numbers or special characters outside of the following ' , . -",
+            ),
             Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, SelectField, IntegerField
-from wtforms.validators import InputRequired, Length, EqualTo, Optional
-from ..form_validation import ExcludeChars, validate_password, validate_email
+from wtforms.validators import InputRequired, Length, EqualTo, Optional, Regexp
+from ..form_validation import validate_password, validate_email
 
 
 class AdminCreateUserForm(FlaskForm):
@@ -13,14 +13,20 @@ class AdminCreateUserForm(FlaskForm):
     firstname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:"),
+            Regexp(
+                "^[a-zA-Z',.\s-]+$",
+                message="Invalid name, make sure you are not using any numbers or special characters outside of the following ' , . -",
+            ),
             Length(1, 30, "First Name must be between 1 and 30 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
-            ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:"),
+            Regexp(
+                "^[a-zA-Z',.\s-]+$",
+                message="Invalid name, make sure you are not using any numbers or special characters outside of the following ',. -",
+            ),
             Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )
@@ -28,7 +34,7 @@ class AdminCreateUserForm(FlaskForm):
         validators=[
             InputRequired(),
             validate_email,
-            Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
+            Length(1, 60, "Email must be between 1 and 60 characters in length."),
         ]
     )
     password = PasswordField(
