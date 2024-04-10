@@ -3,4 +3,4 @@ Bob,User,user@test.com,Password1!,user,
 Carol,Venue,venue@test.com,Password1!,venue,1
 David,Bear,david@test.com,Password1!,user,
 Eric,Vanderbelt,eric@test.com,Password1!,user,
-Frank,Stain,frank@test.com.,Password1!,user,
+Frank,Stain,frank@test.com,Password1!,user,
