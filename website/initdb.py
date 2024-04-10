@@ -77,7 +77,7 @@ def init_db():
         ticket.purchase_ticket()
 
     for _ in range(10):
-        # create 10 pheobe bridgers concerts
+        # create 10 phoebe bridgers concerts
         venue = venues[randint(1, len(venues) - 1)]
 
         concert = venue.create_Concert(
