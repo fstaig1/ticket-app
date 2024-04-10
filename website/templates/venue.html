@@ -55,7 +55,7 @@
               </div>
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Capacity</span>
-                {{ createConcertForm.capacity(class = 'form-control', required = 'required', type = 'number', value = venue.capacity, min = '0') }}
+                {{ createConcertForm.capacity(class = 'form-control', required = 'required', type = 'number', value = venue.capacity, min = '0', max = venue.capacity) }}
               </div>
               <div class="text-center mb-2">
                 {% for error in createConcertForm.capacity.errors %}
