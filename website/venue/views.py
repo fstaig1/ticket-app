@@ -36,7 +36,10 @@ def create_concert():
     """Creates new Concert obj at this venue from form. Creates new Artist if required.
 
     Renders:
-        venue.html: on load
+        venue.html: on unsuccessful creation
+
+    Redirects:
+        venue.venue: on successful creation
     """
     createConcertForm = CreateConcertForm()
 
@@ -63,6 +66,8 @@ def create_concert():
         )
 
         flash("Concert successfully created.", "alert alert-success")
+
+        return redirect(url_for("venue.venue"))
 
     return render_template(
         "venue.html",
@@ -101,8 +106,11 @@ def delete_concert():
 def create_venue():
     """Creates new Venue obj from form. Updates User to be a venue manager.
 
-    Renderss:
-        venue.html: on load
+    Renders:
+        venue.html: on unsuccessful creation
+
+    Redirects:
+        venue.venue: on successful creation
     """
     createVenueForm = CreateVenueForm()
 
@@ -137,6 +145,8 @@ def create_venue():
         db.session.commit()
 
         flash("Venue successfully created.", "alert alert-success")
+
+        return redirect(url_for("venue.venue"))
 
     return render_template(
         "venue.html",

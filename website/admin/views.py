@@ -212,7 +212,10 @@ def create_user():
     """Creates new user from form.
 
     Renders:
-        admin.html: on load, on unsuccessful creation
+        admin.html: on unsuccessful creation
+
+    Redirects:
+        admin.admin: on successful creation
     """
     adminCreateUserForm = AdminCreateUserForm()
     adminCreateVenueForm = AdminCreateVenueForm()
@@ -259,6 +262,8 @@ def create_user():
 
             flash("User successfully created.", "alert alert-success")
 
+            return redirect(url_for("admin.admin"))
+
     return render_template(
         "admin.html",
         createUserForm=adminCreateUserForm,
@@ -273,7 +278,10 @@ def create_venue():
     """Creates new venue from form.
 
     Renders:
-        admin.html: on load, on unsuccessful creation
+        admin.html: on unsuccessful creation
+
+    Redirects:
+        admin.admin: on successful creation
     """
     adminCreateUserForm = AdminCreateUserForm()
     adminCreateVenueForm = AdminCreateVenueForm()
@@ -327,6 +335,8 @@ def create_venue():
         db.session.commit()
 
         flash("Venue successfully created.", "alert alert-success")
+
+        return redirect(url_for("admin.admin"))
 
     return render_template(
         "admin.html",
