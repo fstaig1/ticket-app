@@ -25,24 +25,24 @@ def register():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=str(form.email.data).strip()).first()
 
         if user:
             flash("A user with this email already exists, try logging in.")
             return render_template("register.html", form=form)
 
         new_user = User(
-            firstname=form.firstname.data,
-            lastname=form.lastname.data,
-            email=form.email.data,
-            password=form.password.data,
+            firstname=str(form.firstname.data).strip(),
+            lastname=str(form.lastname.data).strip(),
+            email=str(form.email.data).strip(),
+            password=str(form.password.data).strip(),
             role="user",
         )
 
         db.session.add(new_user)
         db.session.commit()
 
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=str(form.email.data).strip()).first()
 
         login_user(user)
 

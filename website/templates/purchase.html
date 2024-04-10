@@ -50,7 +50,7 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Card Number</span>
-            {{ form.cardnumber(placeholder = 'Card Number', class = 'form-control', required = 'required', type = 'number', min = '100000000000', max = '999999999999') }}
+            {{ form.cardnumber(placeholder = 'Card Number', class = 'form-control', required = 'required', type = 'number', min = '1000000000000000', max = '9999999999999999') }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.cardnumber.errors %}

@@ -189,16 +189,24 @@ def create_user():
     createUserForm = AdminCreateUserForm()
 
     if createUserForm.validate_on_submit():
-        user = User.query.filter_by(email=createUserForm.email.data).first()
+        user = User.query.filter_by(
+            email=str(createUserForm.email.data).strip()
+        ).first()
 
         if user:
             flash("A user with this email already exists")
             return redirect(url_for("admin.admin"))
 
-        if createUserForm.venueId.data and createUserForm.role.data == "venue":
+        if (
+            createUserForm.venueId.data
+            and str(createUserForm.role.data).strip() == "venue"
+        ):
             venueId = createUserForm.venueId.data
 
-        elif not createUserForm.venueId.data and createUserForm.role.data == "venue":
+        elif (
+            not createUserForm.venueId.data
+            and str(createUserForm.role.data).strip() == "venue"
+        ):
             flash("Venue ID required for venue manager role.")
 
             return redirect(url_for("admin.admin"))
@@ -207,10 +215,10 @@ def create_user():
             venueId = None
 
         newUser = User(
-            firstname=createUserForm.firstname.data,
-            lastname=createUserForm.lastname.data,
-            email=createUserForm.email.data,
-            password=createUserForm.password.data,
+            firstname=str(createUserForm.firstname.data).strip(),
+            lastname=str(createUserForm.lastname.data).strip(),
+            email=str(createUserForm.email.data).strip(),
+            password=str(createUserForm.password.data).strip(),
             role=createUserForm.role.data,
             venueId=venueId,
         )
@@ -238,8 +246,8 @@ def create_venue():
 
     if adminCreateVenueForm.validate_on_submit():
         venue = (
-            Venue.query.filter_by(name=adminCreateVenueForm.name.data)
-            .filter_by(location=adminCreateVenueForm.location.data)
+            Venue.query.filter_by(name=str(adminCreateVenueForm.name.data).strip())
+            .filter_by(location=str(adminCreateVenueForm.location.data).strip())
             .first()
         )
 
@@ -262,8 +270,8 @@ def create_venue():
             return redirect(url_for("admin.admin"))
 
         newVenue = Venue(
-            name=adminCreateVenueForm.name.data,
-            location=adminCreateVenueForm.location.data,
+            name=str(adminCreateVenueForm.name.data).strip(),
+            location=str(adminCreateVenueForm.location.data).strip(),
             capacity=adminCreateVenueForm.capacity.data,
         )
 

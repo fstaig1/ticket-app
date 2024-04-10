@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import InputRequired, Email, Length, EqualTo
-from ..form_validation import ExcludeChars, validate_password
+from wtforms.validators import InputRequired, Length, EqualTo
+from ..form_validation import ExcludeChars, validate_password, validate_email
 
 
 class RegisterForm(FlaskForm):
@@ -14,21 +14,21 @@ class RegisterForm(FlaskForm):
         validators=[
             InputRequired(),
             ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
-            Length(1, 30, "First Name must be between 1 and 30 characters."),
+            Length(1, 30, "First Name must be between 1 and 30 characters in length."),
         ]
     )
     lastname = StringField(
         validators=[
             InputRequired(),
             ExcludeChars("*?!'^+%&/\\()=}][{$#@<>£~|¬`¦@;:_"),
-            Length(1, 30, "Last Name must be between 1 and 30 characters."),
+            Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )
     email = StringField(
         validators=[
             InputRequired(),
-            Email(),
-            Length(1, 30, "Email must be less than 30 characters."),
+            validate_email,
+            Length(1, 60, "Email must be between 1 and 60 characters in length."),
         ]
     )
     password = PasswordField(
@@ -57,6 +57,6 @@ class LoginForm(FlaskForm):
     Fields: email, password, submit.
     """
 
-    email = StringField(validators=[InputRequired(), Email()])
+    email = StringField(validators=[InputRequired(), validate_email])
     password = PasswordField(validators=[InputRequired()])
     submit = SubmitField(validators=[InputRequired()])

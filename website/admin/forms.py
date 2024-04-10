@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, SelectField, IntegerField
-from wtforms.validators import InputRequired, Length, EqualTo, Email, Optional
-from ..form_validation import ExcludeChars, validate_password
+from wtforms.validators import InputRequired, Length, EqualTo, Optional
+from ..form_validation import ExcludeChars, validate_password, validate_email
 
 
 class AdminCreateUserForm(FlaskForm):
@@ -9,6 +9,7 @@ class AdminCreateUserForm(FlaskForm):
 
     Fields: firstname, lastname, email, password, confirm_password, role, venueid, submit.
     """
+
     firstname = StringField(
         validators=[
             InputRequired(),
@@ -26,7 +27,7 @@ class AdminCreateUserForm(FlaskForm):
     email = StringField(
         validators=[
             InputRequired(),
-            Email(),
+            validate_email,
             Length(1, 30, "Last Name must be between 1 and 30 characters in length."),
         ]
     )

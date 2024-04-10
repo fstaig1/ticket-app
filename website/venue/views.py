@@ -44,10 +44,12 @@ def create_concert():
     createConcertForm = CreateConcertForm()
 
     if createConcertForm.validate_on_submit():
-        artist = Artist.query.filter_by(name=createConcertForm.artistName.data).first()
+        artist = Artist.query.filter_by(
+            name=str(createConcertForm.artistName.data).strip()
+        ).first()
 
         if not artist:
-            artist = Artist(name=createConcertForm.artistName.data)
+            artist = Artist(name=str(createConcertForm.artistName.data).strip())
             db.session.add(artist)
             db.session.commit
 
@@ -55,7 +57,7 @@ def create_concert():
 
         venue.create_Concert(
             artistId=artist.id,
-            artistName=artist.name,
+            artistName=str(artist.name).strip(),
             ticketPrice=int(createConcertForm.ticketPrice.data),
             date=datetime.strptime(
                 createConcertForm.date.raw_data[0], "%Y-%m-%dT%H:%M"
@@ -102,8 +104,8 @@ def create_venue():
 
     if createVenueForm.validate_on_submit():
         venue = (
-            Venue.query.filter_by(name=createVenueForm.name.data)
-            .filter_by(location=createVenueForm.location.data)
+            Venue.query.filter_by(name=str(createVenueForm.name.data).strip())
+            .filter_by(location=str(createVenueForm.location.data).strip())
             .first()
         )
 
@@ -112,8 +114,8 @@ def create_venue():
             return redirect(url_for("venue.venue"))
 
         newVenue = Venue(
-            name=createVenueForm.name.data,
-            location=createVenueForm.location.data,
+            name=str(createVenueForm.name.data).strip(),
+            location=str(createVenueForm.location.data).strip(),
             capacity=createVenueForm.capacity.data,
         )
 
