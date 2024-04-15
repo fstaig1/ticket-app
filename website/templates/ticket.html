@@ -30,7 +30,7 @@
         </tr>
         <tr>
           <th class="text-end">Date and Time</th>
-          <td class="text-start">{{ ticket.get_concert().date }}</td>
+          <td class="text-start">{{ ticket.get_concert().date.strftime('%d %B %Y') }} <br />{{ ticket.get_concert().date.strftime('%H:%M') }}</td>
         </tr>
         <tr>
           <th class="text-end">Price</th>
@@ -38,7 +38,7 @@
         </tr>
         <tr>
           <th class="text-end">Confirmation Code</th>
-          <td class="text-start">{{ confirmationCode }}</td>
+          <td class="text-start">{{ ticket.confirmationCode }}</td>
         </tr>
       </table>
     </div>

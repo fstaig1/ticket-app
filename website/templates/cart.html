@@ -20,7 +20,9 @@
             <td>{{ cart.index(item) + 1 }}</td>
             <td>{{ item.get_concert().artistName }}</td>
             <td>{{ item.get_concert().venueName }}, {{ item.get_concert().venueLocation }}</td>
-            <td>{{ item.get_concert().date }}</td>
+            <td>
+              {{ item.get_concert().date.strftime('%d %B %Y') }} <br />{{ item.get_concert().date.strftime('%H:%M') }}
+            </td>
             <td>£{{ item.get_concert().ticketPrice }}0</td>
             <td class="text-center">
               {% if item.get_concert().availableTickets > 0 %}
@@ -45,12 +47,12 @@
     <div class="border mb-3"></div>
     <div class="text-center row">
       <div class="col"></div>
-      <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy{% if cart %}More {% endif %}Tickets</button>
+      <button type="button" class="btn btn-primary col-3" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Buy {% if cart %}More {% endif %}Tickets</button>
       {% if cart %}
         <div class="col"></div>
         <button type="button" class="btn btn-danger col-3" onclick="window.location.href=`{{ url_for('shop.empty_cart') }}`;">Empty Cart</button>
         <div class="col"></div>
-        <button type="button" class="btn btn-success col-3" onclick="window.location.href=`{{ url_for('shop.purchase', name="purchase") }}`;">Purchase Cart</button>
+        <button type="button" class="btn btn-success col-3" onclick="window.location.href=`{{ url_for('shop.purchase', name='purchase') }}`;">Purchase Cart</button>
       {% endif %}
       <div class="col"></div>
     </div>

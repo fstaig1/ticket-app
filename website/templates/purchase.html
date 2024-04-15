@@ -90,7 +90,7 @@
               <td>{{ cart.index(item) + 1 }}</td>
               <td>{{ item.get_concert().artistName }}</td>
               <td>{{ item.get_concert().venueName }}, {{ item.get_concert().venueLocation }}</td>
-              <td>{{ item.get_concert().date }}</td>
+              <td>{{ item.get_concert().date.strftime('%d %B %Y') }} <br />{{ item.get_concert().date.strftime('%H:%M') }}</td>
               <td>£{{ item.get_concert().ticketPrice }}0</td>
             </tr>
           {% endfor %}
