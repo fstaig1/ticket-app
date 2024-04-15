@@ -21,7 +21,7 @@ def venue():
 
     return render_template(
         "venue.html",
-        user=User.query.filter_by(id=current_user.id).first(),
+        managers=User.query.filter_by(venueId=current_user.venueId).all(),
         venue=Venue.query.filter_by(id=current_user.venueId).first(),
         concerts=Concert.query.filter_by(venueId=current_user.venueId).all(),
         createConcertForm=CreateConcertForm(),
@@ -71,7 +71,7 @@ def create_concert():
 
     return render_template(
         "venue.html",
-        user=User.query.filter_by(id=current_user.id).first(),
+        managers=User.query.filter_by(venueId=current_user.venueId).all(),
         venue=Venue.query.filter_by(id=current_user.venueId).first(),
         concerts=Concert.query.filter_by(venueId=current_user.venueId),
         createConcertForm=CreateConcertForm(),

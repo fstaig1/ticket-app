@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container text-center">
     <h1 class="mt-2">Venue Dashboard</h1>
-    {% with messages = get_flashed_messages(with_categories = true) %}
+    {% with messages=get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <div class="border mb-3"></div>
         {% for category, message in messages %}
@@ -16,18 +16,16 @@
       <div class="col-4 text-center border-end">
         <h3>Manager Information</h3>
         <table class="table table-striped table-hover table-bordered">
-          <tr>
-            <th class="text-end">ID</th>
-            <td class="text-start">{{ current_user.id }}</td>
+          <tr class="fw-medium table-active">
+            <th>Manager</th>
+            <th>Email</th>
           </tr>
-          <tr>
-            <th class="text-end">Name</th>
-            <td class="text-start">{{ current_user.firstname + ' ' + current_user.lastname }}</td>
-          </tr>
-          <tr>
-            <th class="text-end">Email</th>
-            <td class="text-start">{{ current_user.email }}</td>
-          </tr>
+          {% for user in managers %}
+            <tr>
+              <td>{{ user.id }} - {{ user.firstname + ' ' + user.lastname }}</td>
+              <td>{{ user.email }}</td>
+            </tr>
+          {% endfor %}
         </table>
         {% if venue %}
           <div class="border mt-2 mb-2"></div>
@@ -37,7 +35,7 @@
               {{ createConcertForm.csrf_token() }}
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Artist Name</span>
-                {{ createConcertForm.artistName(class = 'form-control', required = 'required', type = 'text') }}
+                {{ createConcertForm.artistName(class='form-control', required='required', type='text') }}
               </div>
               <div class="text-center mb-2">
                 {% for error in createConcertForm.artistName.errors %}
@@ -46,7 +44,7 @@
               </div>
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Date and Time</span>
-                {{ createConcertForm.date(class = 'form-control', required = 'required', type = 'datetime-local') }}
+                {{ createConcertForm.date(class='form-control', required='required', type='datetime-local') }}
               </div>
               <div class="text-center mb-2">
                 {% for error in createConcertForm.date.errors %}
@@ -55,7 +53,7 @@
               </div>
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Capacity</span>
-                {{ createConcertForm.capacity(class = 'form-control', required = 'required', type = 'number', value = venue.capacity, min = '0', max = venue.capacity) }}
+                {{ createConcertForm.capacity(class='form-control', required='required', type='number', value=venue.capacity, min='0', max=venue.capacity) }}
               </div>
               <div class="text-center mb-2">
                 {% for error in createConcertForm.capacity.errors %}
@@ -65,14 +63,14 @@
               <div class="mb-2 text-start input-group">
                 <span class="input-group-text">Ticket Price</span>
                 <span class="input-group-text">£</span>
-                {{ createConcertForm.ticketPrice(class = 'form-control', required = 'required', type = 'number', min = '0') }}
+                {{ createConcertForm.ticketPrice(class='form-control', required='required', type='number', min='0') }}
               </div>
               <div class="text-center mb-2">
                 {% for error in createConcertForm.ticketPrice.errors %}
                   <p class="alert alert-danger p-1">{{ error|escape }}</p>
                 {% endfor %}
               </div>
-              <div class="mb-2">{{ createConcertForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+              <div class="mb-2">{{ createConcertForm.submit(type='submit', class='btn btn-primary center') }}</div>
             </form>
           </div>
         {% endif %}
@@ -81,7 +79,7 @@
       <div class="col text-center">
         {% if venue %}
           <h3>Venue Information</h3>
-          <table class="table table-striped table-hover table-bordered">
+          <table class="table table-striped table-hover table-bordered w-50 mx-auto">
             <tr>
               <th class="text-end">ID</th>
               <td class="text-start">{{ venue.id }}</td>
@@ -98,44 +96,41 @@
               <th class="text-end">Capacity</th>
               <td class="text-start">{{ venue.capacity }}</td>
             </tr>
-            <tr>
-              <th>Concerts</th>
-              {% if concerts %}
-                <td>
-                  <table class="table table-striped table-hover text-start table-bordered table-sm">
-                    <tr class="fw-medium table-active">
-                      <td>ID</td>
-                      <td>Artist</td>
-                      <td>Date</td>
-                      <td>Ticket Price</td>
-                      <td>Available Tickets</td>
-                      <td>Delete</td>
-                    </tr>
-                    {% for concert in concerts %}
-                      <tr>
-                        <td class="fw-medium">{{ concert.id }}</td>
-                        <td>{{ concert.artistId }} - {{ concert.artistName }}</td>
-                        <td>{{ concert.date.strftime('%d/%m/%Y %H:%M') }}</td>
-                        <td>£{{ concert.ticketPrice }}0</td>
-                        <td>{{ concert.availableTickets }}</td>
-                        <td class="text-center">
-                          <form method="POST" action="/venue/delete_concert">
-                            <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                              </svg>
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                  </table>
-                </td>
-              {% else %}
-                <td class="text-start">There are no concerts at this venue</td>
-              {% endif %}
-            </tr>
           </table>
+          <div class="border mt-2 mb-2"></div>
+          {% if concerts %}
+            <h3>Concerts</h3>
+            <table class="table table-striped table-hover text-start table-bordered table-sm">
+              <tr class="fw-medium table-active">
+                <td>ID</td>
+                <td>Artist</td>
+                <td>Date</td>
+                <td>Ticket Price</td>
+                <td>Available Tickets</td>
+                <td>Delete</td>
+              </tr>
+              {% for concert in concerts %}
+                <tr>
+                  <td class="fw-medium">{{ concert.id }}</td>
+                  <td>{{ concert.artistId }} - {{ concert.artistName }}</td>
+                  <td>{{ concert.date.strftime('%d/%m/%Y %H:%M') }}</td>
+                  <td>£{{ concert.ticketPrice }}0</td>
+                  <td>{{ concert.availableTickets }}</td>
+                  <td class="text-center">
+                    <form method="POST" action="/venue/delete_concert">
+                      <button name="delete_concert_button" class="btn btn-danger" value="{{ concert.id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% else %}
+            <h3>There are no concerts at this venue</h3>
+          {% endif %}
         {% else %}
           <div class="alert alert-danger pb-2 container justify-content-center">
             <h3>There is no venue linked to your account.</h3>
@@ -146,7 +141,7 @@
                 {{ createVenueForm.csrf_token() }}
                 <div class="text-start input-group">
                   <span class="input-group-text">Name</span>
-                  {{ createVenueForm.name(class = 'form-control', required = 'required', type = 'text') }}
+                  {{ createVenueForm.name(class='form-control', required='required', type='text') }}
                 </div>
                 <div class="text-center mb-2">
                   {% for error in createVenueForm.name.errors %}
@@ -155,7 +150,7 @@
                 </div>
                 <div class="mt-2 text-start input-group">
                   <span class="input-group-text">Location</span>
-                  {{ createVenueForm.location(class = 'form-control', required = 'required', type = 'text') }}
+                  {{ createVenueForm.location(class='form-control', required='required', type='text') }}
                 </div>
                 <div class="text-center mb-2">
                   {% for error in createVenueForm.location.errors %}
@@ -164,14 +159,14 @@
                 </div>
                 <div class="mt-2 text-start input-group">
                   <span class="input-group-text">Capacity</span>
-                  {{ createVenueForm.capacity(class = 'form-control', required = 'required', type = 'number') }}
+                  {{ createVenueForm.capacity(class='form-control', required='required', type='number') }}
                 </div>
                 <div class="text-center mb-2">
                   {% for error in createVenueForm.capacity.errors %}
                     <p class="alert alert-danger p-1">{{ error|escape }}</p>
                   {% endfor %}
                 </div>
-                <div class="mt-2">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+                <div class="mt-2">{{ createVenueForm.submit(type='submit', class='btn btn-primary center') }}</div>
               </form>
             </div>
           </div>
