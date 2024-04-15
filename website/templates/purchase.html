@@ -20,7 +20,7 @@
           <a>Don't enter real card details this is just a demonstration.</a>
         </div>
         <div class="border mb-2"></div>
-        <form method="POST" action="/purchase" class="text-start">
+        <form method="POST" action="{{ url_for('shop.purchase', name="receipt")}}" class="text-start">
           {{ form.csrf_token() }}
           <div class="mb-2 input-group">
             <span class="input-group-text">First Name</span>

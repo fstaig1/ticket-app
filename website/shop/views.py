@@ -56,7 +56,7 @@ def browse():
     return render_template("browse.html", concerts=browseConcerts)
 
 
-@shop_blueprint.route("/browse/search", methods=["POST", "GET"])
+@shop_blueprint.route("/browse#search", methods=["POST", "GET"])
 def search():
     """Manages the search bar.
 
@@ -166,9 +166,9 @@ def buy_additional_ticket():
     return redirect(url_for("shop.cart"))
 
 
-@shop_blueprint.route("/purchase", methods=["GET", "POST"])
+@shop_blueprint.route("/<name>", methods=["GET", "POST"])
 @login_required
-def purchase():
+def purchase(name=None):
     """Loads purchase page, allows user to input payment details,
     if successful purchases all tickets in cart and loads receipt page.
 

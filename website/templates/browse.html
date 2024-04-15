@@ -13,7 +13,7 @@
     {% endif %}
     <div class="row">
       <div class="col">
-        <form method="POST" action="/browse" class="row">
+        <form method="POST" action="{{ url_for('shop.browse') }}" class="row">
           <div class="col">
             <button class="btn btn-primary" name="sort_button" type="submit" value="date">Sort by Date</button>
           </div>
@@ -29,7 +29,7 @@
         </form>
       </div>
       <div class="col-3 ms-4 me-5">
-        <form method="POST" action="/browse/search" class="">
+        <form method="POST" action="/browse#search" class="">
           <div class="input-group col">
             <input class="form-control" type="text" placeholder="Search for Artist" name="search_bar" autofocus />
             <button class="btn btn-primary" type="submit">
