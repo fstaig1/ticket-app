@@ -56,7 +56,7 @@ def browse():
     return render_template("browse.html", concerts=browseConcerts)
 
 
-@shop_blueprint.route("/browse#search", methods=["POST", "GET"])
+@shop_blueprint.route("/browse/search", methods=["POST", "GET"])
 def search():
     """Manages the search bar.
 
@@ -237,7 +237,6 @@ def view_ticket():
         return render_template(
             "ticket.html",
             ticket=ticket,
-            confirmationCode=ticket.confirmationCode,
         )
 
     else:

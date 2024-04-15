@@ -29,7 +29,7 @@
         </form>
       </div>
       <div class="col-3 ms-4 me-5">
-        <form method="POST" action="/browse#search" class="">
+        <form method="POST" action="/browse/search" class="">
           <div class="input-group col">
             <input class="form-control" type="text" placeholder="Search for Artist" name="search_bar" autofocus />
             <button class="btn btn-primary" type="submit">
@@ -64,7 +64,7 @@
           </tr>
           {% for concert in concerts %}
             <tr>
-              <td class="fw-medium">
+              <td>
                 {{ concert.date.strftime('%d %B %Y') }} <br />{{ concert.date.strftime('%H:%M') }}
               </td>
               <td>{{ concert.artistName }}</td>
