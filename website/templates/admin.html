@@ -9,7 +9,7 @@
   </script>
   <div class="container text-center mb-5">
     <h1 class="m-2">Admin Dashboard</h1>
-    {% with messages = get_flashed_messages(with_categories = true) %}
+    {% with messages=get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <div class="border mb-3"></div>
         {% for category, message in messages %}
@@ -48,7 +48,7 @@
           {{ createUserForm.csrf_token() }}
           <div class="input-group">
             <span class="input-group-text">First Name</span>
-            {{ createUserForm.firstname(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
+            {{ createUserForm.firstname(class='form-control form-control-sm', required='required', type='text') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.firstname.errors %}
@@ -57,7 +57,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Last Name</span>
-            {{ createUserForm.lastname(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
+            {{ createUserForm.lastname(class='form-control form-control-sm', required='required', type='text') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.lastname.errors %}
@@ -66,7 +66,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Email</span>
-            {{ createUserForm.email(class = 'form-control form-control-sm', required = 'required', type = 'email') }}
+            {{ createUserForm.email(class='form-control form-control-sm', required='required', type='email') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.email.errors %}
@@ -78,7 +78,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Password</span>
-            {{ createUserForm.password(class = 'form-control form-control-sm', required = 'required', type = 'password') }}
+            {{ createUserForm.password(class='form-control form-control-sm', required='required', type='password') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.password.errors %}
@@ -87,7 +87,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Confirm Password</span>
-            {{ createUserForm.confirm_password(class = 'form-control form-control-sm', required = 'required', type = 'password') }}
+            {{ createUserForm.confirm_password(class='form-control form-control-sm', required='required', type='password') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.confirm_password.errors %}
@@ -105,14 +105,14 @@
 
           <div class="mt-2 input-group">
             <span class="input-group-text">Venue ID</span>
-            {{ createUserForm.venueId(placeholder = '(only enter if role is venue)', class = 'form-control', type = 'number') }}
+            {{ createUserForm.venueId(placeholder='(only enter if role is venue)', class='form-control', type='number') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.venueId.errors %}
               <p class="alert alert-danger p-1">{{ error|escape }}</p>
             {% endfor %}
           </div>
-          <div class="mt-2 text-center">{{ createUserForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2 text-center">{{ createUserForm.submit(type='submit', class='btn btn-primary center') }}</div>
         </form>
 
         <div class="border mt-2 mb-2"></div>
@@ -122,7 +122,7 @@
           {{ createVenueForm.csrf_token() }}
           <div class="input-group">
             <span class="input-group-text">Name</span>
-            {{ createVenueForm.name(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
+            {{ createVenueForm.name(class='form-control form-control-sm', required='required', type='text') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createVenueForm.name.errors %}
@@ -131,7 +131,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Location</span>
-            {{ createVenueForm.location(class = 'form-control form-control-sm', required = 'required', type = 'text') }}
+            {{ createVenueForm.location(class='form-control form-control-sm', required='required', type='text') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createVenueForm.location.errors %}
@@ -140,7 +140,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Capacity</span>
-            {{ createVenueForm.capacity(class = 'form-control form-control-sm', required = 'required', type = 'number', min = '0') }}
+            {{ createVenueForm.capacity(class='form-control form-control-sm', required='required', type='number', min='0') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createVenueForm.capacity.errors %}
@@ -149,7 +149,7 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Manager ID</span>
-            {{ createVenueForm.managerId(class = 'form-control form-control-sm', required = 'required', type = 'number', min = '0') }}
+            {{ createVenueForm.managerId(class='form-control form-control-sm', required='required', type='number', min='0') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createVenueForm.managerId.errors %}
@@ -159,7 +159,7 @@
           <div class="mt-2 p-2 text-center rounded border border-warning">
             <a>ID must be for an existing user with a 'user' role.</a>
           </div>
-          <div class="mt-2 text-center">{{ createVenueForm.submit(type = 'submit', class = 'btn btn-primary center') }}</div>
+          <div class="mt-2 text-center">{{ createVenueForm.submit(type='submit', class='btn btn-primary center') }}</div>
         </form>
       </div> <!-- end of column -->
 

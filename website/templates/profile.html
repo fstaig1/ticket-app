@@ -35,7 +35,9 @@
             </tr>
             {% for ticket in tickets %}
               <tr>
-                <td>{{ ticket.get_concert().date.strftime('%d %B %Y') }} <br />{{ ticket.get_concert().date.strftime('%H:%M') }}</td>
+                <td>
+                  {{ ticket.get_concert().date.strftime('%d %B %Y') }} <br />{{ ticket.get_concert().date.strftime('%H:%M') }}
+                </td>
                 <td>{{ ticket.get_concert().artistName }}</td>
                 <td>{{ ticket.get_concert().venueName }}, {{ ticket.get_concert().venueLocation }}</td>
                 <td>£{{ ticket.get_concert().ticketPrice }}0</td>
