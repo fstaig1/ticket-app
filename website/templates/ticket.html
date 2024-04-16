@@ -9,9 +9,11 @@
   </head>
 
   {% block content %}
-    <div class="position-absolute top-50 start-50 translate-middle text-center">
-      <img src="\static\qr.png" width="200" height="200" class="d-inline-block mb-4" />
-      <table class="table table-striped table-hover table-bordered">
+    <div class="container-sm text-center mt-5 mx-auto">
+      <h1>Concert Finder</h1>
+      <h3>{{ ticket.get_concert().artistName }} Ticket</h3>
+      <img src="\static\qr.png" width="200" height="200" class="d-inline-block mt-4 mb-4" />
+      <table class="table table-striped table-hover table-bordered w-50 mx-auto">
         <tr>
           <th class="text-end">Name</th>
           <td class="text-start">{{ ticket.get_owner().firstname }} {{ ticket.get_owner().lastname }}</td>
@@ -30,7 +32,9 @@
         </tr>
         <tr>
           <th class="text-end">Date and Time</th>
-          <td class="text-start">{{ ticket.get_concert().date.strftime('%d %B %Y') }} <br />{{ ticket.get_concert().date.strftime('%H:%M') }}</td>
+          <td class="text-start">
+            {{ ticket.get_concert().date.strftime('%d %B %Y') }} <br />{{ ticket.get_concert().date.strftime('%H:%M') }}
+          </td>
         </tr>
         <tr>
           <th class="text-end">Price</th>
@@ -41,6 +45,9 @@
           <td class="text-start">{{ ticket.confirmationCode }}</td>
         </tr>
       </table>
+      <div>
+        <button class="btn btn-primary" onclick="this.classList.add('visually-hidden'); window.print(); this.classList.remove('visually-hidden');">Print Ticket</button>
+      </div>
     </div>
   {% endblock %}
 </html>
