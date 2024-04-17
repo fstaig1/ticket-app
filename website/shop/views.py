@@ -4,7 +4,6 @@ from ..models import Concert, Ticket
 from .forms import PurchaseInfoForm
 from sqlalchemy import asc
 import qrcode
-from .. import browseConcerts
 
 shop_blueprint = Blueprint("shop", __name__, template_folder="/templates")
 
@@ -16,6 +15,7 @@ def browse():
     Renders:
         browse.html: on load
     """
+    global browseConcerts
 
     match request.form.get("sort_button"):
         case "date":
