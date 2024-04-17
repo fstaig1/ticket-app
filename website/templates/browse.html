@@ -46,11 +46,11 @@
 
     <div>
       {% if empty %}
-        <div class="text-bg-danger rounded p-1 container justify-content-center w-75 mx-auto">
+        <div class="alert alert-danger pb-2 container w-75 mx-auto justify-content-center">
           <h3>No tickets found containing your search terms.</h3>
           <h5>Please try again.</h5>
           <form method="POST" action="/browse/search" class="mb-2">
-            <div class="input-group w-25 mx-auto">
+            <div class="input-group w-50 mx-auto">
               <input class="form-control" type="text" placeholder="Search for Artist" name="search_bar" autofocus />
               <button class="btn btn-primary" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mb-1" viewBox="0 0 16 16">
@@ -61,36 +61,46 @@
           </form>
         </div>
       {% else %}
-        <table class="table table-striped center table-hover text-start table-bordered">
-          <tr class="fw-medium table-active">
-            <th>Date</th>
-            <th>Artist Name</th>
-            <th>Venue</th>
-            <th>Location</th>
-            <th>Price</th>
-            {% if current_user.is_authenticated %}
-              <th>Purchase</th>
-            {% endif %}
-          </tr>
-          {% for concert in concerts %}
-            <tr>
-              <td>
-                {{ concert.date.strftime('%d %B %Y') }} <br />{{ concert.date.strftime('%H:%M') }}
-              </td>
-              <td>{{ concert.artistName }}</td>
-              <td>{{ concert.venueName }}</td>
-              <td>{{ concert.venueLocation }}</td>
-              <td>£{{ concert.ticketPrice }}0</td>
+        {% if concerts %}
+          <table class="table table-striped center table-hover text-start table-bordered">
+            <tr class="fw-medium table-active">
+              <th>Date</th>
+              <th>Artist Name</th>
+              <th>Venue</th>
+              <th>Location</th>
+              <th>Price</th>
               {% if current_user.is_authenticated %}
-                <td class="text-center">
-                  <form method="POST" action="/add_to_cart">
-                    <button name="purchase_button" class="btn btn-success" style="text-decoration: underline;" value="{{ concert.id }}">{{ concert.availableTickets }} left</button>
-                  </form>
-                </td>
+                <th>Purchase</th>
               {% endif %}
             </tr>
-          {% endfor %}
-        </table>
+            {% for concert in concerts %}
+              <tr>
+                <td>
+                  {{ concert.date.strftime('%d %B %Y') }} <br />{{ concert.date.strftime('%H:%M') }}
+                </td>
+                <td>{{ concert.artistName }}</td>
+                <td>{{ concert.venueName }}</td>
+                <td>{{ concert.venueLocation }}</td>
+                <td>£{{ concert.ticketPrice }}0</td>
+                {% if current_user.is_authenticated %}
+                  <td class="text-center">
+                    <form method="POST" action="/add_to_cart">
+                      <button name="purchase_button" class="btn btn-success" style="text-decoration: underline;" value="{{ concert.id }}">{{ concert.availableTickets }} left</button>
+                    </form>
+                  </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          </table>
+        {% else %}
+          <div class="alert alert-danger pb-2 container w-75 mx-auto justify-content-center">
+            <h3>An error has occured.</h3>
+            <h5>Press button to reload table.
+            <form method="POST" action="/browse">
+              <button name="reload button" class="btn btn-danger p-3 mt-2">###</button>
+            </form>
+          </div>
+        {% endif %}
       {% endif %}
     </div>
   </div>
