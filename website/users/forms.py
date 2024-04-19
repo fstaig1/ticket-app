@@ -66,3 +66,29 @@ class LoginForm(FlaskForm):
     email = StringField(validators=[InputRequired(), validate_email])
     password = PasswordField(validators=[InputRequired()])
     submit = SubmitField(validators=[InputRequired()])
+
+
+class ProfileForm(FlaskForm):
+    """FlaskForm for changing password
+
+    Fields: password, confirm password, submit.
+    """
+
+    password = PasswordField(
+        validators=[
+            InputRequired(),
+            Length(
+                min=8,
+                max=30,
+                message="Password must be between 8 and 30 characters in length.",
+            ),
+            validate_password,
+        ]
+    )
+    confirm_password = PasswordField(
+        validators=[
+            InputRequired(),
+            EqualTo("password", message="Both password fields must be equal."),
+        ]
+    )
+    submit = SubmitField(validators=[InputRequired()])

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, Blueprint, request, abort
 from flask_login import login_user, logout_user, current_user, login_required
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ProfileForm
 from website.models import User, Ticket
 from .. import db
 from datetime import datetime
@@ -110,7 +110,7 @@ def login():
     return render_template("login.html", form=form)
 
 
-@users_blueprint.route("/profile")
+@users_blueprint.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
     """Profile page to show user details and all their purchased tickets.
@@ -118,14 +118,22 @@ def profile():
     Renders:
         profile.html: on load
     """
-    user = User.query.filter_by(id=current_user.id).first()
+    profileForm = ProfileForm()
 
     tickets = (
         Ticket.query.filter_by(ownerId=current_user.id).filter_by(purchased=True).all()
     )
     tickets.sort(key=lambda ticket: ticket.get_concert().date, reverse=False)
 
-    return render_template("profile.html", current_user=user, tickets=tickets)
+    if profileForm.validate_on_submit():
+        print("pass")
+        user = User.query.filter_by(id=current_user.id).first()
+
+        user.change_password(str(profileForm.password.data).strip())
+
+        flash("Password successfully changed.", "alert alert-success")
+
+    return render_template("profile.html", tickets=tickets, form=profileForm)
 
 
 @users_blueprint.route("/logout")

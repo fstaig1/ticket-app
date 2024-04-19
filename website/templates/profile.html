@@ -3,6 +3,14 @@
 {% block content %}
   <div class="container text-center mb-5">
     <h1 class="mt-2">Profile</h1>
+    {% with messages=get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="border mb-3"></div>
+        {% for category, message in messages %}
+          <p class="{{ category }} w-50 mx-auto">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <div class="border mb-2"></div>
     <div class="row">
       <div class="col-4 border-end">
@@ -21,6 +29,35 @@
             <td class="text-start">{{ current_user.email }}</td>
           </tr>
         </table>
+
+        <div class="border mt-2 mb-2"></div>
+
+        <h3>Change Password</h3>
+        <div class="m-3 p-2 text-center rounded border border-warning">
+          <a>Password must be at least 8 characters and contain at least 1 digit, 1 uppercase letter, 1 lower case letter, and 1 special character.</a>
+        </div>
+        <form method="POST" action="{{ url_for('users.profile') }}">
+          {{ form.csrf_token() }}
+          <div class="mb-2 input-group">
+            <span class="input-group-text">Password</span>
+            {{ form.password(class='form-control', required='required', type='password') }}
+          </div>
+          <div class="text-center mb-2">
+            {% for error in form.password.errors %}
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+          <div class="mb-2 input-group">
+            <span class="input-group-text">Confirm Password</span>
+            {{ form.confirm_password(class='form-control', required='required', type='password') }}
+          </div>
+          <div class="text-center mb-2">
+            {% for error in form.confirm_password.errors %}
+              <p class="alert alert-danger p-1">{{ error|escape }}</p>
+            {% endfor %}
+          </div>
+          <div>{{ form.submit(type='submit', class='btn btn-primary text-center') }}</div>
+        </form>
       </div>
       <div class="col">
         {% if tickets %}

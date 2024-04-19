@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return User.query.filter_by(id=id).first()
 
     from website.users.views import users_blueprint
     from website.admin.views import admin_blueprint

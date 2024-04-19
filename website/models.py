@@ -43,9 +43,22 @@ class User(db.Model, UserMixin):
         """Gets Venue where id equals own venueId
 
         Returns:
-            Venue obj: _description_
+            Venue obj: venue object with users venueid
         """
         return Venue.query.filter_by(id=self.venueId).first()
+
+    def change_password(self, newPassword):
+        """hashes password arg and sets self.password to it
+
+        Args:
+            password (str): string to set new password to
+        """
+        self.password = generate_password_hash(newPassword)
+
+        db.session.add(self)
+        db.session.commit()
+
+        return self.password
 
     def delete(self):
         """Deletes all user's tickets from db and then self."""
