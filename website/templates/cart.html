@@ -35,7 +35,11 @@
             </td>
             <td class="text-center">
               <form method="POST" action="/remove_from_cart">
-                <button name="remove_from_cart_button" class="btn btn-danger" value="{{ item.id }}">X</button>
+                <button name="remove_from_cart_button" class="btn btn-danger" value="{{ item.id }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg mb-1" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                  </svg>
+                </button>
               </form>
             </td>
           </tr>
