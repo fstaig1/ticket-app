@@ -6,6 +6,13 @@
       document.getElementById('buttonForm').classList.add('visually-hidden')
       document.getElementById('spinner').classList.remove('visually-hidden')
     }
+    function venueCheck(x) {
+      if (x.value == 'venue') {
+        document.getElementById('idField').classList.remove('visually-hidden')
+      } else {
+        document.getElementById('idField').classList.add('visually-hidden')
+      }
+    }
   </script>
   <div class="container text-center mb-5">
     <h1 class="m-2">Admin Dashboard</h1>
@@ -96,16 +103,16 @@
           </div>
           <div class="mt-2 input-group">
             <span class="input-group-text">Role</span>
-            <select class="form-select" id="role" name="role" required="" selected="user">
+            <select class="form-select" id="role" name="role" required="" selected="user" onchange="venueCheck(this);">
               <option value="user">User</option>
               <option value="admin">Admin</option>
               <option value="venue">Venue</option>
             </select>
           </div>
 
-          <div class="mt-2 input-group">
+          <div id="idField" class="mt-2 input-group visually-hidden">
             <span class="input-group-text">Venue ID</span>
-            {{ createUserForm.venueId(placeholder='(only enter if role is venue)', class='form-control', type='number') }}
+            {{ createUserForm.venueId(class='form-control', type='number') }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.venueId.errors %}
