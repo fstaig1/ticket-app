@@ -49,10 +49,13 @@ class User(db.Model, UserMixin):
         return Venue.query.filter_by(id=self.venueId).first()
 
     def change_password(self, newPassword):
-        """hashes password arg and sets self.password to it
+        """Hashes password arg and sets self.password to it
 
         Args:
             password (str): string to set new password to
+
+        Returns:
+            string: hashed password
         """
         self.password = generate_password_hash(newPassword)
 
