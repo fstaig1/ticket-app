@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
 
     Methods:
         get_venue: Gets Venue where id equals own venueId.
+        change_password: hashes and changes self's password to param value
         delete: Deletes all user's tickets from db and then self.
     """
 
@@ -32,7 +33,7 @@ class User(db.Model, UserMixin):
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(300), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(100), nullable=False, default="user")
     venueId = db.Column(db.Integer, db.ForeignKey("venues.id"), default=None)
     registered_on = db.Column(db.DateTime, nullable=False)
@@ -303,7 +304,7 @@ class Ticket(db.Model):
     ownerId = db.Column(db.Integer, db.ForeignKey(User.id))
     concertId = db.Column(db.Integer, db.ForeignKey(Concert.id))
     purchased = db.Column(db.Boolean, nullable=False)
-    confirmationCode = db.Column(db.String, nullable=True)
+    confirmationCode = db.Column(db.String(255), nullable=True)
 
     def get_concert(self):
         """Gets Concert where id equals own concertId

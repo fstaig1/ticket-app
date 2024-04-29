@@ -126,7 +126,6 @@ def profile():
     tickets.sort(key=lambda ticket: ticket.get_concert().date, reverse=False)
 
     if profileForm.validate_on_submit():
-        print("pass")
         user = User.query.filter_by(id=current_user.id).first()
 
         user.change_password(str(profileForm.password.data).strip())
