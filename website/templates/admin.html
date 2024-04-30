@@ -112,7 +112,7 @@
 
           <div id="idField" class="mt-2 input-group visually-hidden">
             <span class="input-group-text">Venue ID</span>
-            {{ createUserForm.venueId(class='form-control', type='number') }}
+            {{ createUserForm.venueId(class='form-control form-control-sm', type='number', min="1") }}
           </div>
           <div class="text-center mt-1">
             {% for error in createUserForm.venueId.errors %}
