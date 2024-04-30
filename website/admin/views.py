@@ -287,11 +287,10 @@ def create_venue():
     adminCreateVenueForm = AdminCreateVenueForm()
 
     if adminCreateVenueForm.validate_on_submit():
-        venue = (
-            Venue.query.filter_by(name=str(adminCreateVenueForm.name.data).strip())
-            .filter_by(location=str(adminCreateVenueForm.location.data).strip())
-            .first()
-        )
+        venue = Venue.query.filter_by(
+            name=str(adminCreateVenueForm.name.data).strip(),
+            location=str(adminCreateVenueForm.location.data).strip(),
+        ).first()
 
         if venue:
             flash(
