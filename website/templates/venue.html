@@ -13,7 +13,7 @@
     {% endwith %}
     <div class="border mb-2"></div>
     <div class="row">
-      {% if managers %}
+      {% if venue %}
         <div class="col-4 text-center border-end">
           <h3>Manager Information</h3>
           <table class="table table-striped table-hover table-bordered">
@@ -28,7 +28,6 @@
               </tr>
             {% endfor %}
           </table>
-          {% if venue %}
             <div class="border mt-2 mb-2"></div>
             <div>
               <h3>Create New Concert</h3>
@@ -74,7 +73,6 @@
                 <div class="mb-2">{{ createConcertForm.submit(type='submit', class='btn btn-primary center') }}</div>
               </form>
             </div>
-          {% endif %}
         </div>
       {% endif %}
 
