@@ -24,7 +24,7 @@
           {{ form.csrf_token() }}
           <div class="mb-2 input-group">
             <span class="input-group-text">First Name</span>
-            {{ form.firstname(value=user.firstname, class='form-control', required='required', type='text') }}
+            {{ form.firstname(value=user.firstname, class='form-control', required='required', type='text', disabled=True) }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.firstname.errors %}
@@ -33,7 +33,7 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Last Name</span>
-            {{ form.lastname(value=user.lastname, class='form-control', required='required', type='text') }}
+            {{ form.lastname(value=user.lastname, class='form-control', required='required', type='text', disabled=True) }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.lastname.errors %}
@@ -42,7 +42,7 @@
           </div>
           <div class="mb-2 input-group">
             <span class="input-group-text">Email</span>
-            {{ form.email(value=user.email, class='form-control', required='required', type='email') }}
+            {{ form.email(value=user.email, class='form-control', required='required', type='email', disabled=True) }}
           </div>
           <div class="text-bg-danger rounded text-center mb-2">
             {% for error in form.email.errors %}
