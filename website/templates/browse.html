@@ -49,7 +49,7 @@
         <div class="alert alert-danger pb-2 container w-75 mx-auto justify-content-center">
           <h3>No tickets found containing your search terms.</h3>
           <h5>Please try again.</h5>
-          <button type="button" class="btn btn-primary" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Reset</button>
+          <button type="button" class="btn btn-primary m-1" onclick="window.location.href=`{{ url_for('shop.browse') }}`;">Reset Search</button>
         </div>
       {% else %}
         {% if concerts %}
