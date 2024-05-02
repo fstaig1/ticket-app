@@ -22,30 +22,30 @@ def register():
     if current_user.is_authenticated:
         return abort(403, "Forbidden")
 
-    form = RegisterForm()
+    registerForm = RegisterForm()
 
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=str(form.email.data).strip()).first()
+    if registerForm.validate_on_submit():
+        user = User.query.filter_by(email=str(registerForm.email.data).strip()).first()
 
         if user:
             flash(
                 "A user with this email already exists, try logging in.",
                 "alert alert-danger",
             )
-            return render_template("register.html", form=form)
+            return render_template("register.html", form=registerForm)
 
         new_user = User(
-            firstname=str(form.firstname.data).strip(),
-            lastname=str(form.lastname.data).strip(),
-            email=str(form.email.data).strip(),
-            password=str(form.password.data).strip(),
+            firstname=str(registerForm.firstname.data).strip(),
+            lastname=str(registerForm.lastname.data).strip(),
+            email=str(registerForm.email.data).strip(),
+            password=str(registerForm.password.data).strip(),
             role="user",
         )
 
         db.session.add(new_user)
         db.session.commit()
 
-        user = User.query.filter_by(email=str(form.email.data).strip()).first()
+        user = User.query.filter_by(email=str(registerForm.email.data).strip()).first()
 
         login_user(user)
 
@@ -56,7 +56,7 @@ def register():
 
         return redirect(url_for("users.profile"))
 
-    return render_template("register.html", form=form)
+    return render_template("register.html", form=registerForm)
 
 
 @users_blueprint.route("/login", methods=["GET", "POST"])
@@ -75,16 +75,16 @@ def login():
     if current_user.is_authenticated:
         return abort(403, "Forbidden")
 
-    form = LoginForm()
+    loginForm = LoginForm()
 
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=str(form.email.data).strip()).first()
+    if loginForm.validate_on_submit():
+        user = User.query.filter_by(email=str(loginForm.email.data).strip()).first()
 
         if not user or not check_password_hash(
-            user.password, str(form.password.data).strip()
+            user.password, str(loginForm.password.data).strip()
         ):
             flash("Incorrect login details, please try again.", "alert alert-danger")
-            return render_template("login.html", form=form)
+            return render_template("login.html", form=loginForm)
 
         login_user(user)
 
@@ -107,7 +107,7 @@ def login():
             case "venue":
                 return redirect(url_for("venue.venue"))
 
-    return render_template("login.html", form=form)
+    return render_template("login.html", form=loginForm)
 
 
 @users_blueprint.route("/profile", methods=["GET", "POST"])
