@@ -48,11 +48,11 @@ class User(db.Model, UserMixin):
         """
         return Venue.query.filter_by(id=self.venueId).first()
 
-    def change_password(self, newPassword):
+    def change_password(self, newPassword: str):
         """Hashes password arg and sets self.password to it
 
         Args:
-            password (str): string to set new password to
+            newPassword (str): string to set new password to
 
         Returns:
             string: hashed password
@@ -120,7 +120,7 @@ class Artist(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
 
 
