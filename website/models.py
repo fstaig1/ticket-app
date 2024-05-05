@@ -329,13 +329,13 @@ class Ticket(db.Model):
         """compresses and converts concertId + ownerId into base64
 
         Returns:
-            bytes: string containing concertId + ownerId converted into base64
+            bytes: string containing ticketId + concertId + ownerId converted into base64
         """
         return b64e(
             compress(
                 (
-                    b"concertId:%d, ownerId:%d"
-                    % (self.get_concert().id, self.get_owner().id)
+                    b"ticketId: %d, concertId:%d, ownerId:%d"
+                    % (self.id, self.get_concert().id, self.get_owner().id)
                 ),
                 9,
             )
@@ -345,7 +345,7 @@ class Ticket(db.Model):
         """decompresses and converts base64 into concertId + ownerId
 
         Returns:
-            bytes: string containing concertId + ownerId
+            bytes: string containing ticketId + concertId + ownerId
         """
         return decompress(b64d(bytes(self.confirmationCode, "utf-8")))
 
