@@ -39,7 +39,7 @@
         <form method="POST" action="{{ url_for('users.profile') }}">
           {{ form.csrf_token() }}
           <div class="mb-2 input-group">
-            <span class="input-group-text">Password</span>
+            <span class="input-group-text">New Password</span>
             {{ form.password(class='form-control', required='required', type='password') }}
           </div>
           <div class="text-center mb-2">
@@ -48,7 +48,7 @@
             {% endfor %}
           </div>
           <div class="mb-2 input-group">
-            <span class="input-group-text">Confirm Password</span>
+            <span class="input-group-text">Confirm New Password</span>
             {{ form.confirm_password(class='form-control', required='required', type='password') }}
           </div>
           <div class="text-center mb-2">
