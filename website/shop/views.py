@@ -209,7 +209,7 @@ def purchase(name=None):
         )
 
     else:
-        return abort(403, "Forbidden")
+        return abort(404, "not found")
 
 
 @shop_blueprint.route("/view_ticket", methods=["GET", "POST"])
