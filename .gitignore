@@ -162,3 +162,4 @@ website/static/qr.png
 /.flake8
 .flake8
 .vscode/
+/.vscode
