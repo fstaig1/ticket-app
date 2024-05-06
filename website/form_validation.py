@@ -31,5 +31,5 @@ def validate_email(self, email):
     """
     p = re.compile(r"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}")
 
-    if not p.match(str(self.email.data).strip()):
+    if not p.match(str(self.email.data).strip().lower()):
         raise ValidationError("Invalid Email.")
