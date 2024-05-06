@@ -21,6 +21,10 @@ ___
 | `admin@test.com` | `Password1!` | `user`  |
 | `user@test.com`  | `Password1!` | `admin` |
 | `venue@test.com` | `Password1!` | `venue` |
+| `david@test.com` | `Password1!` | `user`  |
+| `eric@test.com`  | `Password1!` | `user`  |
+| `frank@test.com` | `Password1!` | `user`  |
+
 
 ___
 
@@ -49,9 +53,9 @@ ___
 - If the database must be initialised, remove the quote marks from lines 59-62 in `main.py`
 
     ``` Python
-    58.  # uncomment this to re initialise the database
-    59.  """
-    60.  with app.app_context():
-    61.      init_db()
-    62.  """
+    59.  # uncomment this to re initialise the database
+    60.  """
+    61.  with app.app_context():
+    62.      init_db()
+    63.  """
     ```
