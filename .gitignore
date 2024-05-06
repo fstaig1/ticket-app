@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 website/static/qr.png
 .flake8
+/.vscode
